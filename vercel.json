@@ -50,7 +50,7 @@
         },
         {
             "source": "/home",
-            "destination": "/index.html"
+            "destination": "/pages/index.html"
         }
     ]
 }
