@@ -1,0 +1,56 @@
+{
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/acordes",
+            "destination": "/pages/Acordes.html"
+        },
+        {
+            "source": "/Afinador",
+            "destination": "/pages/Afinador.html"
+        },
+        {
+            "source": "/Artista",
+            "destination": "/pages/Artista.html"
+        },
+        {
+            "source": "/Artistas&Bandas",
+            "destination": "/pages/Artistas&bandas.html"
+        },
+        {
+            "source": "/HarmonIA",
+            "destination": "/pages/HarmonIA.html"
+        },
+        {
+            "source": "/Mapa-De-Notas",
+            "destination": "/pages/MapaDeNotas.html"
+        },
+        {
+            "source": "/Metronomo",
+            "destination": "/pages/Metrônomo.html"
+        },
+        {
+            "source": "/Montador-De-Cifras",
+            "destination": "/pages/MontadorDeCifras.html"
+        },
+        {
+            "source": "/Musica",
+            "destination": "/pages/Musica.html"
+        },
+        {
+            "source": "/Player",
+            "destination": "/pages/Player.html"
+        },
+        {
+            "source": "/Teoria",
+            "destination": "/pages/Teoria.html"
+        },
+        {
+            "source": "/home",
+            "destination": "/pages/index.html"
+        }
+    ]
+}
