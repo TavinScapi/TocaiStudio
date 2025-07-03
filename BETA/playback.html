@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playback de Tablatura - Tocaí</title>
+    <link rel="stylesheet" href="playback.css">
+</head>
+
+<body>
+    <h1>Playback de Tablatura Interativa</h1>
+    <div class="editor">
+        <textarea id="tabInput" placeholder="Cole aqui a tablatura (6 linhas)"></textarea>
+        <button class="btn" onclick="tabManager.addBlock()">Adicionar Bloco</button>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="playbackManager.playTabs()">▶️ Play</button>
+        <button class="btn" onclick="playbackManager.pauseTabs()">⏸️ Pause</button>
+        <button class="btn" onclick="playbackManager.resetTabs()">🔄 Reset</button>
+        <div class="bpm-control">
+            <label for="bpm">BPM:</label>
+            <input type="number" id="bpm" value="80" min="30" max="300" style="width:60px;">
+        </div>
+    </div>
+
+    <div id="blocks" class="blocks-container"></div>
+
+    <h2 style="margin-top: 3rem; text-align:center;">Visualização Final da Música</h2>
+    <div id="finalPlayerContainer">
+        <pre id="fullTabOutput">Nenhum bloco adicionado ainda.</pre>
+        <div id="finalPlayLine"></div>
+    </div>
+
+    <script src="playback.js"></script>
+</body>
+
+</html>
