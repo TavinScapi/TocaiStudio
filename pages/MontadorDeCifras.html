@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Montador de Cifras | TocaíStudio</title>
+    <link rel="stylesheet" href="cifra.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --tocai-primary: #4a6fa5;
+            --tocai-secondary: #6b8cae;
+            --tocai-accent: #ff7e5f;
+            --tocai-light: #f8f9fa;
+            --tocai-dark: #343a40;
+            --tocai-text: #495057;
+            --tocai-border: #dee2e6;
+            --tocai-success: #28a745;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--tocai-light);
+            color: var(--tocai-text);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1,
+        h2 {
+            color: var(--tocai-primary);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--tocai-secondary);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .editor-section,
+        .preview-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            border: 1px solid var(--tocai-border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--tocai-primary);
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--tocai-border);
+            border-radius: 6px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--tocai-primary);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--tocai-primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--tocai-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-success {
+            background: var(--tocai-success);
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-accent {
+            background: var(--tocai-accent);
+        }
+
+        .btn-accent:hover {
+            background: #ff6b4d;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--tocai-secondary);
+            margin: 1.5rem 0 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--tocai-border);
+        }
+
+        .preview {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--tocai-border);
+            min-height: 300px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            white-space: pre-wrap;
+        }
+
+        .tocai-tab-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--tocai-primary);
+        }
+
+        .tocai-title {
+            font-size: 1.8rem;
+            color: var(--tocai-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--tocai-border);
+            padding-bottom: 10px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .tocai-artist {
+            font-size: 1.2rem;
+            color: var(--tocai-secondary);
+            margin-bottom: 1.5rem;
+            display: block;
+            font-style: italic;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .tocai-key,
+        .tocai-tuning,
+        .tocai-capo {
+            display: inline-block;
+            background: var(--tocai-light);
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--tocai-dark);
+            border: 1px solid var(--tocai-border);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .tocai-tab-font {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--tocai-dark);
+        }
+
+        .tocai-tablature {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .tocai-lines {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--tocai-border);
+        }
+
+        .tocai-chord {
+            color: var(--tocai-accent);
+            font-weight: bold;
+            position: relative;
+            top: -0.5em;
+            font-size: 0.9em;
+        }
+
+        .status {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .success {
+            background: #e6f7ee;
+            color: #2e8b57;
+            display: block;
+            border: 1px solid #c3e6d2;
+        }
+
+        .error {
+            background: #fde8e8;
+            color: #c53030;
+            display: block;
+            border: 1px solid #f5c6cb;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid var(--tocai-border);
+            margin-bottom: 1rem;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-right: 0.5rem;
+            font-weight: 500;
+            color: var(--tocai-text);
+        }
+
+        .tab-btn.active {
+            border-bottom-color: var(--tocai-primary);
+            color: var(--tocai-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ...existing code... */
+    </style>
+</head>
+
+<body>
+    <h1>Montador de Cifras</h1>
+    <h2>Crie cifras no estilo Tocaí</h2>
+
+    <div class="container">
+        <div class="editor-section">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="openTab('metadata', event)" aria-selected="true"
+                    tabindex="0">Metadados</button>
+                <button class="tab-btn" onclick="openTab('lyrics', event)" aria-selected="false"
+                    tabindex="0">Letra</button>
+                <button class="tab-btn" onclick="openTab('chords', event)" aria-selected="false"
+                    tabindex="0">Acordes</button>
+                <button class="tab-btn" onclick="openTab('tabs', event)" aria-selected="false"
+                    tabindex="0">Tablaturas</button>
+            </div>
+
+            <div id="metadata" class="tab-content active">
+                <div class="form-group">
+                    <label for="song-title">Título da Música</label>
+                    <input type="text" id="song-title" placeholder="Digite o título da música">
+                </div>
+
+                <div class="form-group">
+                    <label for="artist">Artista/Banda</label>
+                    <input type="text" id="artist" placeholder="Nome do artista ou banda">
+                </div>
+
+                <div class="form-group">
+                    <label for="song-key">Tom da Música</label>
+                    <select id="song-key">
+                        <option value="">Selecione o tom</option>
+                        <option value="C">C</option>
+                        <option value="C#">C#</option>
+                        <option value="D">D</option>
+                        <option value="D#">D#</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="F#">F#</option>
+                        <option value="G">G</option>
+                        <option value="G#">G#</option>
+                        <option value="A">A</option>
+                        <option value="A#">A#</option>
+                        <option value="B">B</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tuning">Afinacao</label>
+                    <select id="tuning">
+                        <option value="">Afinacao padrão (EADGBE)</option>
+                        <option value="DADGBE">DADGBE (Dropped D)</option>
+                        <option value="DADGAD">DADGAD</option>
+                        <option value="DGDGBD">DGDGBD (Open G)</option>
+                        <option value="CGCGCE">CGCGCE (Open C)</option>
+                        <option value="EBEG#BE">EBEG#BE (Open E)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="capo">Capotraste</label>
+                    <input type="text" id="capo" placeholder="Ex: 2ª casa">
+                </div>
+            </div>
+
+            <div id="lyrics" class="tab-content">
+                <div class="form-group">
+                    <label for="song-lyrics">Letra da Música</label>
+                    <textarea id="song-lyrics" placeholder="Digite a letra da música aqui..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="addSection('Intro')">+ Intro</button>
+                    <button class="btn" onclick="addSection('Verso')">+ Verso</button>
+                    <button class="btn" onclick="addSection('Refrão')">+ Refrão</button>
+                    <button class="btn" onclick="addSection('Ponte')">+ Ponte</button>
+                    <button class="btn" onclick="addSection('Solo')">+ Solo</button>
+                </div>
+            </div>
+
+            <div id="chords" class="tab-content">
+                <div class="form-group">
+                    <label for="chord-input">Acorde</label>
+                    <input type="text" id="chord-input" placeholder="Ex: C, G7, Am">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="addChord()">Adicionar Acorde</button>
+                    <button class="btn btn-accent" onclick="insertChord()">Inserir na Letra</button>
+                </div>
+
+                <div class="section-title">Acordes Adicionados</div>
+                <div id="chords-list" class="preview" style="min-height: 100px;"></div>
+            </div>
+
+            <div id="tabs" class="tab-content">
+                <div class="form-group">
+                    <label>Tablatura</label>
+                    <div class="tab-editor"></div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" onclick="insertTab()">Adicionar Tab na Letra</button>
+                    <button class="btn" onclick="clearTabEditor()">Limpar Tab</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <h3>Pré-visualização da Cifra</h3>
+            <div id="cifra-preview" class="preview"></div>
+
+            <div class="btn-group">
+                <button class="btn btn-accent" onclick="copyCifra()">Copiar Cifra</button>
+                <button class="btn" onclick="clearAll()">Limpar Tudo</button>
+            </div>
+
+            <div id="status" class="status"></div>
+        </div>
+    </div>
+
+    <script>
+        // Variáveis globais
+        let chords = [];
+        let tabs = [];
+        let currentChord = '';
+
+        // Funções de abas
+        function openTab(tabId, event) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            event.currentTarget.setAttribute('aria-selected', 'true');
+        }
+
+        // Funções para letra
+        function addSection(sectionName) {
+            const lyricsTextarea = document.getElementById('song-lyrics');
+            const cursorPos = lyricsTextarea.selectionStart;
+            const textBefore = lyricsTextarea.value.substring(0, cursorPos);
+            const textAfter = lyricsTextarea.value.substring(cursorPos);
+
+            let sectionText = `\n\n[${sectionName}]\n`;
+
+            lyricsTextarea.value = textBefore + sectionText + textAfter;
+            lyricsTextarea.focus();
+            lyricsTextarea.selectionStart = cursorPos + sectionText.length;
+            lyricsTextarea.selectionEnd = cursorPos + sectionText.length;
+
+            updatePreview();
+            generateCifra(); // <-- Adicione esta linha
+        }
+
+        // Funções para acordes
+        function addChord() {
+            const chordInput = document.getElementById('chord-input');
+            const chord = chordInput.value.trim();
+
+            if (chord && !chords.includes(chord)) {
+                chords.push(chord);
+                updateChordsList();
+                chordInput.value = '';
+                currentChord = chord;
+                mostrarStatus(`Acorde ${chord} adicionado!`, true);
+                generateCifra(); // <-- Adicione esta linha
+            }
+        }
+
+        function insertChord() {
+            const lyricsTextarea = document.getElementById('song-lyrics');
+            const cursorPos = lyricsTextarea.selectionStart;
+            const textBefore = lyricsTextarea.value.substring(0, cursorPos);
+            const textAfter = lyricsTextarea.value.substring(cursorPos);
+
+            if (!currentChord && chords.length > 0) {
+                currentChord = chords[0];
+            }
+
+            if (currentChord) {
+                const chordTag = `[${currentChord}]`;
+                lyricsTextarea.value = textBefore + chordTag + textAfter;
+                lyricsTextarea.focus();
+                lyricsTextarea.selectionStart = cursorPos + chordTag.length;
+                lyricsTextarea.selectionEnd = cursorPos + chordTag.length;
+
+                updatePreview();
+                generateCifra(); // <-- Adicione esta linha
+            } else {
+                mostrarStatus("Nenhum acorde selecionado!", false);
+            }
+        }
+
+        function updateChordsList() {
+            const chordsList = document.getElementById('chords-list');
+            chordsList.innerHTML = chords.map(chord =>
+                `<span class="chord-item" onclick="selectChord('${chord}')">${chord}</span>`
+            ).join(' ');
+
+            // Desabilita o botão se não houver acorde
+            document.querySelector('.btn.btn-accent').disabled = chords.length === 0;
+        }
+
+        function selectChord(chord) {
+            currentChord = chord;
+            mostrarStatus(`Acorde ${chord} selecionado para inserção`, true);
+        }
+
+        // Funções para tablaturas
+        // Editor de tablatura simples
+        const tabTemplate = `
+e|-----------------------------------------------------------------------|
+B|-----------------------------------------------------------------------|
+G|-----------------------------------------------------------------------|
+D|-----------------------------------------------------------------------|
+A|-----------------------------------------------------------------------|
+E|-----------------------------------------------------------------------|
+`;
+
+        const tuningsTemplates = {
+            "": [
+                "e|-----------------------------------------------------------------------|",
+                "B|-----------------------------------------------------------------------|",
+                "G|-----------------------------------------------------------------------|",
+                "D|-----------------------------------------------------------------------|",
+                "A|-----------------------------------------------------------------------|",
+                "E|-----------------------------------------------------------------------|"
+            ],
+            "DADGBE": [
+                "e|-----------------------------------------------------------------------|",
+                "B|-----------------------------------------------------------------------|",
+                "G|-----------------------------------------------------------------------|",
+                "D|-----------------------------------------------------------------------|",
+                "A|-----------------------------------------------------------------------|",
+                "D|-----------------------------------------------------------------------|"
+            ],
+            "DADGAD": [
+                "e|-----------------------------------------------------------------------|",
+                "B|-----------------------------------------------------------------------|",
+                "G|-----------------------------------------------------------------------|",
+                "D|-----------------------------------------------------------------------|",
+                "A|-----------------------------------------------------------------------|",
+                "D|-----------------------------------------------------------------------|"
+            ],
+            "DGDGBD": [
+                "D|-----------------------------------------------------------------------|",
+                "B|-----------------------------------------------------------------------|",
+                "G|-----------------------------------------------------------------------|",
+                "D|-----------------------------------------------------------------------|",
+                "G|-----------------------------------------------------------------------|",
+                "D|-----------------------------------------------------------------------|"
+            ],
+            "CGCGCE": [
+                "e|-----------------------------------------------------------------------|",
+                "C|-----------------------------------------------------------------------|",
+                "G|-----------------------------------------------------------------------|",
+                "C|-----------------------------------------------------------------------|",
+                "G|-----------------------------------------------------------------------|",
+                "C|-----------------------------------------------------------------------|"
+            ],
+            "EBEG#BE": [
+                "e|-----------------------------------------------------------------------|",
+                "B|-----------------------------------------------------------------------|",
+                "G#|-----------------------------------------------------------------------|",
+                "E|-----------------------------------------------------------------------|",
+                "B|-----------------------------------------------------------------------|",
+                "E|-----------------------------------------------------------------------|"
+            ]
+        };
+
+        function renderTabEditor(tuning = document.getElementById('tuning').value) {
+            const templateLines = tuningsTemplates[tuning] || tuningsTemplates[""];
+            const tabEditor = document.querySelector('.tab-editor');
+            tabEditor.innerHTML = templateLines.map(line => {
+                return `<div class="tab-line">` +
+                    line.split("").map(e => {
+                        if (e === "-" || e.match(/[0-9+]/))
+                            return `<span class='is-editable'>${e}</span>`;
+                        return `<span>${e}</span>`;
+                    }).join("") +
+                    `</div>`;
+            }).join("");
+
+            tabEditor.querySelectorAll('.is-editable').forEach(span => {
+                span.addEventListener('click', function (e) {
+                    const html = e.target.innerHTML;
+                    e.target.innerHTML = "<input style='width:18px'>";
+                    const input = e.target.querySelector("input");
+                    if (html != "-") input.value = html;
+                    input.focus();
+                    input.addEventListener("blur", b => {
+                        const value = b.target.value != "" ? b.target.value : "-";
+                        e.target.innerHTML = `${value}`;
+                    });
+                });
+            });
+        }
+
+        // =======================================================
+        // FUNÇÃO CORRIGIDA
+        // =======================================================
+        function getTabFromEditor() {
+            const tabEditor = document.querySelector('.tab-editor');
+            // Seleciona todas as divs de linha e junta seus conteúdos com uma quebra de linha
+            const lines = Array.from(tabEditor.querySelectorAll('.tab-line'));
+            return lines.map(line => line.textContent).join('\n');
+        }
+        // =======================================================
+
+        function clearTabEditor() {
+            renderTabEditor();
+        }
+
+        // Insere a tab na letra na posição do cursor
+        function insertTab() {
+            const tab = getTabFromEditor().trim();
+            if (!tab || !tab.includes('|')) {
+                mostrarStatus("Tablatura vazia!", false);
+                return;
+            }
+            const lyricsTextarea = document.getElementById('song-lyrics');
+            const cursorPos = lyricsTextarea.selectionStart;
+            const textBefore = lyricsTextarea.value.substring(0, cursorPos);
+            const textAfter = lyricsTextarea.value.substring(cursorPos);
+
+            // Marca a tab para o preview processar depois
+            const tabTag = `\n[TAB]\n${tab}\n[/TAB]\n`;
+            lyricsTextarea.value = textBefore + tabTag + textAfter;
+            lyricsTextarea.focus();
+            lyricsTextarea.selectionStart = cursorPos + tabTag.length;
+            lyricsTextarea.selectionEnd = cursorPos + tabTag.length;
+
+            // Adiciona a tab ao array tabs (opcional, se quiser usar tabs no final da cifra)
+            tabs.push(tab);
+
+            generateCifra();
+            mostrarStatus("Tablatura inserida na letra!", true);
+        }
+
+        // Inicializa o editor ao carregar
+        renderTabEditor(document.getElementById('tuning').value);
+
+        // Funções para gerar a cifra
+        function generateCifra() {
+            const title = document.getElementById('song-title').value.trim();
+            const artist = document.getElementById('artist').value.trim();
+            const key = document.getElementById('song-key').value;
+            const tuning = document.getElementById('tuning').value;
+            const capo = document.getElementById('capo').value.trim();
+            const lyrics = document.getElementById('song-lyrics').value;
+
+            if (!title || !lyrics) {
+                mostrarStatus("Título e letra são obrigatórios!", false);
+                return;
+            }
+
+            let cifraHTML = `<div class="tocai-tab-container">
+                <h1 class="tocai-title">${title}</h1>
+                <span class="tocai-artist">${artist || 'Artista desconhecido'}</span>`;
+
+            // Adiciona metadados se existirem
+            if (key || tuning || capo) {
+                cifraHTML += `<div class="tocai-meta">`;
+                if (key) cifraHTML += `<span class="tocai-key">Tom: ${key}</span>`;
+                if (tuning) cifraHTML += `<span class="tocai-tuning">Afinacao: ${tuning}</span>`;
+                if (capo) cifraHTML += `<span class="tocai-capo">Capotraste: ${capo}</span>`;
+                cifraHTML += `</div>`;
+            }
+
+            // Processa a letra com acordes e tablaturas
+            let processedLyrics = lyrics
+                .replace(/\[TAB\]([\s\S]*?)\[\/TAB\]/g, '<pre class="tocai-tablature">$1</pre>')
+                .replace(/\[([^\]]+)\]/g, function (match, p1) {
+                    // Não estiliza acordes dentro de TAB
+                    if (match.startsWith('[TAB') || match.startsWith('[/TAB')) return match;
+                    return `<span class="tocai-chord">${p1}</span>`;
+                });
+
+            // Adiciona a letra
+            cifraHTML += `<div class="tocai-tab-font">${processedLyrics.replace(/\n/g, '<br>')}</div>`;
+
+            // Adiciona tablaturas se existirem
+            if (tabs.length > 0) {
+                cifraHTML += `<div class="tocai-tablature"><pre>${tabs.join('\n\n')}</pre></div>`;
+            }
+
+            cifraHTML += `</div>`;
+
+            document.getElementById('cifra-preview').innerHTML = cifraHTML;
+            mostrarStatus("Cifra gerada com sucesso!", true);
+        }
+
+        function copyCifra() {
+            const preview = document.getElementById('cifra-preview');
+            if (!preview.innerHTML.trim()) {
+                mostrarStatus("Nada para copiar - gere a cifra primeiro!", false);
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNode(preview);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    mostrarStatus("Cifra copiada para a área de transferência!", true);
+                } else {
+                    mostrarStatus("Falha ao copiar a cifra", false);
+                }
+            } catch (err) {
+                mostrarStatus("Erro ao copiar: " + err, false);
+            }
+
+            window.getSelection().removeAllRanges();
+        }
+
+        function clearAll() {
+            if (confirm("Tem certeza que deseja limpar tudo?")) {
+                document.getElementById('song-title').value = '';
+                document.getElementById('artist').value = '';
+                document.getElementById('song-key').value = '';
+                document.getElementById('tuning').value = '';
+                document.getElementById('capo').value = '';
+                document.getElementById('song-lyrics').value = '';
+                document.getElementById('chord-input').value = '';
+
+                chords = [];
+                tabs = [];
+                currentChord = '';
+
+                updateChordsList();
+                // A função updateTabsList não existe no seu código original, então comentei para evitar erros.
+                // updateTabsList(); 
+                document.getElementById('cifra-preview').innerHTML = '';
+
+                mostrarStatus("Todos os campos foram limpos!", true);
+            }
+        }
+
+        function updatePreview() {
+            generateCifra();
+        }
+
+        function mostrarStatus(mensagem, sucesso) {
+            const statusElement = document.getElementById("status");
+            statusElement.textContent = mensagem;
+            statusElement.className = sucesso ? "status success" : "status error";
+            statusElement.style.display = "block";
+
+            setTimeout(() => {
+                statusElement.style.opacity = "0";
+                setTimeout(() => {
+                    statusElement.style.display = "none";
+                    statusElement.style.opacity = "1";
+                }, 500);
+            }, 3000);
+        }
+
+        // Atualiza cifra ao digitar nos campos principais
+        document.getElementById('song-title').addEventListener('input', generateCifra);
+        document.getElementById('artist').addEventListener('input', generateCifra);
+        document.getElementById('song-key').addEventListener('change', generateCifra);
+        document.getElementById('tuning').addEventListener('change', function () {
+            renderTabEditor(this.value);
+            generateCifra();
+        });
+        document.getElementById('capo').addEventListener('input', generateCifra);
+        document.getElementById('song-lyrics').addEventListener('input', generateCifra);
+    </script>
+</body>
+
+</html>

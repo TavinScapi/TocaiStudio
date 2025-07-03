@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Tocaí Play | TocaíStudio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/LogoTocaí.png" type="image/x-icon" sizes="32x32">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Icon Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/player.css">
+
+    <!-- Scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+
+    <script src="../js/spotify.js" defer></script>
+    <script src="../js/player.js" defer></script>
+</head>
+
+
+<body>
+    <aside class="sidebar hidden" id="sidebar">
+        <button class="back-button" id="back-button">
+            <i class="fas fa-chevron-left"></i>
+            Voltar
+        </button>
+
+
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Suas Playlists</h3>
+            <div id="user-playlists" class="playlists-container">
+                <!-- As playlists serão carregadas aqui -->
+            </div>
+        </div>
+    </aside>
+
+    <!-- Header -->
+    <header class="header hidden" id="header">
+        <button class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="mobile-overlay"></div>
+
+        <div class="search-container" id="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Pesquisar músicas, artistas ou álbuns...">
+                <button id="clear-search-btn" class="clear-search-btn hidden">×</button>
+            </div>
+            <div id="search-results" class="hidden"></div>
+        </div>
+
+        <div class="user-profile hidden" id="user-profile">
+            <img src="" alt="User Avatar" class="user-avatar" id="user-avatar">
+            <span class="user-name" id="user-name"></span>
+            <button class="logout-btn option-btn" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="welcome-screen" id="welcome-screen">
+        <button class="spotify-back-btn" onclick="history.back()">
+            <i class="fas fa-chevron-left"></i> 
+        </button>
+
+
+        <div class="welcome-content">
+            <img src="../images/LogoTocaí.png" alt="Logo Tocaí" class="welcome-logo">
+            <h1>Bem-vindo ao Tocaí Play</h1>
+            <p>Conecte-se ao Spotify para explorar suas músicas, artistas favoritos e muito mais.</p>
+            <button class="login-btn" id="login-btn">
+                <i class="fab fa-spotify"></i> Conectar com Spotify
+            </button>
+            <div class="welcome-features">
+                <div class="feature">
+                    <i class="fas fa-music"></i>
+                    <span>Suas músicas mais tocadas</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-user"></i>
+                    <span>Artistas favoritos</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-history"></i>
+                    <span>Histórico de reprodução</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <div class="loading hidden" id="loading">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <div class="profile-section " id="profile-section">
+            <img src="" alt="Profile Image" class="profile-image" id="profile-image">
+            <div class="profile-info">
+                <h2 id="profile-name"></h2>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="followers-count">0</div>
+                        <div class="stat-label">Seguidores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="following-count">0</div>
+                        <div class="stat-label">Seguindo</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="playlists-count">0</div>
+                        <div class="stat-label">Playlists</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="top-tracks">Músicas mais tocadas</button>
+            <button class="tab-btn" data-tab="top-artists">Artistas mais ouvidos</button>
+            <button class="tab-btn" data-tab="recently-played">Tocadas recentemente</button>
+        </div>
+
+        <div class="tab-content active" id="top-tracks">
+            <div class="time-range">
+                <div class="time-buttons">
+                    <button class="time-btn active" data-range="short_term">Últimas 4 semanas</button>
+                    <button class="time-btn" data-range="medium_term">Últimos 6 meses</button>
+                    <button class="time-btn" data-range="long_term">De todos os tempos</button>
+                </div>
+            </div>
+            <div class="grid" id="top-tracks-grid"></div>
+        </div>
+
+        <div class="tab-content" id="top-artists">
+            <div class="time-range">
+                <div class="time-buttons">
+                    <button class="time-btn active" data-range="short_term">Últimas 4 semanas</button>
+                    <button class="time-btn" data-range="medium_term">Últimos 6 meses</button>
+                    <button class="time-btn" data-range="long_term">De todos os tempos</button>
+                </div>
+            </div>
+            <div class="grid" id="top-artists-grid"></div>
+        </div>
+
+        <div class="tab-content" id="recently-played">
+            <div class="grid" id="recently-played-grid"></div>
+        </div>
+
+    </main>
+
+    <!-- Player Fixo -->
+    <div class="spotify-player-container hidden" id="player-container">
+        <div class="player-content">
+            <div class="spotify-iframe-container">
+            </div>
+
+            <div class="player-buttons">
+                <button class="player-btn" id="lyrics-btn">
+                    <i class="fas fa-list"></i>
+                    Letras
+                </button>
+                <button class="player-btn">
+                    <i class="fas fa-circle-play"></i>
+                    Tocando Agora
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Overlay de Letras - Versão Spotify -->
+    <div class="lyrics-overlay" id="lyrics-overlay">
+        <div class="lyrics-background" id="lyrics-background"></div>
+        <div class="lyrics-header">
+            <h2 class="lyrics-title">Letra da Música</h2>
+            <button class="close-lyrics" id="close-lyrics">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="lyrics-container" id="lyrics"><!-- As letras vão ficar aqui no js --></div>
+    </div>
+
+    <!-- Sidebar de "Tocando Agora" -->
+    <div class="now-playing-sidebar hidden" id="now-playing-sidebar">
+        <div class="sidebar-header">
+            <h3>Tocando Agora</h3>
+            <button class="close-sidebar" id="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="track-info">
+            <img id="now-playing-image" src="" alt="Capa do Álbum" class="track-image">
+            <h2 id="now-playing-title">Nome da Música</h2>
+            <p id="now-playing-artist">Artista</p>
+
+            <div class="audio-features">
+                <div class="feature-item">
+                    <i class="fas fa-fire"></i>
+                    <span id="energy-value">--</span>
+                    <span class="feature-label">Energia</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-heart"></i>
+                    <span id="valence-value">--</span>
+                    <span class="feature-label">Felicidade</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span id="tempo-value">--</span>
+                    <span class="feature-label">BPM</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Detalhes da Música</div>
+        <div class="track-details">
+            <div class="detail-item">
+                <span class="detail-label">Álbum</span>
+                <span id="now-playing-album" class="detail-value">Nome do Álbum</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Lançamento</span>
+                <span id="now-playing-release" class="detail-value">Ano</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Duração</span>
+                <span id="now-playing-duration" class="detail-value">0:00</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Popularidade</span>
+                <div class="popularity-stars">
+                    <div id="popularity-stars"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Artistas</div>
+        <div class="artists-details" id="artists-details">
+            <!-- Artistas serão carregados aqui -->
+        </div>
+
+        <div class="section-title">Gêneros Musicais</div>
+        <div class="genres-container" id="genres-container">
+            <!-- Gêneros serão carregados aqui -->
+        </div>
+
+        <div class="track-actions">
+            <button class="action-btn" id="view-album">
+                <i class="fas fa-compact-disc"></i> Ver álbum
+            </button>
+            <button class="action-btn" id="view-artist">
+                <i class="fas fa-user"></i> Ver artista principal
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Afinador | Tocaí</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/LogoTocaí.png" type="image/x-icon" sizes="32x32">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+    <!-- Icon Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/afinador.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/Menu-moblie.css">
+
+    <!-- Scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+
+    <script src='../js/afinador/afinador.js' defer></script>
+    <script type="module" src="../js/load-components.js"></script>
+    <style>
+        /* Nota afinada (igual ao Cifra Club) */
+        .note.in-tune {
+            color: #27ae60 !important;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+            scale: 1.15;
+            z-index: 2;
+        }
+
+        .meter-pointer.in-tune {
+            background: #27ae60 !important;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas class="frequency-bars"></canvas>
+    <div class="meter">
+        <div class="meter-dot"></div>
+        <div class="meter-pointer"></div>
+    </div>
+    <div class="notes">
+        <div class="notes-list"></div>
+        <div class="frequency">
+            <span class="hz">Hz</span>
+        </div>
+    </div>
+    <div class="a4">A<sub>4</sub> = <span>440</span> Hz</div>
+    <label class="auto">
+        Automático
+        <input type="checkbox" checked />
+    </label>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aubiojs@0.1.1/build/aubio.min.js"></script>
+    <script src="../js/afinador/tuner.js"></script>
+    <script src="../js/afinador/meter.js"></script>
+    <script src="../js/afinador/frequency-bars.js"></script>
+    <script src="../js/afinador/notes.js"></script>
+    <script src="../js/afinador/app.js"></script>
+</body>
+
+</html>

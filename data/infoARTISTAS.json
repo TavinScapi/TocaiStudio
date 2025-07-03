@@ -1,0 +1,1510 @@
+{
+    "charliebrownjr": {
+        "name": "Charlie Brown Jr.",
+        "genres": "Rock • Rap Rock • Skate Punk",
+        "capa": "https://i.pinimg.com/736x/a5/44/31/a54431e6da77b5886d95940de1122da2.jpg",
+        "avatar": "https://i.pinimg.com/736x/1f/ed/21/1fed219b4f8c0bf745ad179a11b531bd.jpg",
+        "stats": {
+            "songs": 150,
+            "albums": 10,
+            "listeners": "5.2M"
+        },
+        "popularTracks": [
+            {
+                "name": "Só Os Loucos Sabem",
+                "album": "Camisa 10 Joga Bola Até na Chuva",
+                "year": "2009",
+                "duration": "4:02"
+            },
+            {
+                "name": "Céu Azul",
+                "album": "La Familia 013",
+                "year": "2013",
+                "duration": "3:59"
+            },
+            {
+                "name": "Lugar Ao Sol",
+                "album": "Imunidade Musical",
+                "year": "2005",
+                "duration": "3:58"
+            },
+            {
+                "name": "Como Tudo Deve Ser",
+                "album": "Bocas Ordinárias",
+                "year": "2002",
+                "duration": "4:05"
+            },
+            {
+                "name": "Dias de Luta, Dias de Glória",
+                "album": "Imunidade Musical",
+                "year": "2005",
+                "duration": "4:01"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Transpiração Contínua Prolongada",
+                "year": "1997",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/e/eb/Transpira%C3%A7%C3%A3o_cont%C3%ADnua_prolongada.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Preço Curto... Prazo Longo",
+                "year": "1999",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/2/22/PCPL1999.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Nadando com os Tubarões",
+                "year": "2000",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/0/04/Nadando_com_os_Tubar%C3%B5es.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "100% Charlie Brown Jr. – Abalando a Sua Fábrica",
+                "year": "2001",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/0/00/100%25_Charlie_Brown_Jr._-_Abalando_a_sua_F%C3%A1brica.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Bocas Ordinárias",
+                "year": "2002",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/5/5d/Bocas_Ordin%C3%A1rias.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Acústico MTV",
+                "year": "2003",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/1/17/Ac%C3%BAstico_MTV_-_Charlie_Brown_Jr..jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Tamo Aí na Atividade",
+                "year": "2004",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/b/bf/Tamo_A%C3%AD_na_Atividade.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Imunidade Musical",
+                "year": "2005",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/4/48/Imunidade_Musical.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Camisa 10 Joga Bola Até na Chuva",
+                "year": "2009",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/0/02/Camisa10_-Joga_Bola_At%C3%A9_na_Chuva.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "La Familia 013",
+                "year": "2013",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/76/La_Fam%C3%ADlia_013.jpg",
+                "type": "Álbum"
+            }
+        ],
+        "biography": "Charlie Brown Jr foi uma banda brasileira de rock formada em Santos, São Paulo, em 1992. O grupo, liderado pelo vocalista Chorão, é conhecido por sua mistura de estilos como rock, skate punk, hardcore e reggae. Ao longo dos anos, o Charlie Brown Jr. lançou álbuns de sucesso e se tornou uma das bandas mais influentes do rock brasileiro, conquistando fãs de várias gerações. Letras que falam sobre juventude, questionamentos, amor e sociedade são marcas registradas da banda. Após o falecimento de Chorão em 2013, a banda encerrou suas atividades, mas seu legado continua vivo na música nacional."
+    },
+    "michaeljackson": {
+        "name": "Michael Jackson",
+        "genres": "Pop • R&B • Soul",
+        "capa": "https://i.pinimg.com/736x/61/7e/f8/617ef8a7b1fa50ade50aa1e8e0c4a3c9.jpg",
+        "avatar": "https://i.pinimg.com/736x/90/27/77/9027771fb7d44f4dd7f215d397b46b06.jpg",
+        "stats": {
+            "songs": 150,
+            "albums": 10,
+            "listeners": "37M"
+        },
+        "popularTracks": [
+            {
+                "name": "Billie Jean",
+                "album": "Thriller",
+                "year": "1982",
+                "duration": "4:54"
+            },
+            {
+                "name": "Thriller",
+                "album": "Thriller",
+                "year": "1982",
+                "duration": "5:57"
+            },
+            {
+                "name": "Beat It",
+                "album": "Thriller",
+                "year": "1982",
+                "duration": "4:18"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Got to Be There",
+                "year": "1972",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/c/cc/Got_to_Be_There.jpeg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Ben",
+                "year": "1972",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/8/82/Ben_Album.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Music & Me",
+                "year": "1973",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/0/0d/Music_%26_Me.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Forever, Michael",
+                "year": "1975",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/thumb/f/f3/Forever%2C_Michael.jpg/250px-Forever%2C_Michael.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Off the Wall",
+                "year": "1979",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/a/a6/Off_the_Wall.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Thriller",
+                "year": "1982",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png",
+                "type": "Álbum"
+            },
+            {
+                "title": "Bad",
+                "year": "1987",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/5/51/Michael_Jackson_-_Bad.png",
+                "type": "Álbum"
+            },
+            {
+                "title": "Dangerous",
+                "year": "1991",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/a/af/Dangerous_MJ_.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "HIStory: Past, Present and Future, Book I",
+                "year": "1995",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/a/ab/HIStory_Past%2C_Present_and_Future_Book_I.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Invincible",
+                "year": "2001",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/b/bf/Invincible.jpg",
+                "type": "Álbum"
+            },
+            {
+                "title": "Michael",
+                "year": "2010",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/2/2e/Michael_%C3%A1lbum.jpg",
+                "type": "Álbum Póstumo"
+            },
+            {
+                "title": "Xscape",
+                "year": "2014",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/6/63/Capa_de_Xscape.png",
+                "type": "Álbum Póstumo"
+            }
+        ],
+        "biography": "Michael Jackson, conhecido como o 'Rei do Pop', foi um dos artistas mais influentes e populares da história da música. Nascido em 1958 em Gary, Indiana, ele começou sua carreira ainda criança no grupo Jackson 5 e lançou sua carreira solo com grande sucesso na década de 1970. Michael se destacou pela sua voz única, talento para dança e videoclipes revolucionários. Álbuns como 'Thriller', 'Bad' e 'Dangerous' marcaram a música pop e venderam milhões de cópias no mundo todo. Sua influência cultural permanece forte até hoje, sendo uma das figuras mais icônicas da música mundial."
+    },
+    "jorgemateus": {
+        "name": "Jorge & Mateus",
+        "genres": "Sertanejo • Sertanejo Universitário • Pop",
+        "capa": "https://i.pinimg.com/736x/9b/83/e9/9b83e9490e9a8e3a7a93e3139127a079.jpg",
+        "avatar": "https://i.pinimg.com/736x/6e/9c/75/6e9c75298aa0bb41b9a7f8a23d694c70.jpg",
+        "stats": {
+            "songs": 150,
+            "albums": 12,
+            "listeners": "10M"
+        },
+        "popularTracks": [
+            {
+                "name": "Os Anjos Cantam",
+                "album": "Os Anjos Cantam",
+                "year": "2015",
+                "duration": "3:52"
+            },
+            {
+                "name": "Sosseguei",
+                "album": "Como. Sempre Feito. Nunca",
+                "year": "2016",
+                "duration": "3:45"
+            },
+            {
+                "name": "Seu Astral",
+                "album": "Ao Vivo em Goiânia",
+                "year": "2007",
+                "duration": "4:10"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Ao Vivo em Goiânia",
+                "year": "2007",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/4/4a/Ao_Vivo_em_Goi%C3%A2nia.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "O Mundo É Tão Pequeno",
+                "year": "2009",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3a/O_Mundo_%C3%89_T%C3%A3o_Pequeno.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Ao Vivo Sem Cortes",
+                "year": "2010",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/5/5f/Ao_Vivo_Sem_Cortes.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Aí Já Era",
+                "year": "2010",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/2/2d/A%C3%AD_J%C3%A1_Era.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "A Hora É Agora",
+                "year": "2012",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/1/1d/A_Hora_%C3%89_Agora.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Live In London - At The Royal Albert Hall",
+                "year": "2013",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/0/0d/Live_In_London_-_At_The_Royal_Albert_Hall.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Os Anjos Cantam",
+                "year": "2015",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/5/5f/Os_Anjos_Cantam.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Como. Sempre Feito. Nunca",
+                "year": "2016",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/9/9b/Como_Sempre_Feito_Nunca.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "10 Anos",
+                "year": "2016",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/2/2e/10_Anos.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Terra Sem CEP",
+                "year": "2018",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3d/Terra_Sem_CEP.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Tudo Em Paz",
+                "year": "2021",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/8/8e/Tudo_Em_Paz.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "É Simples Assim",
+                "year": "2022",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/1/1e/%C3%89_Simples_Assim.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Check-In",
+                "year": "2024",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/6/6f/Check-In.jpg",
+                "type": "Álbum Ao Vivo"
+            }
+        ],
+        "biography": "Jorge & Mateus é uma dupla brasileira de música sertaneja, formada em Itumbiara, Goiás, em 2005. Composta por Jorge Barcelos (vocal) e Mateus Liduário (vocal e guitarra), a dupla é considerada uma das mais influentes do sertanejo universitário. Desde o lançamento do álbum de estreia 'Ao Vivo em Goiânia' em 2007, conquistaram grande sucesso com hits como 'Duas Metades', 'Logo Eu' e 'Propaganda'. Ao longo da carreira, venderam mais de 10 milhões de cópias e foram indicados ao Grammy Latino de Melhor Álbum de Música Sertaneja em várias ocasiões. Em 2018, venceram o Prêmio Multishow de Música Brasileira na categoria Melhor Dupla. Atualmente, continuam ativos, lançando novos trabalhos e realizando turnês pelo Brasil e exterior."
+    },
+    "caetanoveloso": {
+        "name": "Caetano Veloso",
+        "genres": "MPB • Tropicália • Rock • Pop • Samba",
+        "capa": "https://i.pinimg.com/736x/5d/84/e7/5d84e7dd8fee98f0d2fc375b2f62acac.jpg",
+        "avatar": "https://i.pinimg.com/736x/5d/84/e7/5d84e7dd8fee98f0d2fc375b2f62acac.jpg",
+        "stats": {
+            "songs": 500,
+            "albums": 50,
+            "listeners": "15M"
+        },
+        "popularTracks": [
+            {
+                "name": "Sozinho",
+                "album": "Prenda Minha",
+                "year": "1998",
+                "duration": "3:47"
+            },
+            {
+                "name": "Sampa",
+                "album": "Muito - Dentro da Estrela Azulada",
+                "year": "1978",
+                "duration": "3:40"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Domingo",
+                "year": "1967",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/7c/Domingo_-_Caetano_e_Gal.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Caetano Veloso",
+                "year": "1968",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/7c/Caetano_Veloso_1968.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Tropicália: ou Panis et Circensis",
+                "year": "1968",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/4/4a/Tropic%C3%A1lia_-_ou_Panis_et_Circencis.jpg",
+                "type": "Álbum Coletivo"
+            },
+            {
+                "title": "Transa",
+                "year": "1972",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/8/8d/Transa_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Bicho",
+                "year": "1977",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/7e/Bicho_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Cores, Nomes",
+                "year": "1982",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3d/Cores%2C_Nomes.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Velô",
+                "year": "1984",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/8/8b/Vel%C3%B4_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Estrangeiro",
+                "year": "1989",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3e/Estrangeiro_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Circuladô",
+                "year": "1991",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/5/5c/Circulad%C3%B4_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Fina Estampa",
+                "year": "1994",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/1/1e/Fina_Estampa_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Livro",
+                "year": "1997",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3a/Livro_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Noites do Norte",
+                "year": "2000",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/2/2b/Noites_do_Norte_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Cê",
+                "year": "2006",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/9/9d/C%C3%AA_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Abraçaço",
+                "year": "2012",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3e/Abra%C3%A7a%C3%A7o_-_Caetano_Veloso.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Caetano Emanuel Viana Teles Veloso, conhecido como Caetano Veloso, é um músico, produtor, arranjador e escritor brasileiro. Nascido em 7 de agosto de 1942 em Santo Amaro da Purificação, Bahia, é considerado um dos artistas mais influentes da música brasileira desde os anos 1960. Foi um dos criadores do movimento tropicalista, que revolucionou a MPB nos anos 1960. Sua obra caracteriza-se pela diversidade de gêneros e pela constante reinvenção. Ao longo de sua carreira, lançou mais de 50 álbuns e vendeu milhões de cópias. Ganhou nove Grammy Latino e dois Grammy Awards. Além da música, é conhecido por seu ativismo político e por suas posições sobre questões sociais. Continua ativo na música, lançando novos trabalhos e realizando turnês pelo mundo."
+    },
+    "nirvana": {
+        "name": "Nirvana",
+        "genres": "Grunge • Alternative Rock • Punk Rock",
+        "capa": "https://i.pinimg.com/736x/50/be/bd/50bebd9953c56c1ae9973b882b8f133b.jpg",
+        "avatar": "https://i.pinimg.com/736x/73/0e/fd/730efdea3b8c4823fbcf8f7fdb1e4988.jpg",
+        "stats": {
+            "songs": 100,
+            "albums": 4,
+            "listeners": "50M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Smells Like Teen Spirit",
+                "album": "Nevermind",
+                "year": "1991",
+                "duration": "5:01"
+            },
+            {
+                "name": "Come As You Are",
+                "album": "Nevermind",
+                "year": "1991",
+                "duration": "3:39"
+            },
+            {
+                "name": "Heart-Shaped Box",
+                "album": "In Utero",
+                "year": "1993",
+                "duration": "4:41"
+            },
+            {
+                "name": "Lithium",
+                "album": "Nevermind",
+                "year": "1991",
+                "duration": "4:17"
+            },
+            {
+                "name": "About a Girl",
+                "album": "Bleach",
+                "year": "1989",
+                "duration": "2:48"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Bleach",
+                "year": "1989",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/70/Nirvana-Bleach.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Nevermind",
+                "year": "1991",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/b7/NirvanaNevermindalbumcover.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "In Utero",
+                "year": "1993",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e5/In_Utero_-_Nirvana.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "MTV Unplugged in New York",
+                "year": "1994",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/8/8f/Nirvana-Unplugged.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "From the Muddy Banks of the Wishkah",
+                "year": "1996",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/4/4c/Nirvana_-_From_the_Muddy_Banks_of_the_Wishkah.jpg",
+                "type": "Álbum Ao Vivo"
+            },
+            {
+                "title": "Nirvana",
+                "year": "2002",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/6/64/Nirvanaalbum.jpg",
+                "type": "Compilação"
+            }
+        ],
+        "biography": "Nirvana foi uma banda de rock americana formada em Aberdeen, Washington, em 1987. Fundada pelo vocalista e guitarrista Kurt Cobain e pelo baixista Krist Novoselic, a banda passou por uma sucessão de bateristas, sendo Dave Grohl o mais notável, que se juntou em 1990. O Nirvana é amplamente considerado como a banda seminal da década de 1990 e o principal expoente do movimento grunge. Seu álbum 'Nevermind' (1991) marcou o início de uma mudança musical do mainstream rock para o rock alternativo, graças ao sucesso do single 'Smells Like Teen Spirit'. A banda vendeu mais de 75 milhões de discos em todo o mundo. O Nirvana foi induzido no Rock and Roll Hall of Fame em 2014, no primeiro ano de sua elegibilidade. A banda se dissolveu após a morte de Cobain em 1994, mas sua música continua influente e popular."
+    },
+    "metallica": {
+        "name": "Metallica",
+        "genres": "Heavy Metal • Thrash Metal • Hard Rock",
+        "capa": "https://i.pinimg.com/736x/f4/10/22/f41022fa324b2e197c9880b9133d1f3a.jpg",
+        "avatar": "https://i.pinimg.com/736x/f8/f9/67/f8f967dc797b263c5cb08578086517b5.jpg",
+        "stats": {
+            "songs": 150,
+            "albums": 11,
+            "listeners": "60M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Enter Sandman",
+                "album": "Metallica",
+                "year": "1991",
+                "duration": "5:32"
+            },
+            {
+                "name": "Nothing Else Matters",
+                "album": "Metallica",
+                "year": "1991",
+                "duration": "6:29"
+            },
+            {
+                "name": "One",
+                "album": "...And Justice for All",
+                "year": "1988",
+                "duration": "7:27"
+            },
+            {
+                "name": "Master of Puppets",
+                "album": "Master of Puppets",
+                "year": "1986",
+                "duration": "8:36"
+            },
+            {
+                "name": "Fade to Black",
+                "album": "Ride the Lightning",
+                "year": "1984",
+                "duration": "6:57"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Kill 'Em All",
+                "year": "1983",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/5/5c/Metallica_-_Kill_%27Em_All_cover.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Ride the Lightning",
+                "year": "1984",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/f/fc/Ride_the_Lightning.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Master of Puppets",
+                "year": "1986",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/b2/Metallica_-_Master_of_Puppets_cover.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "...And Justice for All",
+                "year": "1988",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/thumb/3/34/...And_Justice_for_All.jpg/250px-...And_Justice_for_All.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Metallica (The Black Album)",
+                "year": "1991",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/2/2c/Metallica_-_Metallica_cover.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Load",
+                "year": "1996",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/thumb/3/32/Load.jpg/250px-Load.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Reload",
+                "year": "1997",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/b/b8/ReLoad.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "St. Anger",
+                "year": "2003",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/77/St-anger_album.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Death Magnetic",
+                "year": "2008",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/9/94/Death_Magnetic.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Hardwired... to Self-Destruct",
+                "year": "2016",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3b/Metallica_-_Hardwired%E2%80%A6To_Self-Destruct_-_2016.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "72 Seasons",
+                "year": "2023",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/1/1f/Metallica_-_72_Seasons.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Metallica é uma banda americana de heavy metal formada em Los Angeles, Califórnia, em 1981, por James Hetfield e Lars Ulrich. Considerada uma das bandas mais influentes e bem-sucedidas do heavy metal, Metallica foi pioneira do thrash metal ao lado de Slayer, Megadeth e Anthrax. Com álbuns marcantes como 'Master of Puppets' e o autointitulado 'Metallica' (conhecido como Black Album), a banda alcançou enorme sucesso comercial e crítica. O Metallica vendeu mais de 125 milhões de discos em todo o mundo e foi introduzido no Rock and Roll Hall of Fame em 2009. A banda continua ativa, realizando turnês globais e lançando novos álbuns, mantendo-se como uma das maiores potências do rock e metal contemporâneo."
+    },
+    "acdc": {
+        "name": "AC/DC",
+        "genres": "Hard Rock • Rock and Roll • Blues Rock",
+        "capa": "https://i.pinimg.com/736x/3a/91/ac/3a91ac35e7e77d145480ed92aee056f4.jpg",
+        "avatar": "https://i.pinimg.com/736x/1a/cc/8c/1acc8cab773d9be7c9b1ec6ba69713b4.jpg",
+        "stats": {
+            "songs": 180,
+            "albums": 17,
+            "listeners": "50M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Back in Black",
+                "album": "Back in Black",
+                "year": "1980",
+                "duration": "4:15"
+            },
+            {
+                "name": "Highway to Hell",
+                "album": "Highway to Hell",
+                "year": "1979",
+                "duration": "3:28"
+            },
+            {
+                "name": "Thunderstruck",
+                "album": "The Razors Edge",
+                "year": "1990",
+                "duration": "4:52"
+            },
+            {
+                "name": "You Shook Me All Night Long",
+                "album": "Back in Black",
+                "year": "1980",
+                "duration": "3:30"
+            },
+            {
+                "name": "T.N.T.",
+                "album": "High Voltage",
+                "year": "1975",
+                "duration": "3:34"
+            }
+        ],
+        "discography": [
+            {
+                "title": "High Voltage",
+                "year": "1975",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e7/ACDC_HighVoltage.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "T.N.T.",
+                "year": "1975",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/bd/ACDC_TNT.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Dirty Deeds Done Dirt Cheap",
+                "year": "1976",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/6/64/ACDC_DirtyDeeds.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Let There Be Rock",
+                "year": "1977",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e4/Letthereberock.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Powerage",
+                "year": "1978",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/3b/ACDC_Powerage.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Highway to Hell",
+                "year": "1979",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/00/Acdc_Highway_to_Hell.JPG",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Back in Black",
+                "year": "1980",
+                "cover": "https://upload.wikimedia.org/wikipedia/commons/4/45/ACDC_Back_in_Black.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "For Those About to Rock We Salute You",
+                "year": "1981",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/32/Forthoseabouttorockwe.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Flick of the Switch",
+                "year": "1983",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/5/58/Flickoftheswitch.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Razors Edge",
+                "year": "1990",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/d/dc/ACDC_The_Razors_Edge.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Ballbreaker",
+                "year": "1995",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/c/c6/ACDC_Ballbreaker.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Stiff Upper Lip",
+                "year": "2000",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/d/dc/StiffUpperLip.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Black Ice",
+                "year": "2008",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/f/f4/Acdc_black_ice_cover.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Rock or Bust",
+                "year": "2014",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/9/9a/ACDC_Rock_or_Bust.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Power Up",
+                "year": "2020",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/35/ACDC_-_Power_Up.png",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "AC/DC é uma banda de rock australiana formada em 1973 pelos irmãos escoceses Angus e Malcolm Young. Reconhecida por seu estilo energético e inconfundível, com riffs marcantes e vocais potentes, a banda é considerada uma das maiores do hard rock mundial. O álbum 'Back in Black' é um dos discos mais vendidos de todos os tempos, com mais de 50 milhões de cópias. Apesar da morte de membros importantes, como o vocalista Bon Scott, o AC/DC seguiu firme com Brian Johnson e continua a se apresentar e lançar novos trabalhos, mantendo seu legado vivo no rock and roll."
+    },
+    "ironmaiden": {
+        "name": "Iron Maiden",
+        "genres": "Heavy Metal • NWOBHM • Hard Rock",
+        "capa": "https://i.pinimg.com/736x/1e/09/7d/1e097dfec41faa26823fef278435242f.jpg",
+        "avatar": "https://i.pinimg.com/736x/fa/8d/a6/fa8da6c2574edd6d28fbd54ff4c3bb4b.jpg",
+        "stats": {
+            "songs": 180,
+            "albums": 17,
+            "listeners": "35M+"
+        },
+        "popularTracks": [
+            {
+                "name": "The Trooper",
+                "album": "Piece of Mind",
+                "year": "1983",
+                "duration": "4:12"
+            },
+            {
+                "name": "Fear of the Dark",
+                "album": "Fear of the Dark",
+                "year": "1992",
+                "duration": "7:18"
+            },
+            {
+                "name": "Hallowed Be Thy Name",
+                "album": "The Number of the Beast",
+                "year": "1982",
+                "duration": "7:12"
+            },
+            {
+                "name": "Run to the Hills",
+                "album": "The Number of the Beast",
+                "year": "1982",
+                "duration": "3:54"
+            },
+            {
+                "name": "Aces High",
+                "album": "Powerslave",
+                "year": "1984",
+                "duration": "4:31"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Iron Maiden",
+                "year": "1980",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/8/84/Iron_Maiden_-_Iron_Maiden.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Killers",
+                "year": "1981",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/7b/Iron_Maiden_Killers.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Number of the Beast",
+                "year": "1982",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/2/28/IronMaiden_NumberOfBeast.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Piece of Mind",
+                "year": "1983",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/8/81/Iron_Maiden_-_Piece_Of_Mind.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Powerslave",
+                "year": "1984",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/2/2e/Iron_Maiden_-_Powerslave.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Somewhere in Time",
+                "year": "1986",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e1/Iron_Maiden_-_Somewhere_in_Time.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Seventh Son of a Seventh Son",
+                "year": "1988",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/35/Iron_Maiden_-_Seventh_Son_Of_A_Seventh_Son.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "No Prayer for the Dying",
+                "year": "1990",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e3/Iron_Maiden_-_No_Prayer_for_the_Dying.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Fear of the Dark",
+                "year": "1992",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/8/82/Iron_Maiden_-_Fear_Of_The_Dark.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The X Factor",
+                "year": "1995",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/f/fc/Iron_Maiden_-_The_X_Factor.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Virtual XI",
+                "year": "1998",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/5/53/Iron_Maiden_-_Virtual_XI.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Brave New World",
+                "year": "2000",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/03/Iron_Maiden_-_Brave_New_World.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Dance of Death",
+                "year": "2003",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/35/Iron_Maiden_-_Dance_of_Death.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "A Matter of Life and Death",
+                "year": "2006",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e5/Iron_Maiden_-_A_Matter_of_Life_and_Death.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Final Frontier",
+                "year": "2010",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/3c/Iron_Maiden_-_The_Final_Frontier.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Book of Souls",
+                "year": "2015",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/b4/Iron_Maiden_-_The_Book_of_Souls.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Senjutsu",
+                "year": "2021",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e0/Iron_Maiden_-_Senjutsu.png",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Iron Maiden é uma banda britânica de heavy metal formada em Londres em 1975 pelo baixista Steve Harris. Considerada uma das maiores e mais influentes bandas do gênero, especialmente no movimento da New Wave of British Heavy Metal (NWOBHM), o grupo é conhecido por sua sonoridade épica, vocais poderosos e o icônico mascote Eddie. Com mais de 100 milhões de discos vendidos, o Iron Maiden se mantém ativo com álbuns ambiciosos e turnês grandiosas ao redor do mundo. Bruce Dickinson, vocalista principal desde os anos 80, também é reconhecido por seu alcance vocal e presença de palco marcante."
+    },
+    "gusttavolima": {
+        "name": "Gusttavo Lima",
+        "genres": "Sertanejo • Sertanejo Universitário • Romântico",
+        "capa": "https://i.pinimg.com/736x/af/75/49/af7549afd582695f401e2001436e3ff9.jpg",
+        "avatar": "https://i.pinimg.com/736x/af/75/49/af7549afd582695f401e2001436e3ff9.jpg",
+        "stats": {
+            "songs": 300,
+            "albums": 12,
+            "listeners": "15M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Balada (Tchê Tcherere Tchê Tchê)",
+                "album": "Gusttavo Lima e Você (Ao Vivo)",
+                "year": "2011",
+                "duration": "3:23"
+            },
+            {
+                "name": "Apelido Carinhoso",
+                "album": "O Embaixador",
+                "year": "2018",
+                "duration": "3:07"
+            },
+            {
+                "name": "Homem de Família",
+                "album": "50/50",
+                "year": "2016",
+                "duration": "3:22"
+            },
+            {
+                "name": "Bloqueado",
+                "album": "Buteco in Boston (Ao Vivo)",
+                "year": "2022",
+                "duration": "3:13"
+            },
+            {
+                "name": "Milu",
+                "album": "O Embaixador in Cariri",
+                "year": "2019",
+                "duration": "2:49"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Revelação",
+                "year": "2009",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/e/ef/Gusttavo_Lima_Revela%C3%A7%C3%A3o.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Inventor dos Amores (Ao Vivo)",
+                "year": "2010",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/7f/Inventor_dos_Amores.jpg",
+                "type": "Ao Vivo"
+            },
+            {
+                "title": "Gusttavo Lima e Você (Ao Vivo)",
+                "year": "2011",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/4/41/Gusttavo_Lima_e_Voc%C3%AA.jpg",
+                "type": "Ao Vivo"
+            },
+            {
+                "title": "Ao Vivo em São Paulo",
+                "year": "2012",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/3e/Gusttavo_Lima_Ao_Vivo_Em_S%C3%A3o_Paulo.jpg",
+                "type": "Ao Vivo"
+            },
+            {
+                "title": "Do Outro Lado da Moeda",
+                "year": "2014",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/d/da/Gusttavo_Lima_-_Do_Outro_Lado_da_Moeda.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Buteco do Gusttavo Lima (Ao Vivo)",
+                "year": "2015",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/f/f4/Buteco_do_Gusttavo_Lima.jpg",
+                "type": "Ao Vivo"
+            },
+            {
+                "title": "50/50",
+                "year": "2016",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/8/85/Gusttavo_Lima_-_50_50.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "O Embaixador (Ao Vivo)",
+                "year": "2018",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/5/5a/Gusttavo_Lima_-_O_Embaixador.jpg",
+                "type": "Ao Vivo"
+            },
+            {
+                "title": "O Embaixador in Cariri",
+                "year": "2019",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/6/6e/Gusttavo_Lima_-_O_Embaixador_in_Cariri.jpg",
+                "type": "Ao Vivo"
+            },
+            {
+                "title": "Buteco in Boston",
+                "year": "2022",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/e/e9/Gusttavo_Lima_-_Buteco_in_Boston.jpg",
+                "type": "Ao Vivo"
+            },
+            {
+                "title": "Paraíso Particular",
+                "year": "2023",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/4/49/Gusttavo_Lima_-_Para%C3%ADso_Particular.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Gusttavo Lima, nome artístico de Nivaldo Batista Lima, é um cantor, compositor e produtor musical brasileiro. Nascido em Minas Gerais, ganhou notoriedade nacional com o hit 'Balada (Tchê Tcherere Tchê Tchê)' em 2011. Considerado um dos maiores nomes do sertanejo universitário, é conhecido por seus shows grandiosos, sua voz marcante e por representar o estilo 'buteco'. Com diversos discos ao vivo e hits românticos e animados, Gusttavo conquistou milhões de fãs no Brasil e no exterior, sendo chamado por muitos de 'O Embaixador' no universo sertanejo."
+    },
+    "arcticmonkeys": {
+        "name": "Arctic Monkeys",
+        "genres": "Indie Rock • Alternative Rock • Garage Rock",
+        "capa": "https://i.pinimg.com/736x/a3/b4/ab/a3b4ab8caaea094c91d62a42c850f243.jpg",
+        "avatar": "https://i.pinimg.com/736x/ee/34/bb/ee34bb6394949915f95da5752305ef53.jpg",
+        "stats": {
+            "songs": 120,
+            "albums": 7,
+            "listeners": "30M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Do I Wanna Know?",
+                "album": "AM",
+                "year": "2013",
+                "duration": "4:33"
+            },
+            {
+                "name": "R U Mine?",
+                "album": "AM",
+                "year": "2013",
+                "duration": "3:20"
+            },
+            {
+                "name": "I Bet You Look Good on the Dancefloor",
+                "album": "Whatever People Say I Am, That's What I'm Not",
+                "year": "2006",
+                "duration": "2:53"
+            },
+            {
+                "name": "Why'd You Only Call Me When You're High?",
+                "album": "AM",
+                "year": "2013",
+                "duration": "2:42"
+            },
+            {
+                "name": "505",
+                "album": "Favourite Worst Nightmare",
+                "year": "2007",
+                "duration": "4:13"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Whatever People Say I Am, That's What I'm Not",
+                "year": "2006",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/4/45/Arctic_Monkeys_-_Whatever_People_Say_I_Am%2C_That%27s_What_I%27m_Not.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Favourite Worst Nightmare",
+                "year": "2007",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/1/1a/Arctic_Monkeys_-_Favourite_Worst_Nightmare.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Humbug",
+                "year": "2009",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/5/58/Arctic_Monkeys_-_Humbug.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Suck It and See",
+                "year": "2011",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/39/Suckitandsee.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "AM",
+                "year": "2013",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/6/64/Arctic_Monkeys_AM_cover.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Tranquility Base Hotel & Casino",
+                "year": "2018",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/03/Arctic_Monkeys_-_Tranquility_Base_Hotel_%26_Casino.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Car",
+                "year": "2022",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/01/Arctic_Monkeys_-_The_Car.png",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Arctic Monkeys é uma banda britânica de indie rock formada em Sheffield, Inglaterra, em 2002. Liderada pelo vocalista e guitarrista Alex Turner, a banda ganhou fama mundial com seu álbum de estreia 'Whatever People Say I Am, That's What I'm Not', considerado um dos melhores discos britânicos da década. Com um som que evoluiu do garage rock ao lounge psicodélico, o grupo se destacou por letras afiadas e melodias cativantes. O álbum 'AM' consolidou seu sucesso global com hits como 'Do I Wanna Know?'. Arctic Monkeys é considerada uma das bandas mais influentes da cena alternativa do século XXI."
+    },
+    "audioslave": {
+        "name": "Audioslave",
+        "genres": "Alternative Rock • Hard Rock • Post-Grunge",
+        "capa": "https://i.pinimg.com/736x/8b/47/4a/8b474a7f7d8ec4444a83e2342a6036d3.jpg",
+        "avatar": "https://i.pinimg.com/736x/c5/c4/f3/c5c4f34a0d7c6c1912b6ce284b6ebd24.jpg",
+        "stats": {
+            "songs": 40,
+            "albums": 3,
+            "listeners": "6M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Like a Stone",
+                "album": "Audioslave",
+                "year": "2002",
+                "duration": "4:54"
+            },
+            {
+                "name": "Show Me How to Live",
+                "album": "Audioslave",
+                "year": "2002",
+                "duration": "4:38"
+            },
+            {
+                "name": "Be Yourself",
+                "album": "Out of Exile",
+                "year": "2005",
+                "duration": "4:39"
+            },
+            {
+                "name": "Cochise",
+                "album": "Audioslave",
+                "year": "2002",
+                "duration": "3:42"
+            },
+            {
+                "name": "Doesn't Remind Me",
+                "album": "Out of Exile",
+                "year": "2005",
+                "duration": "4:15"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Audioslave",
+                "year": "2002",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/75/Audioslave_-_Audioslave.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Out of Exile",
+                "year": "2005",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/b4/Audioslave_-_Out_of_Exile.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Revelations",
+                "year": "2006",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/4/4f/Audioslave_-_Revelations.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Audioslave foi uma banda americana de rock formada em Los Angeles, Califórnia, em 2001. Composta por Chris Cornell (ex-Soundgarden) nos vocais e os ex-integrantes do Rage Against the Machine: Tom Morello (guitarra), Tim Commerford (baixo) e Brad Wilk (bateria). A fusão das influências grunge e metal alternativo resultou em um som poderoso e melódico, com letras introspectivas e riffs marcantes. O álbum de estreia 'Audioslave' foi um sucesso comercial, com hits como 'Like a Stone' e 'Cochise'. A banda lançou três álbuns antes de se dissolver em 2007. Chris Cornell faleceu em 2017, encerrando qualquer possibilidade de retorno."
+    },
+    "foo_fighters": {
+        "name": "Foo Fighters",
+        "genres": "Alternative Rock • Post-Grunge • Hard Rock",
+        "capa": "https://i.pinimg.com/736x/9b/ed/23/9bed23cf301ebe5b49f1b15471a0b1df.jpg",
+        "avatar": "https://i.pinimg.com/736x/fd/ac/f8/fdacf8acf68f8939c8179e863f03c3eb.jpg",
+        "stats": {
+            "songs": 130,
+            "albums": 11,
+            "listeners": "20M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Everlong",
+                "album": "The Colour and the Shape",
+                "year": "1997",
+                "duration": "4:10"
+            },
+            {
+                "name": "The Pretender",
+                "album": "Echoes, Silence, Patience & Grace",
+                "year": "2007",
+                "duration": "4:29"
+            },
+            {
+                "name": "Best of You",
+                "album": "In Your Honor",
+                "year": "2005",
+                "duration": "4:16"
+            },
+            {
+                "name": "Learn to Fly",
+                "album": "There Is Nothing Left to Lose",
+                "year": "1999",
+                "duration": "3:55"
+            },
+            {
+                "name": "My Hero",
+                "album": "The Colour and the Shape",
+                "year": "1997",
+                "duration": "4:20"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Foo Fighters",
+                "year": "1995",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e1/FooFighters-FooFighters.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Colour and the Shape",
+                "year": "1997",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/9/9f/FooFighters-TheColourAndTheShape.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "There Is Nothing Left to Lose",
+                "year": "1999",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/b8/FooFighters-ThereIsNothingLeftToLose.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "One by One",
+                "year": "2002",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/75/FooFighters-OneByOne.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "In Your Honor",
+                "year": "2005",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/76/FooFighters-InYourHonor.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Echoes, Silence, Patience & Grace",
+                "year": "2007",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/f/f8/FooFighters-EchoesSilencePatienceGrace.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Wasting Light",
+                "year": "2011",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/0c/FooFightersWastingLight.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Sonic Highways",
+                "year": "2014",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/1/1a/FooFightersSonicHighways.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Concrete and Gold",
+                "year": "2017",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/6/61/Foo_Fighters_-_Concrete_and_Gold.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Medicine at Midnight",
+                "year": "2021",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/0a/Foo_Fighters_-_Medicine_at_Midnight.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "But Here We Are",
+                "year": "2023",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e8/Foo_Fighters_-_But_Here_We_Are.png",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Foo Fighters é uma banda americana de rock formada em 1994 por Dave Grohl, ex-baterista do Nirvana. Inicialmente um projeto solo, Grohl gravou o primeiro álbum inteiramente sozinho antes de formar uma banda completa. O Foo Fighters rapidamente se destacou por seu som energético que mistura post-grunge e rock alternativo. Com hits como 'Everlong', 'Best of You' e 'The Pretender', o grupo tornou-se um dos maiores nomes do rock contemporâneo. A banda é conhecida por suas performances ao vivo intensas e sua consistência musical ao longo de mais de duas décadas. Em 2022, o baterista Taylor Hawkins faleceu, mas a banda continua ativa e lançou um novo álbum em 2023."
+    },
+    "red_hot_chili_peppers": {
+        "name": "Red Hot Chili Peppers",
+        "genres": "Funk Rock • Alternative Rock • Funk Metal",
+        "capa": "https://i.pinimg.com/736x/c1/0e/52/c10e52dfb089e6d1e81351c3179c3f72.jpg",
+        "avatar": "https://i.pinimg.com/736x/8c/f5/df/8cf5dfd2a9909615a57545820c12597d.jpg",
+        "stats": {
+            "songs": 250,
+            "albums": 13,
+            "listeners": "30M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Californication",
+                "album": "Californication",
+                "year": "1999",
+                "duration": "5:21"
+            },
+            {
+                "name": "Under the Bridge",
+                "album": "Blood Sugar Sex Magik",
+                "year": "1991",
+                "duration": "4:24"
+            },
+            {
+                "name": "Scar Tissue",
+                "album": "Californication",
+                "year": "1999",
+                "duration": "3:35"
+            },
+            {
+                "name": "Otherside",
+                "album": "Californication",
+                "year": "1999",
+                "duration": "4:15"
+            },
+            {
+                "name": "Can't Stop",
+                "album": "By the Way",
+                "year": "2002",
+                "duration": "4:29"
+            }
+        ],
+        "discography": [
+            {
+                "title": "The Red Hot Chili Peppers",
+                "year": "1984",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/1/1e/RedHotChiliPeppersAlbum.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Freaky Styley",
+                "year": "1985",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/3b/FreakyStyley.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Uplift Mofo Party Plan",
+                "year": "1987",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/bf/Uplift_Mofo_Party_Plan.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Mother's Milk",
+                "year": "1989",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/ec/Mother%27s_Milk.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Blood Sugar Sex Magik",
+                "year": "1991",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/9/99/BloodSugarSexMagik.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "One Hot Minute",
+                "year": "1995",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e3/RedHotChiliPeppersOneHotMinute.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Californication",
+                "year": "1999",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/2/2e/RedHotChiliPeppersCalifornication.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "By the Way",
+                "year": "2002",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/1/1e/Rhcp9.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Stadium Arcadium",
+                "year": "2006",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/b/b3/Stadium_Arcadium.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "I'm with You",
+                "year": "2011",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/a/a4/RedHotChiliPeppersImWithYou.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "The Getaway",
+                "year": "2016",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/1/12/Red_Hot_Chili_Peppers_-_The_Getaway.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Unlimited Love",
+                "year": "2022",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/01/Red_Hot_Chili_Peppers_-_Unlimited_Love.png",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Return of the Dream Canteen",
+                "year": "2022",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/8/8f/Red_Hot_Chili_Peppers_-_Return_of_the_Dream_Canteen.png",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Red Hot Chili Peppers é uma banda americana de rock formada em Los Angeles, Califórnia, em 1983. Seu estilo musical único combina elementos de funk, rock alternativo, punk e psicodelia. O grupo é composto por Anthony Kiedis (vocais), Flea (baixo), Chad Smith (bateria) e John Frusciante (guitarra). Alcançaram sucesso global com álbuns como 'Blood Sugar Sex Magik' e 'Californication'. Com uma energia inconfundível ao vivo, a banda é uma das mais influentes do rock moderno, sendo indicada e premiada com diversos Grammys e com mais de 100 milhões de discos vendidos mundialmente."
+    },
+    "ney_matogrosso": {
+        "name": "Ney Matogrosso",
+        "genres": "MPB • Pop • Rock • Samba • Tropicália",
+        "capa": "https://i.pinimg.com/736x/f8/e6/42/f8e6423ea46f9cd296d27f68f32f5ee5.jpg",
+        "avatar": "https://i.pinimg.com/736x/f8/e6/42/f8e6423ea46f9cd296d27f68f32f5ee5.jpg",
+        "stats": {
+            "songs": 300,
+            "albums": 35,
+            "listeners": "5M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Homem com H",
+                "album": "Feitiço",
+                "year": "1975",
+                "duration": "3:20"
+            },
+            {
+                "name": "Sangue Latino",
+                "album": "Secos & Molhados",
+                "year": "1973",
+                "duration": "3:26"
+            },
+            {
+                "name": "Poema",
+                "album": "Poema",
+                "year": "1981",
+                "duration": "4:10"
+            },
+            {
+                "name": "Tanto Amar",
+                "album": "Tanto Amar",
+                "year": "1986",
+                "duration": "3:45"
+            },
+            {
+                "name": "Pro Dia Nascer Feliz",
+                "album": "Inclassificáveis",
+                "year": "2008",
+                "duration": "4:01"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Água do Céu - Pássaro",
+                "year": "1975",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/5/5c/Agua_do_ceu_-_passaro.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Bandido",
+                "year": "1976",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/c/cf/Ney_Matogrosso_-_Bandido.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Feitiço",
+                "year": "1978",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/b/b8/Ney_Matogrosso_-_Feiti%C3%A7o_%28capa%29.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Poema",
+                "year": "1981",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/72/Poema_Ney.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Tanto Amar",
+                "year": "1986",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/c/c2/Tanto_Amar.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Olhos de Farol",
+                "year": "1999",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/4/4f/Olhos_de_Farol.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Inclassificáveis",
+                "year": "2008",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/0/01/Inclassificaveis.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Atento aos Sinais",
+                "year": "2013",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/b/b6/Atento_aos_Sinais.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Ney Matogrosso é um cantor, compositor e performer brasileiro, conhecido por sua voz aguda e presença de palco marcante. Iniciou sua carreira no grupo Secos & Molhados nos anos 70, e logo se destacou pela teatralidade e ousadia, rompendo padrões de gênero e comportamento. Em sua carreira solo, construiu uma trajetória sólida e diversificada, explorando diversos gêneros musicais da MPB ao rock, com forte apelo visual e artístico. É considerado um dos artistas mais inovadores e respeitados da música brasileira, tendo influenciado gerações com seu estilo inconfundível e sua coragem artística."
+    }
+}

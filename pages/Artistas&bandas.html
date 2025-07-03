@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Artistas & Bandas | TocaíStudio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/LogoTocaí.png" type="image/x-icon" sizes="32x32">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+    <!-- Icon Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/artistasEbandas.css">
+    <link rel="stylesheet" href="../css/disco.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/Menu-moblie.css">
+    <link rel="stylesheet" href="../css/pagination.css">
+
+
+    <!-- Scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+
+    <script src="../js/artistasEbandas.js" defer></script>
+    <script type="module" src="../js/load-components.js"></script>
+</head>
+
+
+<body>
+    <div class="home-section">
+        <section id="artistas">
+            <h2>Artistas & Bandas</h2>
+            <div class="filtros">
+                <button class="genre-button" onclick="filterByGenre('todos')">Todos</button>
+                <button class="genre-button" onclick="filterByGenre('rock')">Rock</button>
+                <button class="genre-button" onclick="filterByGenre('pop')">Pop</button>
+                <button class="genre-button" onclick="filterByGenre('jazz')">Jazz</button>
+                <button class="genre-button" onclick="filterByGenre('sertanejo')">Sertanejo</button>
+                <button class="genre-button" onclick="filterByGenre('mpb')">MPB</button>
+                <div class="filtro-container">
+                    <div class="filtro-generos">
+                        <button class="dropdown-button" onclick="toggleDropdown()">Gêneros</button>
+                        <div class="dropdown-content" id="dropdown">
+                            <input type="text" id="searchGenre" placeholder="Digite o gênero musical..."
+                                onkeyup="filterGenres()">
+                            <!-- Os gêneros serão inseridos dinamicamente aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Pesquisar artistas..." onkeyup="searchArtists()">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="lista-artistas">
+                <!-- Os cards serão carregados dinamicamente aqui -->
+            </div>
+
+            <div class="pagination-container">
+                <div class="pagination" id="pagination">
+                    <!-- Os botões de paginação serão gerados aqui -->
+                </div>
+            </div>
+
+        </section>
+</body>
+
+</html>

@@ -1,0 +1,302 @@
+/*home section*/
+
+.home-section {
+    z-index: 100;
+    position: relative;
+    min-height: 100vh;
+    top: 0;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+}
+
+.home-section h1 h2 button {
+    z-index: 100;
+    position: relative;
+    min-height: 100vh;
+    top: 0;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+}
+
+.sidebar.open~.home-section {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+
+.home-section .text {
+    display: inline-block;
+    color: #11101D;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 18px;
+}
+
+:root {
+    --primary: #1db954;
+    --dark: #191414;
+    --light: #ffffff;
+    --gray: #535353;
+    --light-gray: #b3b3b3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.back-btn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: none;
+    border: none;
+    color: var(--light);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.artist-header {
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, .5));
+    background-color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.artist-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    margin-right: 2rem;
+}
+
+.artist-info {
+    flex: 1;
+}
+
+.artist-name {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.artist-genre {
+    color: var(--light-gray);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.artist-stats {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.discography {
+    margin-bottom: 3rem;
+}
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.album-card {
+    background: #282828;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: transform 0.3s, background 0.3s;
+    cursor: pointer;
+}
+
+.album-card:hover {
+    background: #383838;
+    transform: translateY(-5px);
+}
+
+.album-cover {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.album-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-year {
+    color: var(--light-gray);
+    font-size: 0.9rem;
+}
+
+.popular-tracks {
+    margin-bottom: 3rem;
+}
+
+.track-list {
+    background: #181818;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #282828;
+    cursor: pointer;
+}
+
+.track-item:last-child {
+    border-bottom: none;
+}
+
+.track-item:hover {
+    background: #282828;
+}
+
+.track-number {
+    color: var(--light-gray);
+    width: 30px;
+    font-size: 0.9rem;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-name {
+    font-weight: 500;
+}
+
+.track-album {
+    color: var(--light-gray);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+.track-duration {
+    color: var(--light-gray);
+    font-size: 0.9rem;
+}
+
+.biography {
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--light);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .artist-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 4rem;
+    }
+
+    .artist-avatar {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        width: 150px;
+        height: 150px;
+    }
+
+    .artist-stats {
+        justify-content: center;
+    }
+
+    .album-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .artist-name {
+        font-size: 2rem;
+    }
+}
+
+/* Estilo do botão Voltar no estilo Spotify */
+.back-btn {
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 500px;
+    /* Valor alto para criar o efeito "pill" */
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: #282828;
+    transform: scale(1.03);
+}
+
+.back-btn:active {
+    transform: scale(0.98);
+}
+
+/* Ou usando um ícone do Font Awesome (se estiver disponível) */
+.back-btn .fa-arrow-left {
+    font-size: 16px;
+}

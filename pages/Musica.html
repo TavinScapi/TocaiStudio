@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Música | TocaíStudio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/LogoTocaI.png" type="image/x-icon" sizes="32x32">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+    <!-- Icon Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/musica.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/Menu-moblie.css">
+
+    <!-- Scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+
+    <script type="module" src="../js/musica.js"></script>
+    <script type="module" src="../js/load-components.js"></script>
+</head>
+
+<body>
+    <div class="home-section">
+        <button class="back-btn" id="back-to-artist-btn">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+        
+        <div class="song-container">
+            <div class="song-header">
+                <div class="song-cover">
+                    <img id="song-cover-img" src="" alt="Capa do Álbum">
+                </div>
+                <div class="song-info">
+                    <h1 id="song-title">Nome da Música</h1>
+                    <h2 id="song-artist">Artista</h2>
+                    <div class="song-meta">
+                        <span id="song-album">Álbum</span>
+                        <span id="song-year">Ano</span>
+                        <span id="song-duration">Duração</span>
+                    </div>
+                    <div class="song-actions">
+                        <button class="play-btn">
+                            <i class="fas fa-play"></i> Reproduzir
+                        </button>
+                        <button class="like-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button class="share-btn">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="song-content">
+                <div class="tabs-section">
+                    <div class="tabs-header">
+                        <button class="tab-button active" data-tab="chords">Cifra</button>
+                        <button class="tab-button" data-tab="lyrics">Letra</button>
+                    </div>
+
+                    <div class="autoscroll-controls">
+                        <button class="autoscroll-btn play" title="Iniciar autoscroll">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="autoscroll-btn stop" title="Parar autoscroll">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                        <div class="speed-control">
+                            <span>Velocidade:</span>
+                            <button class="speed-btn active" data-speed="1">1x</button>
+                            <button class="speed-btn" data-speed="2">2x</button>
+                            <button class="speed-btn" data-speed="3">3x</button>
+                        </div>
+                    </div>
+
+                    <div class="tab-content active" id="chords-tab">
+                        <div class="chords-container" id="song-chords">
+                            <!-- Conteúdo da cifra será inserido aqui -->
+                            <p>Carregando cifra...</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="lyrics-tab">
+                        <div class="lyrics-container" id="song-lyrics">
+                            <!-- Conteúdo da letra será inserido aqui -->
+                            <p>Carregando letra...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-section">
+                    <div class="video-section">
+                        <h3>Vídeo</h3>
+                        <div class="video-container">
+                            <iframe id="song-video" src="" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <h3>Músicas relacionadas</h3>
+                    <div class="related-tracks" id="related-tracks">
+                        <!-- Conteúdo será preenchido pelo JavaScript -->
+                    </div>
+                </div>
+            </div>
+            <div id="chord-popup" style="display:none; position:absolute; z-index:1000;"></div>
+        </div>
+    </div>
+</body>
+
+</html>
