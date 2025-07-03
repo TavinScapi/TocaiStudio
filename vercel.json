@@ -21,7 +21,7 @@
             "destination": "/pages/Artistas&bandas.html"
         },
         {
-            "source": "/harmonia",
+            "source": "/harmon-ia",
             "destination": "/pages/HarmonIA.html"
         },
         {
@@ -41,16 +41,12 @@
             "destination": "/pages/Musica.html"
         },
         {
-            "source": "/player",
-            "destination": "/pages/Player.html"
+            "source": "/tocaimusic",
+            "destination": "/pages/TocaiMusic.html"
         },
         {
             "source": "/teoria",
             "destination": "/pages/Teoria.html"
-        },
-        {
-            "source": "/home",
-            "destination": "/pages/index.html"
         }
     ]
 }
