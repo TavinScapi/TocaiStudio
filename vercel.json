@@ -9,43 +9,43 @@
             "destination": "/pages/Acordes.html"
         },
         {
-            "source": "/Afinador",
+            "source": "/afinador",
             "destination": "/pages/Afinador.html"
         },
         {
-            "source": "/Artista",
+            "source": "/artista",
             "destination": "/pages/Artista.html"
         },
         {
-            "source": "/Artistas&Bandas",
+            "source": "/artistas-e-bandas",
             "destination": "/pages/Artistas&bandas.html"
         },
         {
-            "source": "/HarmonIA",
+            "source": "/harmonia",
             "destination": "/pages/HarmonIA.html"
         },
         {
-            "source": "/Mapa-De-Notas",
+            "source": "/mapa-de-notas",
             "destination": "/pages/MapaDeNotas.html"
         },
         {
-            "source": "/Metronomo",
+            "source": "/metronomo",
             "destination": "/pages/Metrônomo.html"
         },
         {
-            "source": "/Montador-De-Cifras",
+            "source": "/montador-de-cifras",
             "destination": "/pages/MontadorDeCifras.html"
         },
         {
-            "source": "/Musica",
+            "source": "/musica",
             "destination": "/pages/Musica.html"
         },
         {
-            "source": "/Player",
+            "source": "/player",
             "destination": "/pages/Player.html"
         },
         {
-            "source": "/Teoria",
+            "source": "/teoria",
             "destination": "/pages/Teoria.html"
         },
         {
