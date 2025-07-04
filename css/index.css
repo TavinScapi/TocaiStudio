@@ -1,6 +1,3 @@
-/* Importação de fontes */
-@import url("https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900");
-
 /* Reset e fontes */
 * {
     font-family: "Poppins", sans-serif;
@@ -113,7 +110,7 @@ body {
         min-height: 400px;
     }
 
-    .logo{
+    .logo {
         padding-top: 30px;
     }
 }
@@ -891,4 +888,37 @@ body {
     .estudio-icon {
         font-size: 2.2rem;
     }
+}
+
+.item {
+    position: absolute;
+    overflow: hidden;
+}
+
+.item-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    z-index: 0;
+}
+
+/* Manter o gradiente overlay */
+.item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.505), rgba(0, 0, 0, 0));
+    z-index: 1;
+    border-radius: inherit;
+}
+
+/* Content continua com z-index maior */
+.content {
+    z-index: 2;
 }
