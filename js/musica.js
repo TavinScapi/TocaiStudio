@@ -65,17 +65,42 @@ function loadSelectedSong() {
                 normalizeString(key) === normalizeString(selectedSong)
             );
 
-            if (foundKey) {
-                const songDetails = artistData.músicas[foundKey];
-                displaySongDetails(foundKey, artistData, songDetails);
-                loadRelatedSongs(selectedArtist, foundKey);
-            } else {
+            if (!foundKey) {
                 showError("Música não encontrada");
                 loadRelatedSongs(selectedArtist, null);
+                return;
             }
+
+            const songDetails = artistData.músicas[foundKey];
+
+            // Agora busca dados extras no infoARTISTAS.json para álbum, ano e duração
+            fetch('/data/infoARTISTAS.json')
+                .then(res => res.json())
+                .then(infoData => {
+                    const artistInfo = infoData?.[selectedArtist];
+                    const trackInfo = artistInfo?.popularTracks?.find(t =>
+                        normalizeString(t.name) === normalizeString(foundKey)
+                    );
+
+                    // Se encontrar no infoARTISTAS, substitui as infos de álbum, ano e duração
+                    if (trackInfo) {
+                        songDetails.album = trackInfo.album || songDetails.album;
+                        songDetails.year = trackInfo.year || songDetails.year;
+                        songDetails.duration = trackInfo.duration || songDetails.duration;
+                    }
+
+                    displaySongDetails(foundKey, artistData, songDetails);
+                    loadRelatedSongs(selectedArtist, foundKey);
+                })
+                .catch(() => {
+                    // Se falhar, exibe com os dados locais mesmo
+                    displaySongDetails(foundKey, artistData, songDetails);
+                    loadRelatedSongs(selectedArtist, foundKey);
+                });
         })
         .catch(() => showError("Erro ao carregar música"));
 }
+
 
 function normalizeString(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, ' ').trim();
@@ -86,7 +111,7 @@ function displaySongDetails(songName, artistData, songDetails) {
     document.getElementById("song-artist").textContent = artistData.displayName || currentArtistKey;
     document.getElementById("song-album").textContent = songDetails.album || "Álbum desconhecido";
     document.getElementById("song-year").textContent = songDetails.year || "Ano desconhecido";
-    document.getElementById("song-duration").textContent = formatDuration(songDetails.duration) || "--:--";
+    document.getElementById("song-duration").textContent = songDetails.duration || "--:--";
     document.title = `${songName} | TocaíStudio`;
 
     const coverImg = document.getElementById("song-cover-img");
@@ -157,10 +182,12 @@ function loadRelatedSongs(artistKey, currentSong) {
     const container = document.getElementById("related-tracks");
     container.innerHTML = '';
 
-    fetch(`/data/artistas/${artistKey}.json`)
-        .then(res => res.json())
-        .then(data => {
-            const songs = Object.keys(data.músicas || {});
+    Promise.all([
+        fetch(`/data/artistas/${artistKey}.json`).then(res => res.json()),
+        fetch('/data/infoARTISTAS.json').then(res => res.json())
+    ])
+        .then(([artistData, infoData]) => {
+            const songs = Object.keys(artistData.músicas || {});
             const related = songs.filter(song => song !== currentSong).slice(0, 5);
 
             if (!related.length) {
@@ -168,8 +195,22 @@ function loadRelatedSongs(artistKey, currentSong) {
                 return;
             }
 
+            const artistInfo = infoData?.[artistKey];
+
             related.forEach(song => {
-                const element = createRelatedTrackElement(song, data.músicas[song], data);
+                let songDetails = artistData.músicas[song];
+                if (artistInfo?.popularTracks) {
+                    const trackInfo = artistInfo.popularTracks.find(t => normalizeString(t.name) === normalizeString(song));
+                    if (trackInfo) {
+                        songDetails = {
+                            ...songDetails,
+                            album: trackInfo.album || songDetails.album,
+                            year: trackInfo.year || songDetails.year,
+                            duration: trackInfo.duration || songDetails.duration,
+                        };
+                    }
+                }
+                const element = createRelatedTrackElement(song, songDetails, artistData);
                 container.appendChild(element);
             });
         })
@@ -189,7 +230,7 @@ function createRelatedTrackElement(songName, songDetails, artistData) {
             <div class="related-track-name">${songName}</div>
             <div class="related-track-artist">${artistData.displayName || currentArtistKey}</div>
         </div>
-        <div class="related-track-duration">${formatDuration(songDetails.duration) || "--:--"}</div>
+        <div class="related-track-duration">${songDetails.duration || "--:--"}</div>
     `;
     el.addEventListener('click', () => {
         window.location.href = `/musica/${encodeURIComponent(currentArtistKey)}/${encodeURIComponent(songName)}`;
