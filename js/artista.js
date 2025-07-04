@@ -41,10 +41,10 @@ async function loadArtistData() {
     `;
 
     // Gerenciar botão de seguir
-    const followed = JSON.parse(localStorage.getItem('followedArtists') || '[]');
+    let followed = JSON.parse(localStorage.getItem('followedArtists') || '[]');
     const followBtn = document.getElementById('follow-btn');
 
-    function updateFollowBtn() {
+    function updateFollowBtnUI() {
         if (followed.includes(artistId)) {
             followBtn.innerHTML = '<i class="fas fa-check"></i> Seguindo';
             followBtn.classList.add('following');
@@ -54,19 +54,23 @@ async function loadArtistData() {
         }
     }
 
-    updateFollowBtn();
 
-    followBtn.onclick = function () {
-        let followed = JSON.parse(localStorage.getItem('followedArtists') || '[]');
+    // Atualiza a interface inicialmente
+    updateFollowBtnUI();
+
+    // Lida com clique no botão
+    followBtn.addEventListener('click', () => {
         const index = followed.indexOf(artistId);
+
         if (index === -1) {
-            followed.unshift(artistId);
+            followed.push(artistId);
         } else {
             followed.splice(index, 1);
         }
+
         localStorage.setItem('followedArtists', JSON.stringify(followed));
-        updateFollowBtn();
-    };
+        updateFollowBtnUI();
+    });
 
     // Preencher músicas populares
     const popularTracksHTML = artist.popularTracks.map((track, index) => `
@@ -89,7 +93,6 @@ async function loadArtistData() {
             window.location.href = `/musica/${artistId}/${encodeURIComponent(songName)}`;
         });
     });
-
 
     // Preencher discografia
     const discographyHTML = artist.discography.map(album => `

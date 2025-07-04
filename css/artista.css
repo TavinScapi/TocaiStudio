@@ -300,3 +300,51 @@ body {
 .back-btn .fa-arrow-left {
     font-size: 16px;
 }
+
+/* Animação para clique suave */
+#follow-btn {
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: #1db954;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Estilo quando está seguindo */
+#follow-btn.following {
+    background-color: #2c2c2c;
+    color: #1db954;
+    border: 1px solid #1db954;
+}
+
+/* Animação de clique */
+#follow-btn:active {
+    transform: scale(0.95);
+}
+
+/* Ícone com animação de entrada */
+@keyframes pop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+#follow-btn .fas {
+    animation: pop 0.3s ease;
+}
