@@ -350,19 +350,15 @@ function iniciarApp() {
 
         document.body.appendChild(searchResultsContainer);
 
-        // Adiciona eventos de clique aos resultados
         document.querySelectorAll('.song-result').forEach(item => {
             item.addEventListener('click', function () {
                 const artistKey = this.getAttribute('data-artist');
                 const songName = this.getAttribute('data-song');
 
-                // Salva o artista e a música selecionada
-                localStorage.setItem("selectedArtist", artistKey);
-                localStorage.setItem("selectedSong", songName);
-
-                // Redireciona para a página da música
-                window.location.href = "../pages/Musica.html";
+                const encodedSong = encodeURIComponent(songName);
+                window.location.href = `/musica/${artistKey}/${encodedSong}`;
             });
         });
+
     }
 }

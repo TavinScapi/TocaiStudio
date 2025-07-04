@@ -33,11 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('back-to-artist-btn')?.addEventListener('click', () => {
         const artistKey = localStorage.getItem('selectedArtist');
         if (artistKey) {
-            window.location.href = `Artista.html?artist=${encodeURIComponent(artistKey)}`;
+            window.location.href = `/artista/${encodeURIComponent(artistKey)}`;
         } else {
             window.history.back();
         }
     });
+
 });
 
 // =====================
@@ -217,11 +218,12 @@ function createRelatedTrackElement(songName, songDetails, artistData) {
     `;
 
     trackElement.addEventListener('click', () => {
-        localStorage.setItem("selectedSong", songName);
-        localStorage.setItem("selectedArtist", currentArtistKey);
-        loadSelectedSong();
-        window.scrollTo(0, 0);
+        // Monta a URL da música, encodeURIComponent para segurança
+        const artistEncoded = encodeURIComponent(currentArtistKey);
+        const songEncoded = encodeURIComponent(songName);
+        window.location.href = `/musica/${artistEncoded}/${songEncoded}`;
     });
+
 
     return trackElement;
 }
@@ -244,7 +246,7 @@ function startAutoscroll() {
     if (isScrolling) return;
 
     const activeTab = document.querySelector('.tab-content.active');
-    const container = activeTab.querySelector('.chords-container, .lyrics-container');
+    const container = activeTab.querySelector('.chords-container') || activeTab.querySelector('.lyrics-container');
     if (!container) return;
 
     isScrolling = true;

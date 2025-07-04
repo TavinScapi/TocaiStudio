@@ -83,7 +83,6 @@ async function loadArtistData() {
     document.getElementById('popular-tracks').innerHTML = popularTracksHTML;
 
     // Adicionar click nas músicas
-    // Adicionar click nas músicas
     document.querySelectorAll('.track-item').forEach(item => {
         item.addEventListener('click', () => {
             const songName = item.querySelector('.track-name').textContent;
@@ -111,5 +110,9 @@ async function loadArtistData() {
 
     document.title = `${artist.name} | TocaíStudio`;
 }
+
+document.getElementById('back-to-artist-btn').addEventListener('click', () => {
+    window.location.href = '/artistas-e-bandas';
+});
 
 document.addEventListener('DOMContentLoaded', loadArtistData);
