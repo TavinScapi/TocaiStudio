@@ -13,7 +13,7 @@
             "destination": "/pages/Afinador.html"
         },
         {
-            "source": "/artista",
+            "source": "/artista/:artist",
             "destination": "/pages/Artista.html"
         },
         {
@@ -37,7 +37,7 @@
             "destination": "/pages/MontadorDeCifras.html"
         },
         {
-            "source": "/musica",
+            "source": "/musica/:artist/:song",
             "destination": "/pages/Musica.html"
         },
         {

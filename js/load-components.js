@@ -2,7 +2,7 @@ let artistsData = {};
 
 document.addEventListener('DOMContentLoaded', function () {
     // Carrega o JSON dos artistas antes de tudo
-    fetch('../data/infoARTISTAS.json')
+    fetch('/data/infoARTISTAS.json')
         .then(response => {
             if (!response.ok) throw new Error('JSON de artistas não encontrado');
             return response.json();
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function iniciarApp() {
-    fetch('../components/sidebar.html')
+    fetch('/components/sidebar.html')
         .then(response => {
             if (!response.ok) throw new Error('Sidebar não encontrada');
             return response.text();
@@ -29,7 +29,7 @@ function iniciarApp() {
     // Carrega o footer dentro do home-section
     const homeSection = document.querySelector('.home-section');
     if (homeSection) {
-        fetch('../components/footer.html')
+        fetch('/components/footer.html')
             .then(response => {
                 if (!response.ok) throw new Error('Footer não encontrado');
                 return response.text();
@@ -41,7 +41,7 @@ function iniciarApp() {
     }
 
     // Carrega o menu mobile
-    fetch('../components/mobile-menu.html')
+    fetch('/components/mobile-menu.html')
         .then(response => {
             if (!response.ok) throw new Error('Menu mobile não encontrado');
             return response.text();

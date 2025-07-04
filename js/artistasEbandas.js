@@ -264,6 +264,8 @@ function selectGenre(value) {
 // Selecionar Artista
 // ===================
 function selectArtist(artistId) {
-    // Mude para passar por URL em vez de localStorage
-    window.location.href = `../pages/Artista.html?artist=${artistId}`;
+    window.location.href = `/artista/${artistId}`;
 }
+
+
+

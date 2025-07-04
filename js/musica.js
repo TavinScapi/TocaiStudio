@@ -44,35 +44,50 @@ document.addEventListener('DOMContentLoaded', () => {
 // Funções Principais
 // =====================
 
-// Carrega os dados da música selecionada
 function loadSelectedSong() {
-    const selectedSong = localStorage.getItem("selectedSong");
-    const selectedArtist = localStorage.getItem("selectedArtist");
+    const pathParts = window.location.pathname.split('/');
+    const selectedArtist = decodeURIComponent(pathParts[2] || '');
+    const selectedSong = decodeURIComponent(pathParts[3] || '');
 
     if (!selectedArtist || !selectedSong) {
         showError("Música não encontrada");
         return;
     }
 
-    fetch(`../data/artistas/${selectedArtist}.json`)
+    fetch(`/data/artistas/${selectedArtist}.json`)
         .then(response => response.json())
         .then(artistData => {
             songData = artistData;
             currentArtistKey = selectedArtist;
 
-            if (artistData.músicas && artistData.músicas[selectedSong]) {
-                const songDetails = artistData.músicas[selectedSong];
-                displaySongDetails(selectedSong, artistData, songDetails);
-                loadRelatedSongs(selectedArtist, selectedSong);
-            } else {
-                showError("Música não encontrada");
-                loadRelatedSongs(selectedArtist, null);
+            if (artistData.músicas) {
+                const foundKey = Object.keys(artistData.músicas).find(key =>
+                    normalizeString(key) === normalizeString(selectedSong)
+                );
+
+                if (foundKey) {
+                    const songDetails = artistData.músicas[foundKey];
+                    displaySongDetails(foundKey, artistData, songDetails);
+                    loadRelatedSongs(selectedArtist, foundKey);
+                } else {
+                    showError("Música não encontrada");
+                    loadRelatedSongs(selectedArtist, null);
+                }
             }
+
         })
         .catch(error => {
             console.error('Erro ao carregar JSON do artista:', error);
             showError("Erro ao carregar música");
         });
+}
+
+function normalizeString(str) {
+    return str.normalize("NFD") // separa os acentos
+        .replace(/[\u0300-\u036f]/g, "") // remove acentos
+        .toLowerCase()
+        .replace(/\s+/g, ' ') // normaliza múltiplos espaços
+        .trim(); // remove espaços extras nas pontas
 }
 
 // Exibe os detalhes da música na página
@@ -158,7 +173,7 @@ function loadRelatedSongs(artistKey, currentSong) {
     const relatedTracksContainer = document.getElementById("related-tracks");
     relatedTracksContainer.innerHTML = '';
 
-    fetch(`../data/artistas/${artistKey}.json`)
+    fetch(`/data/artistas/${artistKey}.json`)
         .then(response => response.json())
         .then(artistData => {
             if (artistData.músicas) {
