@@ -1,21 +1,35 @@
-// =====================
-// Variáveis Globais
-// =====================
 let songData = {};
 let currentArtistKey = null;
 let scrollInterval;
 let currentSpeed = 1;
 let isScrolling = false;
+let player;
 
-// =====================
-// Inicialização
-// =====================
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('song-video');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadSelectedSong();
 
-    // Botões de controle
-    document.querySelector('.play-btn')?.addEventListener('click', () => {
-        console.log('Reproduzindo música...');
+    const playBtn = document.querySelector('.play-btn');
+    const playIcon = playBtn?.querySelector('i');
+
+    playBtn?.addEventListener('click', () => {
+        if (player && typeof player.getPlayerState === 'function') {
+            const state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            } else {
+                player.playVideo();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            }
+        } else {
+            console.log('Player do YouTube não está pronto.');
+        }
     });
 
     document.querySelector('.like-btn')?.addEventListener('click', function () {
@@ -32,122 +46,95 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('back-to-artist-btn')?.addEventListener('click', () => {
         const artistKey = localStorage.getItem('selectedArtist');
-        if (artistKey) {
-            window.location.href = `/artista/${encodeURIComponent(artistKey)}`;
-        } else {
-            window.history.back();
-        }
+        artistKey ? window.location.href = `/artista/${encodeURIComponent(artistKey)}` : window.history.back();
     });
-
 });
 
-// =====================
-// Funções Principais
-// =====================
-
 function loadSelectedSong() {
-    const pathParts = window.location.pathname.split('/');
-    const selectedArtist = decodeURIComponent(pathParts[2] || '');
-    const selectedSong = decodeURIComponent(pathParts[3] || '');
+    const [, , selectedArtist = '', selectedSong = ''] = window.location.pathname.split('/').map(decodeURIComponent);
 
-    if (!selectedArtist || !selectedSong) {
-        showError("Música não encontrada");
-        return;
-    }
+    if (!selectedArtist || !selectedSong) return showError("Música não encontrada");
 
     fetch(`/data/artistas/${selectedArtist}.json`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(artistData => {
             songData = artistData;
             currentArtistKey = selectedArtist;
 
-            if (artistData.músicas) {
-                const foundKey = Object.keys(artistData.músicas).find(key =>
-                    normalizeString(key) === normalizeString(selectedSong)
-                );
+            const foundKey = Object.keys(artistData.músicas || {}).find(key =>
+                normalizeString(key) === normalizeString(selectedSong)
+            );
 
-                if (foundKey) {
-                    const songDetails = artistData.músicas[foundKey];
-                    displaySongDetails(foundKey, artistData, songDetails);
-                    loadRelatedSongs(selectedArtist, foundKey);
-                } else {
-                    showError("Música não encontrada");
-                    loadRelatedSongs(selectedArtist, null);
-                }
+            if (foundKey) {
+                const songDetails = artistData.músicas[foundKey];
+                displaySongDetails(foundKey, artistData, songDetails);
+                loadRelatedSongs(selectedArtist, foundKey);
+            } else {
+                showError("Música não encontrada");
+                loadRelatedSongs(selectedArtist, null);
             }
-
         })
-        .catch(error => {
-            console.error('Erro ao carregar JSON do artista:', error);
-            showError("Erro ao carregar música");
-        });
+        .catch(() => showError("Erro ao carregar música"));
 }
 
 function normalizeString(str) {
-    return str.normalize("NFD") // separa os acentos
-        .replace(/[\u0300-\u036f]/g, "") // remove acentos
-        .toLowerCase()
-        .replace(/\s+/g, ' ') // normaliza múltiplos espaços
-        .trim(); // remove espaços extras nas pontas
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
-// Exibe os detalhes da música na página
 function displaySongDetails(songName, artistData, songDetails) {
-    // Informações básicas
     document.getElementById("song-title").textContent = songName;
     document.getElementById("song-artist").textContent = artistData.displayName || currentArtistKey;
-
-    // Metadados
     document.getElementById("song-album").textContent = songDetails.album || "Álbum desconhecido";
     document.getElementById("song-year").textContent = songDetails.year || "Ano desconhecido";
     document.getElementById("song-duration").textContent = formatDuration(songDetails.duration) || "--:--";
-
-    // Informações adicionais
-    document.getElementById("song-title").textContent = songName;
-    document.getElementById("song-artist").textContent = artistData.displayName || currentArtistKey;
     document.title = `${songName} | TocaíStudio`;
 
-
-    // Capa do álbum
     const coverImg = document.getElementById("song-cover-img");
     coverImg.src = songDetails.coverUrl || artistData.artistImage || "../images/default-cover.jpg";
     coverImg.alt = `Capa do álbum ${songDetails.album || ''}`;
 
-    // Cifra
     const chordsContainer = document.getElementById("song-chords");
-    if (songDetails.cifra) {
-        chordsContainer.innerHTML = formatChords(songDetails.cifra);
-        addChordHoverPopups(); // <-- Adicione aqui
-    } else if (songDetails.tabs) {
-        chordsContainer.innerHTML = formatChords(songDetails.tabs);
-        addChordHoverPopups(); // <-- Adicione aqui
+    if (songDetails.cifra || songDetails.tabs) {
+        chordsContainer.innerHTML = formatChords(songDetails.cifra || songDetails.tabs);
+        addChordHoverPopups();
     } else {
         chordsContainer.innerHTML = `
-        <p class="not-available">Cifra não disponível</p>
-        ${songDetails.lyrics ? `<button class="show-lyrics-btn">Mostrar Letra</button>` : ''}
-    `;
-        if (songDetails.lyrics) {
-            chordsContainer.querySelector('.show-lyrics-btn').addEventListener('click', () => {
-                document.querySelector('.tab-button[data-tab="lyrics"]').click();
-            });
-        }
+            <p class="not-available">Cifra não disponível</p>
+            ${songDetails.lyrics ? `<button class="show-lyrics-btn">Mostrar Letra</button>` : ''}
+        `;
+        chordsContainer.querySelector('.show-lyrics-btn')?.addEventListener('click', () => {
+            document.querySelector('.tab-button[data-tab="lyrics"]').click();
+        });
     }
 
-    // Vídeo do YouTube
     const videoIframe = document.getElementById("song-video");
-    if (songDetails.videoUrl) {
-        let videoId = extractYouTubeId(songDetails.videoUrl);
-        if (videoId) {
-            videoIframe.src = `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0`;
-            document.querySelector('.video-section').style.display = 'block';
-        } else {
-            document.querySelector('.video-section').style.display = 'none';
-        }
+    const videoId = extractYouTubeId(songDetails.videoUrl || '');
+    if (videoId) {
+        videoIframe.src = `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&enablejsapi=1`;
+        document.querySelector('.video-section').style.display = 'block';
+        if (player) player.destroy();
+
+        player = new YT.Player('song-video', {
+            events: {
+                'onStateChange': (event) => {
+                    const playIcon = document.querySelector('.play-btn i');
+                    if (!playIcon) return;
+
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        playIcon.classList.remove('fa-play');
+                        playIcon.classList.add('fa-pause');
+                    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                        playIcon.classList.remove('fa-pause');
+                        playIcon.classList.add('fa-play');
+                    }
+                }
+            }
+        });
+
     } else {
         document.querySelector('.video-section').style.display = 'none';
     }
 
-    // Letra
     const lyricsContainer = document.getElementById("song-lyrics");
     if (songDetails.lyrics) {
         lyricsContainer.innerHTML = songDetails.lyrics.replace(/\n/g, '<br>');
@@ -156,59 +143,47 @@ function displaySongDetails(songName, artistData, songDetails) {
             <p class="not-available">Letra não disponível</p>
             ${songDetails.cifra ? `<button class="show-chords-btn">Mostrar Cifra</button>` : ''}
         `;
-        if (songDetails.cifra) {
-            lyricsContainer.querySelector('.show-chords-btn').addEventListener('click', () => {
-                document.querySelector('.tab-button[data-tab="chords"]').click();
-            });
-        }
+        lyricsContainer.querySelector('.show-chords-btn')?.addEventListener('click', () => {
+            document.querySelector('.tab-button[data-tab="chords"]').click();
+        });
     }
 
     setupTabs();
     initAutoscrollControls();
     addChordHoverPopups();
-
 }
 
-// Carrega músicas relacionadas
 function loadRelatedSongs(artistKey, currentSong) {
-    const relatedTracksContainer = document.getElementById("related-tracks");
-    relatedTracksContainer.innerHTML = '';
+    const container = document.getElementById("related-tracks");
+    container.innerHTML = '';
 
     fetch(`/data/artistas/${artistKey}.json`)
-        .then(response => response.json())
-        .then(artistData => {
-            if (artistData.músicas) {
-                const songs = Object.keys(artistData.músicas);
-                const relatedSongs = songs.filter(song => song !== currentSong).slice(0, 5);
+        .then(res => res.json())
+        .then(data => {
+            const songs = Object.keys(data.músicas || {});
+            const related = songs.filter(song => song !== currentSong).slice(0, 5);
 
-                if (relatedSongs.length === 0) {
-                    relatedTracksContainer.innerHTML = '<p>Nenhuma outra música deste artista</p>';
-                    return;
-                }
-
-                relatedSongs.forEach(song => {
-                    const songDetails = artistData.músicas[song];
-                    const trackElement = createRelatedTrackElement(song, songDetails, artistData);
-                    relatedTracksContainer.appendChild(trackElement);
-                });
-            } else {
-                relatedTracksContainer.innerHTML = '<p>Nenhuma música relacionada disponível</p>';
+            if (!related.length) {
+                container.innerHTML = '<p>Nenhuma outra música deste artista</p>';
+                return;
             }
+
+            related.forEach(song => {
+                const element = createRelatedTrackElement(song, data.músicas[song], data);
+                container.appendChild(element);
+            });
         })
         .catch(() => {
-            relatedTracksContainer.innerHTML = '<p>Não foi possível carregar músicas relacionadas</p>';
+            container.innerHTML = '<p>Não foi possível carregar músicas relacionadas</p>';
         });
 }
 
-// Cria elemento de música relacionada
 function createRelatedTrackElement(songName, songDetails, artistData) {
-    const trackElement = document.createElement('div');
-    trackElement.className = 'related-track';
-
-    trackElement.innerHTML = `
+    const el = document.createElement('div');
+    el.className = 'related-track';
+    el.innerHTML = `
         <div class="related-track-cover">
-            <img src="${songDetails.coverUrl || artistData.artistImage || '../images/default-cover.jpg'}" 
-                 alt="${songName}">
+            <img src="${songDetails.coverUrl || artistData.artistImage || '../images/default-cover.jpg'}" alt="${songName}">
         </div>
         <div class="related-track-info">
             <div class="related-track-name">${songName}</div>
@@ -216,35 +191,23 @@ function createRelatedTrackElement(songName, songDetails, artistData) {
         </div>
         <div class="related-track-duration">${formatDuration(songDetails.duration) || "--:--"}</div>
     `;
-
-    trackElement.addEventListener('click', () => {
-        // Monta a URL da música, encodeURIComponent para segurança
-        const artistEncoded = encodeURIComponent(currentArtistKey);
-        const songEncoded = encodeURIComponent(songName);
-        window.location.href = `/musica/${artistEncoded}/${songEncoded}`;
+    el.addEventListener('click', () => {
+        window.location.href = `/musica/${encodeURIComponent(currentArtistKey)}/${encodeURIComponent(songName)}`;
     });
-
-
-    return trackElement;
+    return el;
 }
 
-// Exibe mensagem de erro
 function showError(message) {
     document.getElementById("song-title").textContent = message;
     document.getElementById("artist-name").textContent = "";
     document.getElementById("song-lyrics").textContent = "";
-
-    const coverImg = document.getElementById("song-cover-img");
-    coverImg.src = "../images/default-cover.jpg";
-    coverImg.alt = "Música não encontrada";
+    const img = document.getElementById("song-cover-img");
+    img.src = "../images/default-cover.jpg";
+    img.alt = "Música não encontrada";
 }
 
-// =====================
-// Sistema de Auto Rolagem
-// =====================
 function startAutoscroll() {
     if (isScrolling) return;
-
     const activeTab = document.querySelector('.tab-content.active');
     const container = activeTab.querySelector('.chords-container') || activeTab.querySelector('.lyrics-container');
     if (!container) return;
@@ -254,10 +217,7 @@ function startAutoscroll() {
     const maxScroll = container.scrollHeight - container.clientHeight;
 
     scrollInterval = setInterval(() => {
-        if (container.scrollTop >= maxScroll) {
-            stopAutoscroll();
-            return;
-        }
+        if (container.scrollTop >= maxScroll) return stopAutoscroll();
         container.scrollTop += scrollStep * currentSpeed;
     }, 50);
 }
@@ -269,13 +229,8 @@ function stopAutoscroll() {
 }
 
 function updateAutoscrollButtons() {
-    const playBtn = document.querySelector('.autoscroll-btn.play');
-    const stopBtn = document.querySelector('.autoscroll-btn.stop');
-
-    if (playBtn && stopBtn) {
-        playBtn.disabled = isScrolling;
-        stopBtn.disabled = !isScrolling;
-    }
+    document.querySelector('.autoscroll-btn.play')?.toggleAttribute('disabled', isScrolling);
+    document.querySelector('.autoscroll-btn.stop')?.toggleAttribute('disabled', !isScrolling);
 }
 
 function initAutoscrollControls() {
@@ -283,125 +238,81 @@ function initAutoscrollControls() {
     const stopBtn = document.querySelector('.autoscroll-btn.stop');
     const speedBtns = document.querySelectorAll('.speed-btn');
 
-    if (playBtn && stopBtn) {
-        playBtn.addEventListener('click', () => {
-            startAutoscroll();
-            updateAutoscrollButtons();
-        });
+    playBtn?.addEventListener('click', () => {
+        startAutoscroll();
+        updateAutoscrollButtons();
+    });
 
-        stopBtn.addEventListener('click', () => {
-            stopAutoscroll();
-        });
-    }
+    stopBtn?.addEventListener('click', stopAutoscroll);
 
-    if (speedBtns) {
-        speedBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                speedBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentSpeed = parseFloat(btn.dataset.speed);
-
-                if (isScrolling) {
-                    stopAutoscroll();
-                    startAutoscroll();
-                    updateAutoscrollButtons();
-                }
-            });
-        });
-    }
-
-    // Pausa ao interagir com o scroll manual
-    const containers = document.querySelectorAll('.chords-container, .lyrics-container');
-    containers.forEach(container => {
-        container.addEventListener('wheel', () => {
+    speedBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            speedBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSpeed = parseFloat(btn.dataset.speed);
             if (isScrolling) {
                 stopAutoscroll();
+                startAutoscroll();
+                updateAutoscrollButtons();
             }
+        });
+    });
+
+    document.querySelectorAll('.chords-container, .lyrics-container').forEach(container => {
+        container.addEventListener('wheel', () => {
+            if (isScrolling) stopAutoscroll();
         });
     });
 }
 
-// =====================
-// Funções Auxiliares
-// =====================
-
-// Extrai o ID do vídeo do YouTube
 function extractYouTubeId(url) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
+    const match = url.match(/^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]{11}).*/);
+    return match ? match[1] : null;
 }
 
-function formatChords(chordText) {
-    // Regex para acordes: C, Dm, F#, E/G#, C#m7(9), B4, E7M, etc
-    // Só marca se for isolado (espaço, início/fim de linha, pontuação)
+function formatChords(text) {
     const chordRegex = /(?<=^|[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-])([A-G](#|b)?m?(maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(\([^\)]*\))?(\/[A-G](#|b)?)?)(?=[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-]|$)/g;
-
-    return chordText
-        .split('\n')
-        .map(line => {
-            // Marca acordes entre colchetes
-            let formatted = line.replace(/\[([^\]]+)\]/g, '<span class="chord">$1</span>');
-            // Marca acordes soltos (não dentro de tags já)
-            formatted = formatted.replace(/(<span class="chord">.*?<\/span>)|(?<=^|[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-])([A-G](#|b)?m?(maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(\([^\)]*\))?(\/[A-G](#|b)?)?)(?=[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-]|$)/g, (match, chordTag, chord) => {
-                if (chordTag) return chordTag; // já está marcado
-                // Só marca se for acorde isolado OU tiver mais de 1 caractere
-                if (chord && (chord.length > 1 || /^[A-G]$/.test(chord))) return `<span class="chord">${chord}</span>`;
-                return match;
-            });
-            // Mantém espaçamento visual
-            return formatted.replace(/(\s{2,})/g, '<span class="space">$1</span>');
-        })
-        .join('<br>');
+    return text.split('\n').map(line => {
+        let formatted = line.replace(/\[([^\]]+)\]/g, '<span class="chord">$1</span>');
+        formatted = formatted.replace(/(<span class="chord">.*?<\/span>)|([A-G][#b]?m?(?:maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^)]*\))?(?:\/[A-G][#b]?)?)/g,
+            (match, chordTag, chord) => chordTag || `<span class="chord">${chord}</span>`);
+        return formatted.replace(/(\s{2,})/g, '<span class="space">$1</span>');
+    }).join('<br>');
 }
 
-// Configura as abas de cifra/letra
 function setupTabs() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-
-    tabButtons.forEach(button => {
+    document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', () => {
-            // Para o autoscroll ao trocar de aba
             stopAutoscroll();
-
-            // Ativa a aba selecionada
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
+            document.querySelectorAll('.tab-button, .tab-content').forEach(el => el.classList.remove('active'));
             button.classList.add('active');
-            const tabId = button.getAttribute('data-tab') + '-tab';
-            document.getElementById(tabId).classList.add('active');
-
-            // Atualiza controles para a nova aba
+            document.getElementById(`${button.dataset.tab}-tab`).classList.add('active');
             initAutoscrollControls();
         });
     });
 }
 
-// Formata duração em segundos para mm:ss
 function formatDuration(seconds) {
     if (!seconds) return "0:00";
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
 }
 
 function addChordHoverPopups() {
-    const chordElements = document.querySelectorAll('#song-chords .chord');
-    chordElements.forEach(el => {
-        el.addEventListener('mouseenter', async (e) => {
+    document.querySelectorAll('#song-chords .chord').forEach(el => {
+        el.addEventListener('mouseenter', async e => {
             const chordName = el.textContent.trim();
             const popup = document.getElementById('chord-popup');
             popup.innerHTML = await getChordDiagramSVG(chordName);
             popup.style.display = 'block';
-            // Posição do mouse
-            popup.style.left = (e.pageX + 10) + 'px';
-            popup.style.top = (e.pageY + 10) + 'px';
+            popup.style.left = `${e.pageX + 10}px`;
+            popup.style.top = `${e.pageY + 10}px`;
         });
-        el.addEventListener('mousemove', (e) => {
+        el.addEventListener('mousemove', e => {
             const popup = document.getElementById('chord-popup');
-            popup.style.left = (e.pageX + 10) + 'px';
-            popup.style.top = (e.pageY + 10) + 'px';
+            popup.style.left = `${e.pageX + 10}px`;
+            popup.style.top = `${e.pageY + 10}px`;
         });
         el.addEventListener('mouseleave', () => {
             document.getElementById('chord-popup').style.display = 'none';
@@ -410,124 +321,56 @@ function addChordHoverPopups() {
 }
 
 function normalizeKey(key) {
-    // Converte F# para Fsharp, Bb para Asharp, etc.
     if (/^[A-G]#/.test(key)) return key[0] + 'sharp';
     if (/^[A-G]b/.test(key)) {
-        return ({
+        return {
             'Db': 'Csharp',
             'Eb': 'Dsharp',
             'Gb': 'Fsharp',
             'Ab': 'Gsharp',
             'Bb': 'Asharp'
-        })[key] || key[0] + 'flat';
+        }[key] || key[0] + 'flat';
     }
     return key;
 }
 
 async function getChordDiagramSVG(chordName) {
-    const response = await fetch('../data/guitar.json');
-    const data = await response.json();
-
-    const match = chordName.match(/^([A-G](#|b)?)(.*)$/);
+    const res = await fetch('../data/guitar.json');
+    const data = await res.json();
+    const match = chordName.match(/^([A-G][#b]?)(.*)$/);
     if (!match) return '<div style="padding:8px;">Acorde não reconhecido</div>';
 
-    let key = match[1]; // Ex: C, C#, Bb
-    let rawSuffix = match[3].trim();
+    const key = normalizeKey(match[1]);
+    const raw = match[2].replace(/\([^)]+\)/g, '').trim();
+    const suffix = raw === '' || raw === 'M' ? 'Maior' : raw === '7M' ? 'maj7' : raw;
+    const base = suffix.split('/')[0];
+    const chordList = data.chords[key];
 
-    // Remove extensões entre parênteses para busca do diagrama
-    let cleanSuffix = rawSuffix.replace(/\([^\)]*\)/g, '').trim();
-
-    let jsonKey = normalizeKey(key);
-
-    let suffix = '';
-    if (cleanSuffix === '' || cleanSuffix === 'M' || cleanSuffix === 'maj') {
-        suffix = 'Maior';
-    } else if (cleanSuffix === 'm') {
-        suffix = 'm';
-    } else if (cleanSuffix === '7M' || cleanSuffix === 'maj7') {
-        suffix = 'maj7';
-    } else if (cleanSuffix === 'm7') {
-        suffix = 'm7';
-    } else if (cleanSuffix === 'm6') {
-        suffix = 'm6';
-    } else if (cleanSuffix === 'm9') {
-        suffix = 'm9';
-    } else if (cleanSuffix === 'm11') {
-        suffix = 'm11';
-    } else if (cleanSuffix === 'm13') {
-        suffix = 'm13';
-    } else if (cleanSuffix === 'sus4') {
-        suffix = 'sus4';
-    } else if (cleanSuffix === 'sus2') {
-        suffix = 'sus2';
-    } else if (cleanSuffix === '4') {
-        suffix = 'sus4';
-    } else {
-        suffix = cleanSuffix;
-    }
-
-    let baseSuffix = suffix.split('/')[0];
-
-    let chordList = data.chords[jsonKey];
     if (!chordList) return '<div style="padding:8px;">Acorde não encontrado</div>';
-
-    // Debug
-    // console.log('jsonKey:', jsonKey, 'suffix:', suffix, 'disponíveis:', chordList.map(c => c.suffix));
-
-    let chord = chordList.find(c => c.suffix === suffix || c.suffix === baseSuffix);
-    if (!chord || !chord.positions || !chord.positions.length)
-        return '<div style="padding:8px;">Diagrama não disponível</div>';
-
-    return gerarSVG(chord.positions[0]).outerHTML;
+    const chord = chordList.find(c => c.suffix === suffix || c.suffix === base);
+    return chord && chord.positions?.length ? gerarSVG(chord.positions[0]).outerHTML : '<div style="padding:8px;">Diagrama não disponível</div>';
 }
 
-
-function gerarSVG(posicao) {
-    const { frets, barres = [], baseFret = 1 } = posicao;
+function gerarSVG(pos) {
+    const { frets, barres = [], baseFret = 1 } = pos;
     const casaInicial = Math.min(...frets.filter(f => f > 0)) || 1;
-    // diminua o padding
-    const paddingLeft = 10;
-    const largura = 100 + paddingLeft, altura = 140;
-    const espacamento = 20;
-    const raio = 5;
-
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", largura);
-    svg.setAttribute("height", altura);
+    svg.setAttribute("width", 110);
+    svg.setAttribute("height", 140);
 
-    for (let i = 0; i < 5; i++) {
-        svg.appendChild(criarLinha(10 + paddingLeft, 30 + i * espacamento, 90 + paddingLeft, 30 + i * espacamento));
-    }
-
+    for (let i = 0; i < 5; i++) svg.appendChild(criarLinha(20, 30 + i * 20, 100, 30 + i * 20));
     for (let i = 0; i < 6; i++) {
-        const x = 10 + paddingLeft + i * (100 - 20) / 5;
-        svg.appendChild(criarLinha(x, 30, x, 30 + 4 * espacamento));
+        const x = 20 + i * 16;
+        svg.appendChild(criarLinha(x, 30, x, 110));
     }
-
-    // Exibir número da casa inicial se for maior que 1
-    if (baseFret > 1) {
-        svg.appendChild(criarTexto(baseFret, paddingLeft - 2, 45)); // ajuste fino para o novo padding
-    }
-
-    // Pestanas
-    barres.forEach(barreCasa => {
-        const y = 30 + (barreCasa - casaInicial + 0.5) * espacamento;
-        svg.appendChild(criarLinha(10 + paddingLeft, y, 90 + paddingLeft, y, 6));
+    if (baseFret > 1) svg.appendChild(criarTexto(baseFret, 10, 45));
+    barres.forEach(f => svg.appendChild(criarLinha(20, 30 + (f - casaInicial + 0.5) * 20, 100, 30 + (f - casaInicial + 0.5) * 20, 6)));
+    frets.forEach((f, i) => {
+        const x = 20 + i * 16;
+        if (f > 0 && !barres.includes(f)) svg.appendChild(criarCirculo(x, 30 + (f - casaInicial + 0.5) * 20, 5));
+        else if (f === 0) svg.appendChild(criarTexto("O", x, 20));
+        else if (f === -1) svg.appendChild(criarTexto("X", x, 20));
     });
-
-    // Posições normais (círculos, X e O)
-    frets.forEach((fret, i) => {
-        const x = 10 + paddingLeft + i * (100 - 20) / 5;
-        if (fret > 0 && !barres.includes(fret)) {
-            const y = 30 + (fret - casaInicial + 0.5) * espacamento;
-            svg.appendChild(criarCirculo(x, y, raio));
-        } else if (fret === 0) {
-            svg.appendChild(criarTexto("O", x, 20));
-        } else if (fret === -1) {
-            svg.appendChild(criarTexto("X", x, 20));
-        }
-    });
-
     return svg;
 }
 
