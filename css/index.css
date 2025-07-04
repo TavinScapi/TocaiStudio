@@ -757,20 +757,6 @@ body {
     }
 }
 
-/* Estúdio - Título estilizado */
-.estudio-section h2 {
-    font-family: 'Rubik', 'Pirata One', 'Luckiest Guy', cursive, sans-serif;
-    font-size: 2.3rem;
-    color: #fff;
-    letter-spacing: 2px;
-    margin-bottom: 38px;
-    text-shadow: 0 2px 12px #0006;
-    background: linear-gradient(90deg, #fff 60%, #bbb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
 /* Cards do Estúdio - preto, branco e cinza */
 .estudio-section {
     background: #2d2d2d;
