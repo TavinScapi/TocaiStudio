@@ -1,16 +1,44 @@
-/*home section*/
+:root {
+    /* Cores principais */
+    --fundo-principal: #0D0D0D;
+    --fundo-secundario: #1e1e27;
+    --cinza-escuro: #2d2d2d;
 
-.home-section {
-    z-index: 100;
-    position: relative;
-    min-height: 100vh;
-    top: 0;
-    left: 78px;
-    width: calc(100% - 78px);
-    transition: all 0.5s ease;
+    /* Texto e destaques */
+    --texto-principal: #FFFFFF;
+    --texto-secundario: #D0D2D9;
+    --texto-terciario: #989CA6;
+    --destaque-vermelho: #ffffff;
+
+    /* Interação */
+    --hover-botao: #666666;
+    --card-escuro: #232323;
+
+    /* Gradientes */
+    --gradiente-fundo: linear-gradient(to bottom, #2d2d2d, #0D0D0D);
+    --gradiente-card: linear-gradient(135deg, #fff 70%, #e0e0e0 100%);
+    --gradiente-botao: linear-gradient(90deg, #232323 60%, #444 100%);
+
+    /* Efeitos visuais */
+    --sombra-texto: rgba(0, 0, 0, 0.5);
+    --overlay-imagem: rgba(0, 0, 0, 0.505);
 }
 
-.home-section h1 h2 button {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--fundo-principal);
+    color: var(--texto-principal);
+}
+
+/* home section */
+
+.home-section {
     z-index: 100;
     position: relative;
     min-height: 100vh;
@@ -27,90 +55,136 @@
 
 .home-section .text {
     display: inline-block;
-    color: #11101D;
+    color: var(--texto-principal);
     font-size: 25px;
     font-weight: 500;
     margin: 18px;
 }
 
-:root {
-    --primary: #1db954;
-    --dark: #191414;
-    --light: #ffffff;
-    --gray: #535353;
-    --light-gray: #b3b3b3;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: var(--dark);
-    color: var(--light);
-}
+/* Botão voltar */
 
 .back-btn {
     position: absolute;
     top: 1rem;
     left: 1rem;
-    background: none;
+    background-color: var(--card-escuro);
+    color: var(--texto-principal);
     border: none;
-    color: var(--light);
-    font-size: 1rem;
+    border-radius: 500px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+    margin-left: 15px;
 }
+
+.back-btn:hover {
+    background-color: var(--hover-botao);
+    transform: scale(1.03);
+}
+
+.back-btn:active {
+    transform: scale(0.98);
+}
+
+.back-btn .fa-arrow-left {
+    font-size: 16px;
+}
+
+/* Header do artista */
 
 .artist-header {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
-    padding: 2rem;
-    background: linear-gradient(transparent, rgba(0, 0, 0, .5));
-    background-color: var(--gray);
-    margin-bottom: 2rem;
+    padding: 2.5rem;
+    border-radius: 16px;
+    background: linear-gradient(to right, rgba(13, 13, 13, 0.95), rgba(35, 35, 35, 0.85)), url('../images/bg-artist-pattern.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    margin: 2rem 1rem;
+    gap: 2rem;
+    animation: fade-in 0.6s ease-out;
 }
 
 .artist-avatar {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    margin-right: 2rem;
+    border: 4px solid var(--destaque-vermelho);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.artist-avatar:hover {
+    transform: scale(1.03);
 }
 
 .artist-info {
     flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.8rem;
+    position: relative;
 }
 
+#follow-btn {
+    align-self: flex-start;
+    max-width: max-content;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+
 .artist-name {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--destaque-vermelho);
+    text-shadow: 1px 1px var(--sombra-texto);
+    margin: 0;
 }
 
 .artist-genre {
-    color: var(--light-gray);
-    margin-bottom: 1rem;
+    color: var(--texto-secundario);
     font-size: 1.2rem;
+    font-weight: 500;
 }
 
 .artist-stats {
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-size: 0.95rem;
 }
 
 .stat-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: var(--texto-secundario);
+    background-color: rgba(255, 255, 255, 0.04);
+    padding: 6px 12px;
+    border-radius: 8px;
 }
+
+.stat-item i {
+    color: var(--destaque-vermelho);
+    font-size: 1.1rem;
+}
+
+/* Container e seções */
 
 .container {
     max-width: 1200px;
@@ -121,14 +195,70 @@ body {
 .section-title {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--primary);
+    border-bottom: 2px solid var(--destaque-vermelho);
     padding-bottom: 0.5rem;
     display: inline-block;
+    color: var(--texto-principal);
 }
 
-.discography {
+.popular-tracks,
+.discography,
+.biography {
     margin-bottom: 3rem;
 }
+
+/* Lista de faixas */
+
+.track-list {
+    background: var(--fundo-secundario);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--cinza-escuro);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.track-item:last-child {
+    border-bottom: none;
+}
+
+.track-item:hover {
+    background: var(--cinza-escuro);
+}
+
+.track-number {
+    color: var(--texto-terciario);
+    width: 30px;
+    font-size: 0.9rem;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-name {
+    font-weight: 500;
+    color: var(--texto-principal);
+}
+
+.track-album {
+    color: var(--texto-terciario);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+.track-duration {
+    color: var(--texto-terciario);
+    font-size: 0.9rem;
+}
+
+/* Discografia */
 
 .album-grid {
     display: grid;
@@ -137,7 +267,7 @@ body {
 }
 
 .album-card {
-    background: #282828;
+    background: var(--card-escuro);
     border-radius: 8px;
     padding: 1rem;
     transition: transform 0.3s, background 0.3s;
@@ -145,7 +275,7 @@ body {
 }
 
 .album-card:hover {
-    background: #383838;
+    background: var(--cinza-escuro);
     transform: translateY(-5px);
 }
 
@@ -163,73 +293,28 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--texto-principal);
 }
 
 .album-year {
-    color: var(--light-gray);
+    color: var(--texto-terciario);
     font-size: 0.9rem;
 }
 
-.popular-tracks {
-    margin-bottom: 3rem;
-}
-
-.track-list {
-    background: #181818;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.track-item {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #282828;
-    cursor: pointer;
-}
-
-.track-item:last-child {
-    border-bottom: none;
-}
-
-.track-item:hover {
-    background: #282828;
-}
-
-.track-number {
-    color: var(--light-gray);
-    width: 30px;
-    font-size: 0.9rem;
-}
-
-.track-info {
-    flex: 1;
-}
-
-.track-name {
-    font-weight: 500;
-}
-
-.track-album {
-    color: var(--light-gray);
-    font-size: 0.8rem;
-    margin-top: 0.25rem;
-}
-
-.track-duration {
-    color: var(--light-gray);
-    font-size: 0.9rem;
-}
+/* Biografia */
 
 .biography {
-    margin-bottom: 3rem;
     line-height: 1.6;
+    color: var(--texto-secundario);
 }
 
-.btn {
+/* Botões */
+
+.btn,
+#follow-btn {
     display: inline-block;
-    background-color: var(--primary);
-    color: var(--light);
+    background: var(--gradiente-botao);
+    color: var(--texto-principal);
     padding: 0.5rem 1.5rem;
     border-radius: 20px;
     text-decoration: none;
@@ -237,7 +322,42 @@ body {
     margin-top: 1rem;
     border: none;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+#follow-btn.following {
+    background-color: var(--fundo-principal);
+    color: var(--destaque-vermelho);
+    border: 1px solid var(--destaque-vermelho);
+}
+
+#follow-btn:active {
+    transform: scale(0.95);
+}
+
+#follow-btn .fas {
+    animation: pop 0.3s ease;
+}
+
+/* Animação */
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsivo */
 
 @media (max-width: 768px) {
     .artist-header {
@@ -267,84 +387,73 @@ body {
     }
 }
 
-/* Estilo do botão Voltar no estilo Spotify */
-.back-btn {
-    background-color: #000000;
-    color: white;
-    border: none;
-    border-radius: 500px;
-    /* Valor alto para criar o efeito "pill" */
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    transition: all 0.2s ease;
-}
-
-.back-btn:hover {
-    background-color: #282828;
-    transform: scale(1.03);
-}
-
-.back-btn:active {
-    transform: scale(0.98);
-}
-
-/* Ou usando um ícone do Font Awesome (se estiver disponível) */
-.back-btn .fa-arrow-left {
-    font-size: 16px;
-}
-
-/* Animação para clique suave */
-#follow-btn {
-    transition: all 0.3s ease;
-    padding: 8px 16px;
-    border-radius: 8px;
-    background-color: #1db954;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Estilo quando está seguindo */
-#follow-btn.following {
-    background-color: #2c2c2c;
-    color: #1db954;
-    border: 1px solid #1db954;
-}
-
-/* Animação de clique */
-#follow-btn:active {
-    transform: scale(0.95);
-}
-
-/* Ícone com animação de entrada */
-@keyframes pop {
-    0% {
-        transform: scale(0);
+@keyframes fade-in {
+    from {
         opacity: 0;
+        transform: translateY(10px);
     }
 
-    80% {
-        transform: scale(1.2);
+    to {
         opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
+        transform: translateY(0);
     }
 }
 
-#follow-btn .fas {
-    animation: pop 0.3s ease;
+/* Responsividade */
+@media (max-width: 768px) {
+    .artist-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .artist-avatar {
+        margin-bottom: 1rem;
+        width: 140px;
+        height: 140px;
+    }
+
+    .artist-name {
+        font-size: 2rem;
+    }
+
+    .artist-stats {
+        justify-content: center;
+    }
+}
+
+.biography {
+    background: var(--fundo-secundario);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    color: var(--texto-secundario);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-top: 2rem;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+.biography p {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+    text-indent: 2em;
+}
+
+.biography h2.section-title {
+    font-size: 1.6rem;
+    color: var(--texto-principal);
+    border-bottom: 2px solid var(--destaque-vermelho);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.biography blockquote {
+    border-left: 4px solid var(--destaque-vermelho);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--texto-terciario);
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
 }

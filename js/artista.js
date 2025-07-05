@@ -16,28 +16,27 @@ async function loadArtistData() {
         return;
     }
 
-    // Preenche cabeçalho do artista
     document.getElementById('artist-header').innerHTML = `
-        <img src="${artist.avatar}" alt="${artist.name}" class="artist-avatar">
-        <div class="artist-info">
-            <h1 class="artist-name">${artist.name}</h1>
-            <p class="artist-genre">${artist.genres}</p>
-            <div class="artist-stats">
-                <div class="stat-item">
-                    <span>🎵</span>
-                    <span>${artist.stats.songs} músicas</span>
-                </div>
-                <div class="stat-item">
-                    <span>📀</span>
-                    <span>${artist.stats.albums} álbuns</span>
-                </div>
-                <div class="stat-item">
-                    <span>👥</span>
-                    <span>${artist.stats.listeners} ouvintes</span>
-                </div>
+    <img src="${artist.avatar}" alt="${artist.name}" class="artist-avatar">
+    <div class="artist-info">
+        <h1 class="artist-name">${artist.name}</h1>
+        <p class="artist-genre">${artist.genres}</p>
+        <div class="artist-stats">
+            <div class="stat-item">
+                <i class="fa-solid fa-music"></i>
+                <span>${artist.stats.songs} músicas</span>
             </div>
-            <button class="btn" id="follow-btn"></button>
+            <div class="stat-item">
+                <i class="fa-solid fa-compact-disc"></i>
+                <span>${artist.stats.albums} álbuns</span>
+            </div>
+            <div class="stat-item">
+                <i class="fa-solid fa-users"></i>
+                <span>${artist.stats.listeners} ouvintes</span>
+            </div>
         </div>
+        <button class="btn" id="follow-btn"></button>
+    </div>
     `;
 
     // Gerenciar botão de seguir
@@ -94,22 +93,31 @@ async function loadArtistData() {
         });
     });
 
-    // Preencher discografia
-    const discographyHTML = artist.discography.map(album => `
+    // URL da imagem padrão para álbum sem capa
+    const defaultAlbumCover = '/images/CapaPadrão.webp'; // ajuste o caminho conforme o seu projeto
+
+    const discographyHTML = artist.discography.map(album => {
+        const coverSrc = album.cover && album.cover.trim() !== '' ? album.cover : defaultAlbumCover;
+        return `
         <div class="album-card">
-            <img src="${album.cover}" alt="${album.title}" class="album-cover">
+            <img src="${coverSrc}" alt="${album.title}" class="album-cover">
             <h3 class="album-title">${album.title}</h3>
             <p class="album-year">${album.year} • ${album.type}</p>
         </div>
-    `).join('');
+    `;
+    }).join('');
+
 
     document.getElementById('discography').innerHTML = discographyHTML;
 
-    // Preencher biografia
     document.getElementById('biography').innerHTML = `
-        <h2 class="section-title">Biografia</h2>
-        <p>${artist.biography}</p>
+    <h2 class="section-title">Biografia</h2>
+    ${artist.biography
+            .split(/\n{2,}/) // quebra a biografia por blocos de parágrafos
+            .map(paragraph => `<p>${paragraph.trim()}</p>`)
+            .join('')}
     `;
+
 
     document.title = `${artist.name} | TocaíStudio`;
 }
