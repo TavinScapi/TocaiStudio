@@ -297,12 +297,6 @@ footer {
     border-radius: 10px;
 }
 
-
-
-
-
-
-
 /* LAYOUT */
 .song-content {
     display: grid;
@@ -516,15 +510,6 @@ footer {
     }
 }
 
-
-
-
-
-
-
-
-
-
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
     .home-section {
@@ -697,3 +682,71 @@ footer {
         padding: 5px 10px;
     }
 }
+
+/* Letras e relacionados */
+.lyrics-section h3,
+.related-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--destaque-vermelho);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.lyrics-container {
+    background: var(--card-escuro);
+    padding: 2rem;
+    border-radius: 8px;
+    line-height: 2;
+    white-space: pre-line;
+}
+
+.related-tracks {
+    background: var(--fundo-secundario);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.related-track {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--cinza-escuro);
+    cursor: pointer;
+    transition: var(--transicao-padrao);
+}
+
+.related-track-info {
+    flex: 1;
+}
+
+.related-track:hover {
+    background: var(--cinza-escuro);
+}
+
+.related-track-cover {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.related-track-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.related-track-name {
+    font-weight: 500;
+}
+
+.related-track-artist,
+.related-track-duration {
+    color: var(--texto-terciario);
+    font-size: 0.9rem;
+}
+
+
+

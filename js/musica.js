@@ -136,7 +136,7 @@ function displaySongDetails(songName, artistData, songDetails) {
     const videoId = extractYouTubeId(songDetails.videoUrl || '');
     if (videoId) {
         videoIframe.src = `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&enablejsapi=1`;
-        document.querySelector('.video-section').style.display = 'block';
+        document.querySelector('.video-preview')?.style.setProperty('display', 'block');
         if (player) player.destroy();
 
         player = new YT.Player('song-video', {
@@ -157,7 +157,7 @@ function displaySongDetails(songName, artistData, songDetails) {
         });
 
     } else {
-        document.querySelector('.video-section').style.display = 'none';
+        document.querySelector('.video-preview')?.style.setProperty('display', 'none');
     }
 
     const lyricsContainer = document.getElementById("song-lyrics");
@@ -312,13 +312,16 @@ function extractYouTubeId(url) {
 }
 
 function formatChords(text) {
-    const chordRegex = /(?<=^|[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-])([A-G](#|b)?m?(maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(\([^\)]*\))?(\/[A-G](#|b)?)?)(?=[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-]|$)/g;
-    return text.split('\n').map(line => {
+    const rawFormatted = text.split('\n').map(line => {
         let formatted = line.replace(/\[([^\]]+)\]/g, '<span class="chord">$1</span>');
         formatted = formatted.replace(/(<span class="chord">.*?<\/span>)|([A-G][#b]?m?(?:maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^)]*\))?(?:\/[A-G][#b]?)?)/g,
             (match, chordTag, chord) => chordTag || `<span class="chord">${chord}</span>`);
         return formatted.replace(/(\s{2,})/g, '<span class="space">$1</span>');
-    }).join('<br>');
+    }).join('\n');
+
+    const quebrado = quebrarTablatura(rawFormatted, 40); // Limite por linha
+
+    return `<pre>${quebrado}</pre>`;
 }
 
 function setupTabs() {
@@ -443,4 +446,31 @@ function criarTexto(txt, x, y) {
     t.setAttribute("font-size", "12");
     t.textContent = txt;
     return t;
+}
+
+function quebrarTablatura(tabText, colunasPorBloco = 40) {
+    const linhas = tabText.split('\n');
+    const blocos = [];
+    let blocoAtual = [];
+
+    linhas.forEach(linha => {
+        if (/^[EBGDAe]\|/.test(linha)) {
+            // quebra essa linha em partes
+            const partes = [];
+            for (let i = 0; i < linha.length; i += colunasPorBloco) {
+                partes.push(linha.slice(i, i + colunasPorBloco));
+            }
+
+            partes.forEach((parte, index) => {
+                if (!blocos[index]) blocos[index] = [];
+                blocos[index].push(parte);
+            });
+        } else {
+            // linha não é de corda: coloca como está no bloco
+            if (!blocos[0]) blocos[0] = [];
+            blocos[0].push(linha);
+        }
+    });
+
+    return blocos.map(bloco => bloco.join('\n')).join('\n\n');
 }
