@@ -19,10 +19,6 @@ body {
     color: var(--light);
 }
 
-footer {
-    display: none;
-}
-
 /* Home Section */
 .home-section {
     z-index: 100;
