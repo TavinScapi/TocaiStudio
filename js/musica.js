@@ -120,7 +120,10 @@ function displaySongDetails(songName, artistData, songDetails) {
 
     const chordsContainer = document.getElementById("song-chords");
     if (songDetails.cifra || songDetails.tabs) {
-        chordsContainer.innerHTML = formatChords(songDetails.cifra || songDetails.tabs);
+        const rawTabs = songDetails.cifra || songDetails.tabs;
+        const maxLineLength = getMaxLineLengthByScreenWidth();
+        const formattedTabs = formatTabsWithBreaks(rawTabs, maxLineLength);
+        chordsContainer.innerHTML = formatChords(formattedTabs);
         addChordHoverPopups();
     } else {
         chordsContainer.innerHTML = `
@@ -312,16 +315,13 @@ function extractYouTubeId(url) {
 }
 
 function formatChords(text) {
-    const rawFormatted = text.split('\n').map(line => {
+    const chordRegex = /(?<=^|[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-])([A-G](#|b)?m?(maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(\([^\)]*\))?(\/[A-G](#|b)?)?)(?=[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-]|$)/g;
+    return text.split('\n').map(line => {
         let formatted = line.replace(/\[([^\]]+)\]/g, '<span class="chord">$1</span>');
         formatted = formatted.replace(/(<span class="chord">.*?<\/span>)|([A-G][#b]?m?(?:maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^)]*\))?(?:\/[A-G][#b]?)?)/g,
             (match, chordTag, chord) => chordTag || `<span class="chord">${chord}</span>`);
         return formatted.replace(/(\s{2,})/g, '<span class="space">$1</span>');
-    }).join('\n');
-
-    const quebrado = quebrarTablatura(rawFormatted, 40); // Limite por linha
-
-    return `<pre>${quebrado}</pre>`;
+    }).join('<br>');
 }
 
 function setupTabs() {
@@ -448,29 +448,87 @@ function criarTexto(txt, x, y) {
     return t;
 }
 
-function quebrarTablatura(tabText, colunasPorBloco = 40) {
-    const linhas = tabText.split('\n');
-    const blocos = [];
-    let blocoAtual = [];
+function formatTabsWithBreaks(tabText, maxLineLength = 50) {
+    const lines = tabText.split('\n');
+    const formattedLines = [];
+    let buffer = [];
 
-    linhas.forEach(linha => {
-        if (/^[EBGDAe]\|/.test(linha)) {
-            // quebra essa linha em partes
-            const partes = [];
-            for (let i = 0; i < linha.length; i += colunasPorBloco) {
-                partes.push(linha.slice(i, i + colunasPorBloco));
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        // Detecta início de uma nova parte (ex: "Parte 1 de 4")
+        const isNewSection = /^Parte\s+\d+\s+de\s+\d+/i.test(line);
+        if (isNewSection) {
+            if (buffer.length > 0) {
+                formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
+                buffer = [];
             }
-
-            partes.forEach((parte, index) => {
-                if (!blocos[index]) blocos[index] = [];
-                blocos[index].push(parte);
-            });
+            formattedLines.push(line); // Adiciona título da parte
+        } else if (/^[EADGBe]\|/.test(line)) {
+            buffer.push(line); // Adiciona linha da tablatura (começa com E|, A|, etc.)
+            if (buffer.length === 6) {
+                formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
+                buffer = [];
+            }
         } else {
-            // linha não é de corda: coloca como está no bloco
-            if (!blocos[0]) blocos[0] = [];
-            blocos[0].push(linha);
+            if (buffer.length > 0) {
+                formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
+                buffer = [];
+            }
+            formattedLines.push(line); // Linha comum (ex: direcional ↓↑ ou texto)
         }
-    });
+    }
 
-    return blocos.map(bloco => bloco.join('\n')).join('\n\n');
+    // Adiciona qualquer sobra
+    if (buffer.length > 0) {
+        formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
+    }
+
+    return formattedLines.join('\n');
 }
+
+function splitAndFormatTabBlock(lines, maxLength) {
+    const result = [];
+    const labelLength = lines[0].indexOf('|') + 1;
+
+    // Remove os labels antes de cortar (ex: "E|")
+    const strippedLines = lines.map(line => line.slice(labelLength));
+    const totalLength = strippedLines[0].length;
+
+    for (let i = 0; i < totalLength; i += maxLength) {
+        for (let j = 0; j < lines.length; j++) {
+            const label = lines[j].slice(0, labelLength); // "E|"
+            const segment = strippedLines[j].slice(i, i + maxLength);
+            result.push(label + segment);
+        }
+        result.push(''); // Espaço entre blocos
+    }
+
+    return result;
+}
+
+function getMaxLineLengthByScreenWidth() {
+    const width = window.innerWidth;
+
+    if (width >= 1200) return 80;   // telas largas
+    if (width >= 992) return 70;    // telas desktop menores
+    if (width >= 768) return 60;    // tablets
+    if (width >= 576) return 40;    // celulares maiores
+    return 25;                      // celulares pequenos
+}
+
+function updateTabs() {
+    if (!songData.músicas) return;
+
+    const rawTabs = songData.músicas[0]?.cifra || songData.músicas[0]?.tabs;
+    if (!rawTabs) return;
+
+    const maxLineLength = getMaxLineLengthByScreenWidth();
+    const formattedTabs = formatTabsWithBreaks(rawTabs, maxLineLength);
+
+    const chordsContainer = document.getElementById("song-chords");
+    chordsContainer.innerHTML = formatChords(formattedTabs);
+    addChordHoverPopups();
+}
+
+updateTabs();
