@@ -750,3 +750,24 @@ footer {
 
 
 
+/* acordes da cifra */
+.chords-container {
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    padding-right: 0.8rem;
+}
+
+.chord {
+    color: #00ff00;
+    font-weight: bold;
+    position: relative;
+}
+
+.chord-line {
+    min-height: 1.5em;
+}
