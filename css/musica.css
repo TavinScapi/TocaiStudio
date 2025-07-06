@@ -81,7 +81,6 @@ footer {
     background: linear-gradient(to right, rgba(13, 13, 13, 0.95), rgba(35, 35, 35, 0.85)), url('../images/bg-artist-pattern.png');
     background-size: cover;
     background-position: center;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
     margin: 2rem 1rem;
     gap: 2rem;
     animation: fade-in 0.6s ease-out;
@@ -297,6 +296,234 @@ footer {
     border: none;
     border-radius: 10px;
 }
+
+
+
+
+
+
+
+/* LAYOUT */
+.song-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* TOPO COM ABAS + AUTOSCROLL */
+.tabs-top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tabs-header {
+    display: flex;
+    gap: 1rem;
+}
+
+.tab-button {
+    background: none;
+    border: 1px solid var(--texto-terciario);
+    color: var(--texto-principal);
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-button.active {
+    background-color: var(--destaque-vermelho);
+    color: #000;
+    border-color: var(--destaque-vermelho);
+}
+
+.tab-button:hover {
+    transform: scale(1.05);
+}
+
+.autoscroll-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.autoscroll-btn {
+    background-color: var(--card-escuro);
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-principal);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.autoscroll-btn:hover {
+    background-color: var(--hover-botao);
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--texto-terciario);
+}
+
+.speed-btn {
+    background: none;
+    border: 1px solid var(--texto-terciario);
+    color: var(--texto-principal);
+    border-radius: 50px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.speed-btn.active,
+.speed-btn:hover {
+    background-color: var(--destaque-vermelho);
+    color: #000;
+    border-color: var(--destaque-vermelho);
+}
+
+.tab-content {
+    display: none;
+    padding-top: 1rem;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.chords-container,
+.lyrics-container {
+    background-color: var(--card-escuro);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-size: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    color: var(--texto-principal);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* FERRAMENTAS */
+.tools-and-related {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.tools-section {
+    background-color: var(--fundo-secundario);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.tools-section h3 {
+    font-size: 1.2rem;
+    color: var(--texto-principal);
+    margin-bottom: 1rem;
+}
+
+.tools-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: var(--card-escuro);
+    color: var(--texto-principal);
+    border: 1px solid var(--texto-terciario);
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+    border-color: var(--texto-principal);
+    transform: scale(1.03);
+}
+
+/* MÚSICAS RELACIONADAS */
+.related-section {
+    background-color: var(--fundo-secundario);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.related-section h3 {
+    font-size: 1.2rem;
+    color: var(--texto-principal);
+    margin-bottom: 1rem;
+}
+
+.related-tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    .song-content {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .tabs-top-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tools-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tool-btn {
+        flex: 1 1 calc(50% - 0.5rem);
+        justify-content: center;
+    }
+
+    .related-section {
+        margin-top: 1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {

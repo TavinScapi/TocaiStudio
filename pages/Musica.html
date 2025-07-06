@@ -84,6 +84,65 @@
                 </div>
             </div>
         </header>
+
+        <div class="song-content">
+            <!-- Seção de abas + autoscroll -->
+            <section class="tabs-section">
+                <div class="tabs-top-controls">
+                    <div class="tabs-header">
+                        <button class="tab-button active" data-tab="chords">Cifra</button>
+                        <button class="tab-button" data-tab="lyrics">Letra</button>
+                    </div>
+
+                    <div class="autoscroll-controls">
+                        <button class="autoscroll-btn play" title="Iniciar autoscroll">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="autoscroll-btn stop" title="Parar autoscroll">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                        <div class="speed-control">
+                            <span>Velocidade:</span>
+                            <button class="speed-btn active" data-speed="1">1x</button>
+                            <button class="speed-btn" data-speed="2">2x</button>
+                            <button class="speed-btn" data-speed="3">3x</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content active" id="chords-tab">
+                    <div class="chords-container" id="song-chords">
+                        <p>Carregando cifra...</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="lyrics-tab">
+                    <div class="lyrics-container" id="song-lyrics">
+                        <p>Carregando letra...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção lateral com ferramentas e relacionadas -->
+            <aside class="tools-and-related">
+                <div class="tools-section">
+                    <h3>Ferramentas</h3>
+                    <div class="tools-grid">
+                        <button class="tool-btn"><i class="ri-speed-line"></i> Metrônomo</button>
+                        <button class="tool-btn"><i class="ri-music-line"></i> Afinador</button>
+                        <button class="tool-btn"><i class="ri-pencil-ruler-line"></i> Editor de Cifras</button>
+                    </div>
+                </div>
+
+                <div class="related-section">
+                    <h3>Músicas relacionadas</h3>
+                    <div class="related-tracks" id="related-tracks">
+                        <!-- Inserido via JS -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+
     </div>
 </body>
 
