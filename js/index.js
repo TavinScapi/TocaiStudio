@@ -56,64 +56,7 @@ document.addEventListener("click", function (event) {
 
 function selectArtist(artistId) {
     // Mude para passar por URL em vez de localStorage
-    window.location.href = `../pages/Artista.html?artist=${artistId}`;
-}
-
-// Carrega os dados do artista na página "Artista.html"
-if (window.location.pathname.includes("Artista.html")) {
-    const artistKey = localStorage.getItem("selectedArtist");
-
-    if (artistKey && artistsData[artistKey]) {
-        const artist = artistsData[artistKey];
-
-        // Atualiza os elementos da página com os dados do artista
-        document.getElementById("artist-name").innerText = artist.name;
-        document.getElementById("artist-image").src = artist.image;
-        document.getElementById("artist-views").innerText = artist.views;
-        document.getElementById("artist-history").innerText = artist.history;
-
-        // Preenche a lista de músicas
-        const songsList = document.getElementById("artist-songs");
-        songsList.innerHTML = "";
-        artist.songs.forEach(song => {
-            const li = document.createElement("li");
-            li.innerHTML = `${song.name} <span class="music-icons">${song.icons}</span>`;
-            li.addEventListener("click", () => {
-                localStorage.setItem("selectedSong", song.name);
-                window.location.href = "../pages/Musica.html";
-            });
-            songsList.appendChild(li);
-        });
-
-        // Preenche a lista de membros
-        const membersList = document.getElementById("artist-members");
-        membersList.innerHTML = "";
-        artist.members.forEach(member => {
-            const li = document.createElement("li");
-            li.innerText = member;
-            membersList.appendChild(li);
-        });
-
-        // Preenche a galeria de imagens
-        const galleryContainer = document.getElementById("artist-gallery");
-        galleryContainer.innerHTML = "";
-        artist.gallery.forEach(image => {
-            const imgElement = document.createElement("img");
-            imgElement.src = image;
-            imgElement.alt = `${artist.name} Imagem`;
-            imgElement.classList.add("gallery-item");
-            galleryContainer.appendChild(imgElement);
-        });
-
-        // Preenche a lista de prêmios
-        const awardsList = document.getElementById("artist-awards");
-        awardsList.innerHTML = "";
-        artist.awards.forEach(award => {
-            const li = document.createElement("li");
-            li.innerText = award;
-            awardsList.appendChild(li);
-        });
-    }
+    window.location.href = `/artista/${artistId}`;
 }
 
 // ...existing code...
@@ -161,5 +104,3 @@ document.addEventListener('DOMContentLoaded', async function () {
         `;
     });
 });
-
-// ...existing code...

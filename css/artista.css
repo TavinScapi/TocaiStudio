@@ -457,3 +457,15 @@ body {
     background-color: rgba(255, 255, 255, 0.03);
     border-radius: 4px;
 }
+
+@media (max-width: 768px) {
+    .artist-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    #follow-btn {
+        align-self: center;
+        margin-top: 1rem;
+    }
+}
