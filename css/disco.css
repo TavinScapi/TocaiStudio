@@ -2,7 +2,6 @@
     font-family: "Poppins", sans-serif;
 }
 
-
 .vinyl-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -319,3 +318,10 @@
     .button:hover {
         background-color: #555;
     }
+
+
+    .music-count {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 6px;
+}

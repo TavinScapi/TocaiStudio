@@ -5,52 +5,58 @@ let allArtists = [];
 let filteredArtists = [];
 let currentPage = 1;
 const artistsPerPage = 12;
-let infoArtistas = {}; // Novo objeto para armazenar os detalhes
+let infoArtistas = {}; // Armazena os detalhes dos artistas
 
 // ===================
-// Carregar Dados JSON
+// Carregamento Inicial
 // ===================
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('../data/infoARTISTAS.json');
+        const data = await response.json();
 
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('../data/infoARTISTAS.json')
-        .then(response => response.json())
-        .then(data => {
-            infoArtistas = data;
-            allArtists = Object.keys(data).map(id => ({
-                id,
-                ...data[id]
-            }));
-            filteredArtists = [...allArtists];
-            displayArtists(filteredArtists, currentPage);
-            setupPagination(filteredArtists);
-            renderGenreDropdown(getAllGenres(allArtists)); // <-- Chama aqui!
-        })
-        .catch(error => console.error('Erro ao carregar artistas:', error));
+        infoArtistas = data;
+        allArtists = Object.entries(data).map(([id, details]) => ({ id, ...details }));
+        filteredArtists = [...allArtists];
+
+        displayArtists(filteredArtists, currentPage);
+        setupPagination(filteredArtists);
+        renderGenreDropdown(getAllGenres(allArtists));
+        enhancedSearch();
+    } catch (error) {
+        console.error('Erro ao carregar artistas:', error);
+    }
 });
 
-// Função para extrair todos os gêneros únicos dos artistas
+// ===================
+// Utilitários
+// ===================
+function normalizeString(str) {
+    return str ? str.normalize("NFD").replace(/\p{Diacritic}/gu, '').toLowerCase() : "";
+}
+
 function getAllGenres(artists) {
     const genresSet = new Set();
     artists.forEach(artist => {
-        if (artist.genres) {
-            artist.genres.split(/[•,]/).forEach(g => {
-                const genre = g.trim().toLowerCase();
-                if (genre) genresSet.add(genre);
-            });
-        }
+        artist.genres?.split(/[\u2022,]/).forEach(genre => {
+            genre = genre.trim().toLowerCase();
+            if (genre) genresSet.add(genre);
+        });
     });
     return Array.from(genresSet).sort();
 }
 
+// ===================
+// Dropdown de Gêneros
+// ===================
 function renderGenreDropdown(genres) {
     const dropdown = document.getElementById("dropdown");
     dropdown.innerHTML = `<input type="text" id="searchGenre" placeholder="Digite o gênero musical..." onkeyup="filterGenres()">`;
 
-    // Gêneros que já estão como botões fixos
     const fixedGenres = ['rock', 'pop', 'jazz', 'sertanejo', 'mpb'];
 
     genres
-        .filter(genre => !fixedGenres.includes(genre.toLowerCase()))
+        .filter(genre => !fixedGenres.includes(genre))
         .forEach(genre => {
             const item = document.createElement('div');
             item.className = 'dropdown-item';
@@ -60,188 +66,9 @@ function renderGenreDropdown(genres) {
         });
 }
 
-
-// ===================
-// Filtros
-// ===================
-function filterByGenre(selectedGenre) {
-    filteredArtists = (selectedGenre === 'todos')
-        ? [...allArtists]
-        : allArtists.filter(artist =>
-            artist.genres.toLowerCase().includes(selectedGenre.toLowerCase())
-        );
-
-    currentPage = 1;
-    displayArtists(filteredArtists, currentPage);
-    setupPagination(filteredArtists);
-
-    document.getElementById('searchInput').value = '';
-}
-
-function searchArtists() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-
-    if (searchTerm === '') {
-        displayArtists(filteredArtists, 1);
-        setupPagination(filteredArtists);
-        currentPage = 1;
-        return;
-    }
-
-    const searchedArtists = filteredArtists.filter(artist =>
-        artist.name.toLowerCase().includes(searchTerm) ||
-        (artist.biography && artist.biography.toLowerCase().includes(searchTerm)) ||
-        (artist.genres && artist.genres.toLowerCase().includes(searchTerm))
-    );
-
-    currentPage = 1;
-    displayArtists(searchedArtists, currentPage);
-    setupPagination(searchedArtists);
-}
-
-// ===================
-// Exibir Artistas
-// ===================
-function displayArtists(artists, page) {
-    const listaArtistas = document.querySelector('.lista-artistas');
-    listaArtistas.innerHTML = '';
-
-    const followed = JSON.parse(localStorage.getItem('followedArtists') || '[]');
-
-    // Ordenar: seguidos primeiro
-    const sortedArtists = [...artists].sort((a, b) => {
-        const aFollowed = followed.includes(a.id);
-        const bFollowed = followed.includes(b.id);
-        if (aFollowed && !bFollowed) return -1;
-        if (!aFollowed && bFollowed) return 1;
-        return 0;
-    });
-
-    const startIndex = (page - 1) * artistsPerPage;
-    const endIndex = startIndex + artistsPerPage;
-    const paginatedArtists = sortedArtists.slice(startIndex, endIndex);
-
-    if (paginatedArtists.length === 0) {
-        listaArtistas.innerHTML = '<p class="no-results">Nenhum artista encontrado.</p>';
-        return;
-    }
-
-    paginatedArtists.forEach(artista => {
-        const isFollowed = followed.includes(artista.id);
-
-        const card = document.createElement('div');
-        card.className = 'card-vinil';
-        card.setAttribute('data-genre', artista.genres);
-        card.onclick = () => selectArtist(artista.id);
-
-        card.innerHTML = `
-            <div class="record_case">
-                <div class="genre-label">${artista.genres}</div>
-                <div class="record recorddefault">
-                    <div class="front">
-                        <img src="${artista.capa}" alt="${artista.name}">
-                        <div class="cover"></div>
-                        <div class="cover-back"></div>
-                    </div>
-                    <div class="vinyl"></div>
-                    <div class="back">
-                        <img src="${artista.capa}" alt="${artista.name}">
-                    </div>
-                    <div class="right"></div>
-                    <div class="left"></div>
-                    <div class="top"></div>
-                    <div class="bottom"></div>
-                </div>
-            </div>
-            <h3>${artista.name} ${isFollowed ? '<span class="seguindo-icon" title="Seguindo"><i class="fas fa-check-circle" style="color: #2ecc71;"></i></span>' : ''}</h3>
-            <p>${artista.biography ? artista.biography.split('.')[0] + '.' : ''}</p>
-            <button class="button">Ver Mais</button>
-        `;
-
-        listaArtistas.appendChild(card);
-    });
-}
-
-// ===================
-// Paginação
-// ===================
-function setupPagination(artists) {
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = '';
-
-    const pageCount = Math.ceil(artists.length / artistsPerPage);
-    if (pageCount <= 1) return;
-
-    // Botão Anterior
-    const prevButton = document.createElement('button');
-    prevButton.innerHTML = '&laquo;';
-    prevButton.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            displayArtists(artists, currentPage);
-            updatePaginationButtons(artists);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    });
-    pagination.appendChild(prevButton);
-
-    // Botões de Página
-    for (let i = 1; i <= pageCount; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.textContent = i;
-        if (i === currentPage) pageButton.classList.add('active');
-
-        pageButton.addEventListener('click', () => {
-            currentPage = i;
-            displayArtists(artists, currentPage);
-            updatePaginationButtons(artists);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        pagination.appendChild(pageButton);
-    }
-
-    // Botão Próximo
-    const nextButton = document.createElement('button');
-    nextButton.innerHTML = '&raquo;';
-    nextButton.addEventListener('click', () => {
-        if (currentPage < pageCount) {
-            currentPage++;
-            displayArtists(artists, currentPage);
-            updatePaginationButtons(artists);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    });
-    pagination.appendChild(nextButton);
-
-    updatePaginationButtons(artists);
-}
-
-function updatePaginationButtons(artists) {
-    const pageCount = Math.ceil(artists.length / artistsPerPage);
-    const buttons = document.querySelectorAll('.pagination button');
-
-    buttons.forEach((button, index) => {
-        button.classList.remove('active');
-
-        if (index === 0) {
-            button.disabled = currentPage === 1;
-            button.classList.toggle('disabled', currentPage === 1);
-        } else if (index === buttons.length - 1) {
-            button.disabled = currentPage === pageCount;
-            button.classList.toggle('disabled', currentPage === pageCount);
-        } else if (index === currentPage) {
-            button.classList.add('active');
-        }
-    });
-}
-
-// ===================
-// Dropdown de Gêneros
-// ===================
 function toggleDropdown() {
     const dropdown = document.getElementById("dropdown");
-    dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 
 function filterGenres() {
@@ -249,8 +76,7 @@ function filterGenres() {
     const items = document.getElementsByClassName("dropdown-item");
 
     for (let item of items) {
-        const text = item.innerText.toLowerCase();
-        item.style.display = text.includes(input) ? "block" : "none";
+        item.style.display = item.innerText.toLowerCase().includes(input) ? "block" : "none";
     }
 }
 
@@ -261,11 +87,194 @@ function selectGenre(value) {
 }
 
 // ===================
-// Selecionar Artista
+// Filtros e Busca
+// ===================
+function filterByGenre(selectedGenre) {
+    const fixedGenres = ['todos', 'rock', 'pop', 'jazz', 'sertanejo', 'mpb'];
+    if (fixedGenres.includes(selectedGenre.toLowerCase())) {
+        document.querySelector(".dropdown-button").innerText = "Mais";
+    }
+
+    filteredArtists = selectedGenre === 'todos'
+        ? [...allArtists]
+        : allArtists.filter(artist => artist.genres.toLowerCase().includes(selectedGenre.toLowerCase()));
+
+    currentPage = 1;
+    displayArtists(filteredArtists, currentPage);
+    setupPagination(filteredArtists);
+    document.getElementById('searchInput').value = '';
+    document.getElementById('pagination').style.display = 'block';
+}
+
+function searchArtists() {
+    const searchTerm = normalizeString(document.getElementById('searchInput').value.trim());
+
+    if (searchTerm === '') {
+        displayArtists(filteredArtists, 1);
+        setupPagination(filteredArtists);
+        currentPage = 1;
+        document.getElementById('pagination').style.display = 'block';
+        return;
+    }
+
+    const matchedCards = [];
+    const followed = JSON.parse(localStorage.getItem('followedArtists') || '[]');
+
+    for (const [artistKey, artist] of Object.entries(infoArtistas)) {
+        const artistName = normalizeString(artist.name);
+        const genres = normalizeString(artist.genres || '');
+        const biography = normalizeString(artist.biography || '');
+        const isFollowed = followed.includes(artistKey);
+        const musicMatch = (artist.popularTracks || []).find(song => normalizeString(song.name).includes(searchTerm));
+
+        if (artistName.includes(searchTerm) || genres.includes(searchTerm) || biography.includes(searchTerm) || musicMatch) {
+            const card = document.createElement('div');
+            card.className = 'card-vinil';
+            card.setAttribute('data-genre', artist.genres);
+            card.onclick = () => { if (!musicMatch) selectArtist(artistKey); };
+
+            card.innerHTML = `
+    <div class="record_case">
+        <div class="genre-label">${artist.genres}</div>
+        <div class="record recorddefault">
+            <div class="front">
+                <img src="${artist.capa}" alt="${artist.name}">
+                <div class="cover"></div>
+                <div class="cover-back"></div>
+            </div>
+            <div class="vinyl"></div>
+            <div class="back">
+                <img src="${artist.capa}" alt="${artist.name}">
+            </div>
+            <div class="right"></div>
+            <div class="left"></div>
+            <div class="top"></div>
+            <div class="bottom"></div>
+        </div>
+    </div>
+    <h3>${artist.name} ${isFollowed ? '<span class="seguindo-icon" title="Seguindo"><i class="fas fa-check-circle" style="color: #2ecc71;"></i></span>' : ''}</h3>
+    ${musicMatch
+                    ? `<button class="button" onclick="event.stopPropagation(); window.location.href='/musica/${artistKey}/${encodeURIComponent(musicMatch.name)}'">🎵 ${musicMatch.name}</button>`
+                    : `<p class="music-count">Músicas disponíveis: ${artist.popularTracks ? artist.popularTracks.length : 0}</p>`
+                }
+`;
+
+            matchedCards.push(card);
+        }
+    }
+
+    const container = document.querySelector('.lista-artistas');
+    container.innerHTML = '';
+
+    if (matchedCards.length === 0) {
+        container.innerHTML = '<p class="no-results">Nenhum artista ou música encontrada.</p>';
+    } else {
+        matchedCards.forEach(card => container.appendChild(card));
+    }
+
+    document.getElementById('pagination').style.display = 'none';
+}
+
+// ===================
+// Exibir Artistas (sem biografia)
+// ===================
+function displayArtists(artists, page) {
+    const container = document.querySelector('.lista-artistas');
+    container.innerHTML = '';
+
+    const followed = JSON.parse(localStorage.getItem('followedArtists') || '[]');
+    const sorted = [...artists].sort((a, b) => followed.includes(b.id) - followed.includes(a.id));
+
+    const start = (page - 1) * artistsPerPage;
+    const end = start + artistsPerPage;
+    const paginated = sorted.slice(start, end);
+
+    if (paginated.length === 0) {
+        container.innerHTML = '<p class="no-results">Nenhum artista encontrado.</p>';
+        return;
+    }
+
+    paginated.forEach(artist => {
+        const isFollowed = followed.includes(artist.id);
+        const card = document.createElement('div');
+        card.className = 'card-vinil';
+        card.setAttribute('data-genre', artist.genres);
+        card.onclick = () => selectArtist(artist.id);
+
+        card.innerHTML = `
+    <div class="record_case">
+        <div class="genre-label">${artist.genres}</div>
+        <div class="record recorddefault">
+            <div class="front">
+                <img src="${artist.capa}" alt="${artist.name}">
+                <div class="cover"></div>
+                <div class="cover-back"></div>
+            </div>
+            <div class="vinyl"></div>
+            <div class="back">
+                <img src="${artist.capa}" alt="${artist.name}">
+            </div>
+            <div class="right"></div>
+            <div class="left"></div>
+            <div class="top"></div>
+            <div class="bottom"></div>
+        </div>
+    </div>
+    <h3>${artist.name} ${isFollowed ? '<span class="seguindo-icon" title="Seguindo"><i class="fas fa-check-circle" style="color: #2ecc71;"></i></span>' : ''}</h3>
+    <p class="music-count">Músicas disponíveis: ${artist.popularTracks ? artist.popularTracks.length : 0}</p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+// ===================
+// Paginação
+// ===================
+function setupPagination(artists) {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    const totalPages = Math.ceil(artists.length / artistsPerPage);
+    if (totalPages <= 1) return;
+
+    const createButton = (label, disabled, onClick) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = label;
+        btn.disabled = disabled;
+        btn.onclick = onClick;
+        return btn;
+    };
+
+    pagination.appendChild(createButton('&laquo;', currentPage === 1, () => changePage(currentPage - 1)));
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = createButton(i, false, () => changePage(i));
+        if (i === currentPage) btn.classList.add('active');
+        pagination.appendChild(btn);
+    }
+
+    pagination.appendChild(createButton('&raquo;', currentPage === totalPages, () => changePage(currentPage + 1)));
+}
+
+function changePage(page) {
+    currentPage = page;
+    displayArtists(filteredArtists, currentPage);
+    setupPagination(filteredArtists);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===================
+// Redirecionamento
 // ===================
 function selectArtist(artistId) {
     window.location.href = `/artista/${artistId}`;
 }
 
-
-
+document.addEventListener('click', (event) => {
+    const dropdown = document.getElementById("dropdown");
+    const button = document.querySelector(".dropdown-button");
+    if (!dropdown.contains(event.target) && event.target !== button) {
+        dropdown.style.display = 'none';
+    }
+});
