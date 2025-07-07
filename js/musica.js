@@ -514,7 +514,7 @@ function getMaxLineLengthByScreenWidth() {
     if (width >= 992) return 70;    // telas desktop menores
     if (width >= 768) return 60;    // tablets
     if (width >= 576) return 40;    // celulares maiores
-    return 25;                      // celulares pequenos
+    return 24;                      // celulares pequenos
 }
 
 function updateTabs() {
