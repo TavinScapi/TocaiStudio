@@ -754,7 +754,7 @@ footer {
 .chords-container {
     white-space: pre-wrap;
     font-family: monospace;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.8;
     flex: 1;
     overflow-y: auto;
@@ -764,7 +764,6 @@ footer {
 
 .chord {
     color: #00ff00;
-    font-weight: bold;
     position: relative;
 }
 
