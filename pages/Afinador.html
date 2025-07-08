@@ -67,21 +67,14 @@
     </label>
 
     <script>
-
-        let frequencyHistory = [];
-        const SMOOTHING_WINDOW = 5;
-
-        function smoothFrequency(freq) {
-            frequencyHistory.push(freq);
-            if (frequencyHistory.length > SMOOTHING_WINDOW) frequencyHistory.shift();
-            return frequencyHistory.reduce((a, b) => a + b, 0) / frequencyHistory.length;
-        }
-
+        // ================================
+        // Afinador | Scripts Combinados
+        // ================================
         const Tuner = function (a4) {
             this.middleA = a4 || 440;
             this.semitone = 69;
-            this.bufferSize = 8192;
-            ings = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
+            this.bufferSize = 4096;
+            this.noteStrings = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
             this.initGetUserMedia();
         };
 
@@ -108,19 +101,16 @@
                 self.analyser.connect(self.scriptProcessor);
                 self.scriptProcessor.connect(self.audioContext.destination);
                 self.scriptProcessor.addEventListener("audioprocess", function (event) {
-                    let rawFrequency = self.pitchDetector.do(event.inputBuffer.getChannelData(0));
-                    if (rawFrequency) {
-                        const frequency = smoothFrequency(rawFrequency);
-                        if (self.onNoteDetected) {
-                            const note = self.getNote(frequency);
-                            self.onNoteDetected({
-                                name: self.noteStrings[note % 12],
-                                value: note,
-                                cents: self.getCents(frequency, note),
-                                octave: parseInt(note / 12) - 1,
-                                frequency: frequency,
-                            });
-                        }
+                    const frequency = self.pitchDetector.do(event.inputBuffer.getChannelData(0));
+                    if (frequency && self.onNoteDetected) {
+                        const note = self.getNote(frequency);
+                        self.onNoteDetected({
+                            name: self.noteStrings[note % 12],
+                            value: note,
+                            cents: self.getCents(frequency, note),
+                            octave: parseInt(note / 12) - 1,
+                            frequency: frequency,
+                        });
                     }
                 });
             }).catch(function (error) {
@@ -299,14 +289,13 @@
             const self = this;
             this.tuner.onNoteDetected = function (note) {
                 if (self.notes.isAutoMode) {
-                    const now = Date.now();
-                    if (!self.lastUpdate || now - self.lastUpdate > 100) {
+                    if (self.lastNote === note.name) {
                         self.update(note);
-                        self.lastUpdate = now;
+                    } else {
+                        self.lastNote = note.name;
                     }
                 }
             };
-
             self.tuner.init();
             self.frequencyData = new Uint8Array(self.tuner.analyser.frequencyBinCount);
 
