@@ -98,8 +98,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                     </div>
                 </div>
                 <h3>${artist.name || ''}</h3>
-                <p>${artist.biography ? artist.biography.split('.')[0] + '.' : ''}</p>
-                <button class="button">Ver Mais</button>
+                    <p class="music-count">Músicas disponíveis: ${artist.popularTracks ? artist.popularTracks.length : 0}</p>
+
             </div>
         `;
     });

@@ -239,7 +239,7 @@ body {
 
 .estudio-icon {
     font-size: 1.8rem;
-    color: #ccc;
+    color: #00bcd4;
     margin-bottom: 1rem;
 }
 
@@ -485,7 +485,7 @@ body {
 }
 
 .nav1 .btn {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #00bbd4b4;
     color: rgba(0, 0, 0, 0.7);
     border: 2px solid rgba(0, 0, 0, 0.6);
     margin: 0 0.25rem;
@@ -495,7 +495,7 @@ body {
 }
 
 .nav1 .btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #0096a769;
 }
 
 @media (width > 650px) and (width < 900px) {
