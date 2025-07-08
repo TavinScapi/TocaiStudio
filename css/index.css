@@ -451,8 +451,8 @@ body {
 .content button {
     width: fit-content;
     background-color: rgba(0, 0, 0, 0.1);
-    color: white;
-    border: 2px solid white;
+    color: #00bcd4;
+    border: 2px solid #00bcd4;
     border-radius: 0.25rem;
     padding: 0.75rem;
     cursor: pointer;
