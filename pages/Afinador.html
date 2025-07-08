@@ -67,11 +67,21 @@
     </label>
 
     <script>
+
+        let frequencyHistory = [];
+        const SMOOTHING_WINDOW = 5;
+
+        function smoothFrequency(freq) {
+            frequencyHistory.push(freq);
+            if (frequencyHistory.length > SMOOTHING_WINDOW) frequencyHistory.shift();
+            return frequencyHistory.reduce((a, b) => a + b, 0) / frequencyHistory.length;
+        }
+
         const Tuner = function (a4) {
             this.middleA = a4 || 440;
             this.semitone = 69;
-            this.bufferSize = 4096;
-            this.noteStrings = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
+            this.bufferSize = 8192;
+            ings = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
             this.initGetUserMedia();
         };
 
@@ -93,35 +103,28 @@
 
         Tuner.prototype.startRecord = function () {
             const self = this;
-            navigator.mediaDevices.getUserMedia({
-                audio: {
-                    echoCancellation: true,
-                    noiseSuppression: true,
-                    sampleRate: 44100
-                }
-            }).then(function (stream) {
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
                 self.audioContext.createMediaStreamSource(stream).connect(self.analyser);
                 self.analyser.connect(self.scriptProcessor);
                 self.scriptProcessor.connect(self.audioContext.destination);
                 self.scriptProcessor.addEventListener("audioprocess", function (event) {
-                    const frequency = self.pitchDetector.do(event.inputBuffer.getChannelData(0));
-                    if (frequency && self.onNoteDetected) {
-                        const note = self.getNote(frequency);
-                        self.onNoteDetected({
-                            name: self.noteStrings[note % 12],
-                            value: note,
-                            cents: self.getCents(frequency, note),
-                            octave: parseInt(note / 12) - 1,
-                            frequency: frequency,
-                        });
+                    let rawFrequency = self.pitchDetector.do(event.inputBuffer.getChannelData(0));
+                    if (rawFrequency) {
+                        const frequency = smoothFrequency(rawFrequency);
+                        if (self.onNoteDetected) {
+                            const note = self.getNote(frequency);
+                            self.onNoteDetected({
+                                name: self.noteStrings[note % 12],
+                                value: note,
+                                cents: self.getCents(frequency, note),
+                                octave: parseInt(note / 12) - 1,
+                                frequency: frequency,
+                            });
+                        }
                     }
                 });
             }).catch(function (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Permissão negada',
-                    text: 'Por favor, permita o acesso ao microfone para usar o afinador.'
-                });
+                alert(error.name + ": " + error.message);
             });
         };
 
@@ -131,7 +134,7 @@
             this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1);
             const self = this;
             aubio().then(function (aubio) {
-                self.pitchDetector = new aubio.Pitch("yin", self.bufferSize, 1, self.audioContext.sampleRate);
+                self.pitchDetector = new aubio.Pitch("default", self.bufferSize, 1, self.audioContext.sampleRate);
                 self.startRecord();
             });
         };
@@ -165,16 +168,124 @@
             }
         };
 
+        const Meter = function (selector) {
+            this.$root = document.querySelector(selector);
+            this.$pointer = this.$root.querySelector(".meter-pointer");
+            this.init();
+        };
+
+        Meter.prototype.init = function () {
+            for (let i = 0; i <= 10; i++) {
+                const $scale = document.createElement("div");
+                $scale.className = "meter-scale";
+                $scale.style.transform = `rotate(${i * 9 - 45}deg)`;
+                if (i % 5 === 0) $scale.classList.add("meter-scale-strong");
+                this.$root.appendChild($scale);
+            }
+        };
+
+        Meter.prototype.update = function (deg) {
+            this.$pointer.style.transform = `rotate(${deg}deg)`;
+        };
+
+        const FrequencyBars = function (selector) {
+            this.$canvas = document.querySelector(selector);
+            this.$canvas.width = document.body.clientWidth;
+            this.$canvas.height = document.body.clientHeight / 2;
+            this.canvasContext = this.$canvas.getContext("2d");
+        };
+
+        FrequencyBars.prototype.update = function (data) {
+            const length = 64;
+            const width = this.$canvas.width / length - 0.5;
+            this.canvasContext.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
+            for (let i = 0; i < length; i++) {
+                this.canvasContext.fillStyle = "#ecf0f1";
+                this.canvasContext.fillRect(i * (width + 0.5), this.$canvas.height - data[i], width, data[i]);
+            }
+        };
+
+        const Notes = function (selector, tuner) {
+            this.tuner = tuner;
+            this.isAutoMode = true;
+            this.$root = document.querySelector(selector);
+            this.$notesList = this.$root.querySelector(".notes-list");
+            this.$frequency = this.$root.querySelector(".frequency");
+            this.$notes = [];
+            this.$notesMap = {};
+            this.createNotes();
+            this.$notesList.addEventListener("touchstart", (event) => event.stopPropagation());
+        };
+
+        Notes.prototype.createNotes = function () {
+            this.$notesList.innerHTML = "";
+            const minOctave = 1, maxOctave = 8;
+            for (let octave = minOctave; octave <= maxOctave; octave++) {
+                for (let n = 0; n < 12; n++) {
+                    const $note = document.createElement("div");
+                    $note.className = "note";
+                    $note.dataset.name = this.tuner.noteStrings[n];
+                    $note.dataset.value = 12 * (octave + 1) + n;
+                    $note.dataset.octave = octave;
+                    $note.dataset.frequency = this.tuner.getStandardFrequency($note.dataset.value);
+                    $note.innerHTML = $note.dataset.name[0] +
+                        '<span class="note-sharp">' + ($note.dataset.name[1] || "") + "</span>" +
+                        '<span class="note-octave">' + $note.dataset.octave + "</span>";
+                    this.$notesList.appendChild($note);
+                    this.$notes.push($note);
+                    this.$notesMap[$note.dataset.value] = $note;
+                }
+            }
+
+            this.$notes.forEach(($note) => {
+                $note.addEventListener("click", () => {
+                    if (this.isAutoMode) return;
+                    const $active = this.$notesList.querySelector(".active");
+                    if ($active === $note) {
+                        this.tuner.stopOscillator();
+                        $active.classList.remove("active");
+                    } else {
+                        this.tuner.play($note.dataset.frequency);
+                        this.update($note.dataset);
+                    }
+                });
+            });
+        };
+
+        Notes.prototype.active = function ($note) {
+            this.clearActive();
+            $note.classList.add("active");
+            this.$notesList.scrollLeft = $note.offsetLeft - (this.$notesList.clientWidth - $note.clientWidth) / 2;
+        };
+
+        Notes.prototype.clearActive = function () {
+            const $active = this.$notesList.querySelector(".active");
+            if ($active) $active.classList.remove("active");
+        };
+
+        Notes.prototype.update = function (note) {
+            this.$notes.forEach(($n) => $n.classList.remove("in-tune"));
+            if (note.value in this.$notesMap) {
+                this.active(this.$notesMap[note.value]);
+                this.$frequency.childNodes[0].textContent = parseFloat(note.frequency).toFixed(1);
+                if (Math.abs(note.cents) <= 5) {
+                    this.$notesMap[note.value].classList.add("in-tune");
+                }
+            }
+        };
+
+        Notes.prototype.toggleAutoMode = function () {
+            if (!this.isAutoMode) this.tuner.stopOscillator();
+            this.clearActive();
+            this.isAutoMode = !this.isAutoMode;
+        };
+
         const Application = function () {
             this.initA4();
             this.tuner = new Tuner(this.a4);
             this.notes = new Notes(".notes", this.tuner);
             this.meter = new Meter(".meter");
             this.frequencyBars = new FrequencyBars(".frequency-bars");
-            this.recentFrequencies = [];
-            this.maxHistory = 5;
-            this.lastNote = null;
-            this.lastUpdateTime = 0;
             this.update({ name: "A", frequency: this.a4, octave: 4, value: 69, cents: 0 });
         };
 
@@ -186,29 +297,13 @@
 
         Application.prototype.start = function () {
             const self = this;
-
             this.tuner.onNoteDetected = function (note) {
-                // Suavização por média móvel
-                self.recentFrequencies.push(note.frequency);
-                if (self.recentFrequencies.length > self.maxHistory) {
-                    self.recentFrequencies.shift();
-                }
-
-                const avgFreq = self.recentFrequencies.reduce((a, b) => a + b, 0) / self.recentFrequencies.length;
-                const value = self.tuner.getNote(avgFreq);
-
-                const stableNote = {
-                    name: self.tuner.noteStrings[value % 12],
-                    value: value,
-                    cents: self.tuner.getCents(avgFreq, value),
-                    octave: parseInt(value / 12) - 1,
-                    frequency: avgFreq
-                };
-
-                const now = performance.now();
-                if (now - self.lastUpdateTime > 100) {
-                    self.update(stableNote);
-                    self.lastUpdateTime = now;
+                if (self.notes.isAutoMode) {
+                    const now = Date.now();
+                    if (!self.lastUpdate || now - self.lastUpdate > 100) {
+                        self.update(note);
+                        self.lastUpdate = now;
+                    }
                 }
             };
 
@@ -216,7 +311,7 @@
             self.frequencyData = new Uint8Array(self.tuner.analyser.frequencyBinCount);
 
             this.$a4.addEventListener("click", function () {
-                Swal.fire({ input: "number", inputValue: self.a4 }).then(function ({ value: a4 }) {
+                swal.fire({ input: "number", inputValue: self.a4 }).then(function ({ value: a4 }) {
                     if (!parseInt(a4) || a4 === self.a4) return;
                     self.a4 = a4;
                     self.$a4.innerHTML = a4;
@@ -227,11 +322,11 @@
                 });
             });
 
+            this.updateFrequencyBars();
+
             document.querySelector(".auto input").addEventListener("change", () => {
                 this.notes.toggleAutoMode();
             });
-
-            this.updateFrequencyBars();
         };
 
         Application.prototype.updateFrequencyBars = function () {
