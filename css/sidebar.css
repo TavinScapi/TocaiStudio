@@ -119,6 +119,7 @@
     transform: translateY(-50%);
     font-size: 18px;
     color: var(--spotify-lighter-gray);
+    cursor: pointer;
 }
 
 .sidebar li i {
@@ -277,4 +278,42 @@
     .nav {
         display: none;
     }
+}
+
+/* Categoria visível quando sidebar está aberta */
+.nav-category {
+    padding: 10px 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    height: auto;
+}
+
+/* Quando a sidebar estiver fechada */
+.sidebar:not(.open) .nav-category {
+    color: transparent;
+    font-size: 0;
+    padding: 6px 0;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Linha horizontal centralizada */
+.sidebar:not(.open) .nav-category::before {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 60%;
+    background-color: #888;
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* Remove a linha quando aberta */
+.sidebar.open .nav-category::before {
+    content: none;
 }

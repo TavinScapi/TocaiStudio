@@ -101,15 +101,6 @@
 
 <body>
     <div class="home-section">
-        <header class="header">
-            <div class="header-content">
-                <div class="user-section">
-                    <i class='bx bx-bell notification-icon'></i>
-                    <img src="images/CapaPadrão.webp" alt="Avatar do Usuário" class="user-avatar">
-                </div>
-            </div>
-        </header>
-
         <div class="hero">
             <div class="wrapper-images">
                 <div class="images-line">
@@ -306,15 +297,28 @@
             <div class="logo">
                 <img src="images/LogoTocaí.webp" alt="LogoTocaí" />
             </div>
-
         </div>
 
-        <section class="estudio">
-            <div class="studio-header">
-                <h2 class="studio-title">Estúdio Tocaí</h2>
-                <p class="studio-subtitle">Ferramentas práticas para aprimorar seus estudos musicais</p>
-                <hr class="studio-divider">
-            </div>
+        <nav>
+            <ul>
+                <li><a href="#estudio">Estudio</a></li>
+                <li><a href="#artistas">Artistas & Bandas</a></li>
+                <li><a href="#confira">Confira</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+            </ul>
+        </nav>
+
+        <div class="conteudo1" id="confira">
+            <div class="top-text">BEM-VINDO AO TOCAÍSTUDIO</div>
+            <div class="date">Sua plataforma para aprender, praticar e viver a música</div>
+            <div class="divider"></div>
+            <div class="jubilee">TUTORIAIS, FERRAMENTAS E CIFRAS INTERATIVAS</div>
+            <div class="bottom-text">Explore artistas, monte cifras, use afinador, metrônomo e muito mais</div>
+        </div>
+
+        <section id="estudio" class="estudio-section">
+            <h2>Ferramentas do Estúdio</h2>
+            <div class="divisor-central"></div>
             <div class="estudio-cards">
                 <a href="/afinador" class="estudio-card">
                     <i class="fa-solid fa-guitar estudio-icon"></i>
@@ -322,45 +326,34 @@
                     <p>Afine seu instrumento de forma prática e precisa.</p>
                     <span class="estudio-link">Abrir Afinador</span>
                 </a>
-
                 <a href="/metronomo" class="estudio-card">
                     <i class="fa-solid fa-drum estudio-icon"></i>
                     <h3>Metrônomo</h3>
                     <p>Mantenha o ritmo perfeito em seus estudos.</p>
                     <span class="estudio-link">Abrir Metrônomo</span>
                 </a>
-
                 <a href="/montador-de-cifras" class="estudio-card">
                     <i class="fa-solid fa-music estudio-icon"></i>
                     <h3>Montador de Cifras</h3>
                     <p>Crie e compartilhe cifras facilmente.</p>
                     <span class="estudio-link">Gerar Cifra</span>
                 </a>
-
                 <a href="/mapa-de-notas" class="estudio-card">
                     <i class="fa-solid fa-map estudio-icon"></i>
                     <h3>Mapa de Notas</h3>
                     <p>Visualize todas as notas no braço do instrumento.</p>
                     <span class="estudio-link">Ver Mapa</span>
                 </a>
-
                 <a href="https://lucaong.github.io/guitarstack/" class="estudio-card" target="_blank" rel="noopener">
                     <i class="fa-solid fa-sliders estudio-icon"></i>
                     <h3>Pedais Virtuais</h3>
                     <p>Simule efeitos e pedais para guitarra e baixo.</p>
                     <span class="estudio-link">Experimentar Pedais</span>
                 </a>
-
-                <a href="https://lucaong.github.io/guitarstack/" class="estudio-card" target="_blank" rel="noopener">
-                    <i class="fa-solid fa-brain estudio-icon"></i>
-                    <h3>HarmonIA</h3>
-                    <p>IA para ajudar na composição de músicas.</p>
-                    <span class="estudio-link">Experimentar HarmonIA</span>
-                </a>
             </div>
         </section>
 
-        <div class="conteudo2" id="confira">
+        <div class="conteudo2">
             <ul class="slider">
                 <li class="item">
                     <img src="images/carrosel/tocandoguitarra.webp" alt="Acorde de Guitarra: Dó Maior" loading="lazy"
@@ -441,11 +434,29 @@
             </nav1>
         </div>
 
-        <section class="recent-artists">
-            <div class="section-header">
-                <h2>Artistas Recentemente Adicionados</h2>
-                <p>Conheça os novos nomes e talentos que chegaram ao TocaíStudio.</p>
-            </div>
+        <div class="light-bg">
+            <div class="divider"></div>
+            <p class="extra">
+                O <strong>TocaíStudio</strong> é um ambiente online gratuito criado para ajudar músicos iniciantes e
+                avançados a aprenderem com praticidade. Aqui você encontra cifras interativas, tutoriais, ferramentas
+                como afinador, metrônomo, montador de cifras e muito mais.<br><br>
+                Nosso objetivo é unir educação musical com uma experiência moderna, divertida e fácil de usar. Seja
+                bem-vindo(a) à comunidade Tocaí!
+            </p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="section-divider"></div>
+
+
+        <section id="artistas">
+            <h2>Artistas & Bandas Recém Adicionados</h2>
+            <div class="divisor-central"></div>
+            <p class="descricao-artistas">
+                Explore artistas e bandas com cifras prontas para tocar. Atualizamos constantemente com novos nomes para
+                você aprender suas músicas favoritas.
+            </p>
+            <br>
             <div class="lista-artistas">
                 <!-- Os cards dos 4 últimos artistas serão inseridos aqui via JavaScript -->
             </div>
@@ -454,29 +465,12 @@
             </div>
         </section>
 
-        <section class="sobre" id="sobre">
-            <div class="sobre-container">
-                <div class="sobre-texto">
-                    <h2>Sobre o TocaíStudio</h2>
-                    <p>
-                        O <strong>TocaíStudio</strong> é uma plataforma criada para apaixonados por música que buscam
-                        aprender, praticar e explorar novos horizontes musicais.
-                        Oferecemos ferramentas interativas como afinador, metrônomo, montador de cifras e muito mais,
-                        tudo em um só lugar!
-                    </p>
-                    <p>
-                        Nosso objetivo é facilitar o estudo musical com recursos modernos, acessíveis e gratuitos. Seja
-                        você iniciante ou avançado, o TocaíStudio é o seu companheiro ideal na jornada musical.
-                    </p>
-                    <a href="/sobre" class="btn-sobre">Saiba Mais</a>
-                </div>
-                <div class="sobre-imagem">
-                    <img src="images/about-music.svg" alt="Ilustração Música">
-                </div>
-            </div>
-        </section>
-
     </div>
+
+    <div class="seila">
+        <br><br><br><br><br>
+    </div>
+
 </body>
 
 </html>
