@@ -34,7 +34,7 @@
 
     <style>
         .note.in-tune {
-            color: #27ae60;
+            color: #27ae60 !important;
             transition: background 0.2s, color 0.2s, box-shadow 0.2s;
             font-weight: bold;
             scale: 1.15;
@@ -42,22 +42,8 @@
         }
 
         .meter-pointer.in-tune {
-            background: #27ae60;
+            background: #27ae60 !important;
             transition: background 0.2s, box-shadow 0.2s;
-        }
-
-        .meter-pointer {
-            transition: background 0.2s, box-shadow 0.2s;
-        }
-
-        .meter-pointer.almost {
-            background: #f1c40f;
-            /* amarelo */
-        }
-
-        .meter-pointer.off {
-            background: #e74c3c;
-            /* vermelho */
         }
     </style>
 </head>
@@ -345,23 +331,10 @@
             this.notes.update(note);
             this.meter.update((note.cents / 50) * 45);
             const pointer = document.querySelector('.meter-pointer');
-
-            // Define a função auxiliar para trocar de classe sem travar
-            function setPointerClass(newClass) {
-                const classes = ['in-tune', 'almost', 'off'];
-                if (!pointer.classList.contains(newClass)) {
-                    pointer.classList.remove(...classes);
-                    pointer.classList.add(newClass);
-                }
-            }
-
-            // Define a classe com base na afinação
             if (Math.abs(note.cents) <= 5) {
-                setPointerClass('in-tune');
-            } else if (Math.abs(note.cents) <= 15) {
-                setPointerClass('almost');
+                pointer.classList.add('in-tune');
             } else {
-                setPointerClass('off');
+                pointer.classList.remove('in-tune');
             }
         };
 
