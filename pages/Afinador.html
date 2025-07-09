@@ -45,6 +45,20 @@
             background: #27ae60 !important;
             transition: background 0.2s, box-shadow 0.2s;
         }
+
+        .meter-pointer {
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .meter-pointer.almost {
+            background: #f1c40f !important;
+            /* amarelo */
+        }
+
+        .meter-pointer.off {
+            background: #e74c3c !important;
+            /* vermelho */
+        }
     </style>
 </head>
 
@@ -331,11 +345,16 @@
             this.notes.update(note);
             this.meter.update((note.cents / 50) * 45);
             const pointer = document.querySelector('.meter-pointer');
+            pointer.classList.remove('in-tune', 'almost', 'off');
+
             if (Math.abs(note.cents) <= 5) {
                 pointer.classList.add('in-tune');
+            } else if (Math.abs(note.cents) <= 15) {
+                pointer.classList.add('almost');
             } else {
-                pointer.classList.remove('in-tune');
+                pointer.classList.add('off');
             }
+
         };
 
         const app = new Application();
