@@ -45,25 +45,6 @@
             background: #27ae60 !important;
             transition: background 0.2s, box-shadow 0.2s;
         }
-
-        .meter-pointer {
-            transition: background 0.2s, box-shadow 0.2s;
-        }
-
-        .meter-pointer.in-tune {
-            background: #27ae60 !important;
-            /* verde */
-        }
-
-        .meter-pointer.almost {
-            background: #f1c40f !important;
-            /* amarelo */
-        }
-
-        .meter-pointer.off {
-            background: #e74c3c !important;
-            /* vermelho */
-        }
     </style>
 </head>
 
@@ -86,6 +67,10 @@
     </label>
 
     <script>
+        this.frequencyHistory = [];
+        this.maxHistoryLength = 5;
+
+
         const Tuner = function (a4) {
             this.middleA = a4 || 440;
             this.semitone = 69;
