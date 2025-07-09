@@ -22,7 +22,7 @@
         },
         {
             "source": "/harmon-ia",
-            "destination": "/pages/HarmonIA.html"
+            "destination": "https://harmon-ia-tocaistudio.vercel.app"
         },
         {
             "source": "/mapa-de-notas",
