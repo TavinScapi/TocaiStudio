@@ -34,7 +34,7 @@
 
     <style>
         .note.in-tune {
-            color: #27ae60 !important;
+            color: #27ae60;
             transition: background 0.2s, color 0.2s, box-shadow 0.2s;
             font-weight: bold;
             scale: 1.15;
@@ -42,7 +42,7 @@
         }
 
         .meter-pointer.in-tune {
-            background: #27ae60 !important;
+            background: #27ae60;
             transition: background 0.2s, box-shadow 0.2s;
         }
 
@@ -51,12 +51,12 @@
         }
 
         .meter-pointer.almost {
-            background: #f1c40f !important;
+            background: #f1c40f;
             /* amarelo */
         }
 
         .meter-pointer.off {
-            background: #e74c3c !important;
+            background: #e74c3c;
             /* vermelho */
         }
     </style>
@@ -345,16 +345,24 @@
             this.notes.update(note);
             this.meter.update((note.cents / 50) * 45);
             const pointer = document.querySelector('.meter-pointer');
-            pointer.classList.remove('in-tune', 'almost', 'off');
 
-            if (Math.abs(note.cents) <= 5) {
-                pointer.classList.add('in-tune');
-            } else if (Math.abs(note.cents) <= 15) {
-                pointer.classList.add('almost');
-            } else {
-                pointer.classList.add('off');
+            // Define a função auxiliar para trocar de classe sem travar
+            function setPointerClass(newClass) {
+                const classes = ['in-tune', 'almost', 'off'];
+                if (!pointer.classList.contains(newClass)) {
+                    pointer.classList.remove(...classes);
+                    pointer.classList.add(newClass);
+                }
             }
 
+            // Define a classe com base na afinação
+            if (Math.abs(note.cents) <= 5) {
+                setPointerClass('in-tune');
+            } else if (Math.abs(note.cents) <= 15) {
+                setPointerClass('almost');
+            } else {
+                setPointerClass('off');
+            }
         };
 
         const app = new Application();
