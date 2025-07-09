@@ -346,16 +346,11 @@
             this.notes.update(note);
             this.meter.update((note.cents / 50) * 45);
             const pointer = document.querySelector('.meter-pointer');
-            pointer.classList.remove('in-tune', 'almost', 'off');
-
             if (Math.abs(note.cents) <= 5) {
                 pointer.classList.add('in-tune');
-            } else if (Math.abs(note.cents) <= 15) {
-                pointer.classList.add('almost');
             } else {
-                pointer.classList.add('off');
+                pointer.classList.remove('in-tune');
             }
-
         };
 
         const app = new Application();
