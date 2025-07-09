@@ -67,13 +67,14 @@
     </label>
 
     <script>
-        // ================================
-        // Afinador | Scripts Combinados
-        // ================================
+        this.frequencyHistory = [];
+        this.maxHistoryLength = 5;
+
+
         const Tuner = function (a4) {
             this.middleA = a4 || 440;
             this.semitone = 69;
-            this.bufferSize = 4096;
+            this.bufferSize = 8192; // antes era 4096
             this.noteStrings = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
             this.initGetUserMedia();
         };
@@ -289,13 +290,25 @@
             const self = this;
             this.tuner.onNoteDetected = function (note) {
                 if (self.notes.isAutoMode) {
-                    if (self.lastNote === note.name) {
-                        self.update(note);
-                    } else {
-                        self.lastNote = note.name;
-                    }
+                    self.frequencyHistory.push(note.frequency);
+
+                    if (self.frequencyHistory.length > self.maxHistoryLength)
+                        self.frequencyHistory.shift(); // remove o mais antigo
+
+                    const averageFrequency = self.frequencyHistory.reduce((a, b) => a + b, 0) / self.frequencyHistory.length;
+
+                    const stableNote = {
+                        ...note,
+                        frequency: averageFrequency,
+                        cents: self.tuner.getCents(averageFrequency, self.tuner.getNote(averageFrequency)),
+                        value: self.tuner.getNote(averageFrequency),
+                        name: self.tuner.noteStrings[self.tuner.getNote(averageFrequency) % 12],
+                    };
+
+                    self.update(stableNote);
                 }
             };
+
             self.tuner.init();
             self.frequencyData = new Uint8Array(self.tuner.analyser.frequencyBinCount);
 
