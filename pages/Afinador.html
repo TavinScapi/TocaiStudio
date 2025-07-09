@@ -45,7 +45,14 @@
             background: #27ae60 !important;
             transition: background 0.2s, box-shadow 0.2s;
         }
+
+        body.in-tune {
+            outline: 6px solid #27ae60;
+            outline-offset: -3px;
+            transition: outline 0.3s ease;
+        }
     </style>
+
 </head>
 
 <body>
@@ -331,10 +338,14 @@
             this.notes.update(note);
             this.meter.update((note.cents / 50) * 45);
             const pointer = document.querySelector('.meter-pointer');
-            if (Math.abs(note.cents) <= 5) {
+            const isInTune = Math.abs(note.cents) <= 5;
+
+            if (isInTune) {
                 pointer.classList.add('in-tune');
+                document.body.classList.add('in-tune'); // borda verde
             } else {
                 pointer.classList.remove('in-tune');
+                document.body.classList.remove('in-tune'); // remove borda verde
             }
         };
 
