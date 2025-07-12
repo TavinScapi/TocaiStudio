@@ -21,10 +21,6 @@
             "destination": "/pages/Artistas&bandas.html"
         },
         {
-            "source": "/harmon-ia",
-            "destination": "https://harmon-ia-tocaistudio.vercel.app"
-        },
-        {
             "source": "/mapa-de-notas",
             "destination": "/pages/MapaDeNotas.html"
         },
