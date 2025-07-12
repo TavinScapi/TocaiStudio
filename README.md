@@ -1,6 +1,6 @@
 # 🎵 TocaíStudio
 
-![Logo TocaíStudio](./images/a.png)
+![Logo TocaíStudio](./public/images/a.png)
 
 **TocaíStudio** é uma plataforma online interativa para músicos de todos os níveis. Oferecemos ferramentas essenciais como afinador, metrônomo, montador de cifras e muito mais — tudo gratuito, direto no navegador.
 
