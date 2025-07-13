@@ -536,6 +536,11 @@ function playTrackFromSearch(track, index) {
     currentTrack = track;
     currentTrackIndex = index;
 
+    lyricsContainer.innerHTML = 'Carregando letra...';
+    document.getElementById('energy-value').textContent = '--';
+    document.getElementById('valence-value').textContent = '--';
+    document.getElementById('tempo-value').textContent = '--';
+
     const spotifyContainer = document.querySelector('.spotify-iframe-container');
     spotifyContainer.innerHTML = `<iframe id="spotify-iframe" src="https://open.spotify.com/embed/track/${track.id}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`;
 
@@ -572,7 +577,7 @@ function playNextTrack() {
 async function fetchLyrics(trackName, artistName) {
     lyricsContainer.innerHTML = "Carregando letra...";
     try {
-        
+
         const cleanedArtist = artistName.split(',')[0].split('&')[0].trim();
         const response = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(cleanedArtist)}/${encodeURIComponent(trackName)}`);
 
