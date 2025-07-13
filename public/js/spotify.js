@@ -58,7 +58,6 @@ logoutBtn.addEventListener('click', () => {
     window.location.reload();
 });
 
-searchInput.addEventListener('input', debounce(handleSearch, 500));
 document.getElementById("searchButton").addEventListener("click", handleSearchButton);
 document.getElementById("searchInput").addEventListener("keypress", handleSearchEnter);
 document.getElementById("prevButton").addEventListener("click", playPreviousTrack);
@@ -573,9 +572,10 @@ function playNextTrack() {
 async function fetchLyrics(trackName, artistName) {
     lyricsContainer.innerHTML = "Carregando letra...";
     try {
-        const response = await fetch(
-            `https://api.lyrics.ovh/v1/${encodeURIComponent(artistName)}/${encodeURIComponent(trackName)}`
-        );
+        
+        const cleanedArtist = artistName.split(',')[0].split('&')[0].trim();
+        const response = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(cleanedArtist)}/${encodeURIComponent(trackName)}`);
+
 
         if (!response.ok) throw new Error("Não foi possível encontrar a letra");
 
