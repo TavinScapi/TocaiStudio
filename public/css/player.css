@@ -1,6 +1,6 @@
 /* ================ VARIÁVEIS E RESET ================ */
 :root {
-    --primary: #1DB954;
+    --primary: #00bcd4;
     --dark: #121212;
     --dark-secondary: #181818;
     --dark-tertiary: #282828;
@@ -237,7 +237,7 @@ body {
 }
 
 .login-btn:hover {
-    background-color: #1ed760;
+    background-color: #00bcd4;
     transform: scale(1.05);
 }
 
@@ -471,7 +471,7 @@ body {
 }
 
 .player-btn:hover {
-    background-color: #1ed760;
+    background-color: #00bcd4;
     transform: scale(1.05);
 }
 
@@ -1025,7 +1025,7 @@ body {
 }
 
 .popularity-stars i {
-    color: #1DB954;
+    color: #00bcd4;
     margin-left: 3px;
 }
 
@@ -1111,7 +1111,7 @@ body {
 .feature-item i {
     font-size: 18px;
     margin-bottom: 5px;
-    color: #1DB954;
+    color: #00bcd4;
 }
 
 .feature-item span:not(.feature-label) {
@@ -1187,7 +1187,7 @@ body {
 
 .genre-tag {
     background: rgba(29, 185, 84, 0.1);
-    color: #1DB954;
+    color: #00bcd4;
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 12px;
@@ -1266,7 +1266,7 @@ body {
 }
 
 .login-btn {
-    background-color: #1DB954;
+    background-color: #00bcd4;
     /* Verde Spotify */
     color: white;
     border: none;
@@ -1283,7 +1283,7 @@ body {
 }
 
 .login-btn:hover {
-    background-color: #1ed760;
+    background-color: #00bcd4;
     /* Verde Spotify mais claro */
     transform: translateY(-2px);
 }
@@ -1305,7 +1305,7 @@ body {
 
 .feature i {
     font-size: 2rem;
-    color: #1DB954;
+    color: #00bcd4;
     /* Verde Spotify */
 }
 
@@ -1391,7 +1391,7 @@ body.logged-in .welcome-screen {
 }
 
 .spotify-back-btn:hover {
-    color: #1DB954;
+    color: #00bcd4;
     /* Verde Spotify no hover */
 }
 
@@ -1416,6 +1416,6 @@ body.logged-in .welcome-screen {
 }
 
 .back-button:hover {
-    color: #1DB954;
+    color: #00bcd4;
     /* Verde Spotify no hover */
 }
