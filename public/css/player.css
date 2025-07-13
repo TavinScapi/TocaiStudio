@@ -1247,7 +1247,7 @@ body {
 }
 
 .welcome-logo {
-    width: 120px;
+    width: 250px;
     height: auto;
     margin-bottom: 24px;
 }
@@ -1349,7 +1349,7 @@ body.logged-in .welcome-screen {
 
 @media (max-width: 480px) {
     .welcome-logo {
-        width: 80px;
+        width: 150px;
     }
 
     .welcome-content h1 {
