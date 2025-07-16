@@ -1,114 +1,156 @@
 $(document).ready(function () {
-  var slideSpeed = 300;
-  var noteToShow = "All";
-  var canClick = true;
+  const slideSpeed = 300;
+  let noteToShow = "All";
+  let canClick = true;
 
-  var notes = {
-    e: ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E'],
-    a: ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', "A"],
+  const notes = {
+    'low-e': ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E'],
+    a: ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
     d: ['D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D'],
     g: ['G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G'],
-    b: ['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-  }
+    b: ['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+    'high-e': ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E']
+  };
 
-  // Inicializa as notas no braço da guitarra
+  const strings = ['low-e', 'a', 'd', 'g', 'b', 'high-e'];
+
   function initNotes() {
-    $('.mask.low-e ul, .mask.high-e ul').empty();
-    $('.mask.a ul').empty();
-    $('.mask.d ul').empty();
-    $('.mask.g ul').empty();
-    $('.mask.b ul').empty();
-
-    for (var i = 0; i < notes.e.length; i++) {
-      $('.mask.low-e ul').append('<li note=' + notes.e[i] + '>' + notes.e[i] + '</li>');
-      $('.mask.high-e ul').append('<li note=' + notes.e[i] + '>' + notes.e[i] + '</li>');
-      $('.mask.a ul').append('<li note=' + notes.a[i] + '>' + notes.a[i] + '</li>');
-      $('.mask.d ul').append('<li note=' + notes.d[i] + '>' + notes.d[i] + '</li>');
-      $('.mask.g ul').append('<li note=' + notes.g[i] + '>' + notes.g[i] + '</li>');
-      $('.mask.b ul').append('<li note=' + notes.b[i] + '>' + notes.b[i] + '</li>');
-    }
+    strings.forEach((stringName) => {
+      const ul = $('.mask.' + stringName + ' ul');
+      ul.empty();
+      notes[stringName].forEach(note => {
+        ul.append(`<li note="${note}">${note}</li>`);
+      });
+    });
   }
 
   initNotes();
 
-  // Afinar -1/2 tom
+  // Afinar todas -1/2 tom
   $('#tune-down').click(function (e) {
     e.preventDefault();
     if (!canClick) return false;
     canClick = false;
 
     $('.mask').each(function () {
-      var el = $(this);
-      var nextNote = el.find('li:nth-child(12)').text();
+      const el = $(this);
+      const nextNote = el.find('li:nth-child(12)').text();
 
       el.animate({ right: -268 }, slideSpeed);
       setTimeout(function () {
-        el.find('ul').prepend("<li note=" + nextNote + ">" + nextNote + "</li>");
+        el.find('ul').prepend(`<li note="${nextNote}">${nextNote}</li>`);
         el.find('li:last-child').remove();
         el.css({ right: -189 });
       }, slideSpeed + 20);
     });
 
     setTimeout(function () {
-      changeOpenNotes();
+      changeAllOpenNotes();
       showNotes(noteToShow);
       canClick = true;
-    }, slideSpeed + 20);
-
+    }, slideSpeed + 40);
     return false;
   });
 
-  // Afinar +1/2 tom
+  // Afinar todas +1/2 tom
   $('#tune-up').click(function (e) {
     e.preventDefault();
     if (!canClick) return false;
     canClick = false;
 
     $('.mask').each(function () {
-      var el = $(this);
-      var nextNote = el.find('li:nth-child(2)').text();
+      const el = $(this);
+      const nextNote = el.find('li:nth-child(2)').text();
 
-      $("<li note=" + nextNote + ">" + nextNote + "</li>").appendTo(el.find('ul'));
+      el.find('ul').append(`<li note="${nextNote}">${nextNote}</li>`);
       el.css({ right: -268 });
       el.find('li:first-child').remove();
       el.animate({ right: -189 }, slideSpeed);
     });
 
-    changeOpenNotes();
-    showNotes(noteToShow);
-
     setTimeout(function () {
+      changeAllOpenNotes();
+      showNotes(noteToShow);
       canClick = true;
-    }, slideSpeed + 20);
+    }, slideSpeed + 40);
     return false;
   });
 
-  // Selecionar nota para mostrar
+  // Afinar corda individual -1/2 tom
+  $('.tune-down-string').click(function () {
+    if (!canClick) return false;
+    canClick = false;
+
+    const stringClass = $(this).closest('.string-tuner').data('string');
+    const el = $('.mask.' + stringClass);
+    const nextNote = el.find('li:nth-child(12)').text();
+
+    el.animate({ right: -268 }, slideSpeed);
+    setTimeout(function () {
+      el.find('ul').prepend(`<li note="${nextNote}">${nextNote}</li>`);
+      el.find('li:last-child').remove();
+      el.css({ right: -189 });
+
+      changeOpenNote(stringClass);
+      showNotes(noteToShow);
+      canClick = true;
+    }, slideSpeed + 20);
+  });
+
+  // Afinar corda individual +1/2 tom
+  $('.tune-up-string').click(function () {
+    if (!canClick) return false;
+    canClick = false;
+
+    const stringClass = $(this).closest('.string-tuner').data('string');
+    const el = $('.mask.' + stringClass);
+    const nextNote = el.find('li:nth-child(2)').text();
+
+    el.find('ul').append(`<li note="${nextNote}">${nextNote}</li>`);
+    el.css({ right: -268 });
+    el.find('li:first-child').remove();
+    el.animate({ right: -189 }, slideSpeed);
+
+    setTimeout(function () {
+      changeOpenNote(stringClass);
+      showNotes(noteToShow);
+      canClick = true;
+    }, slideSpeed + 20);
+  });
+
+  // Atualiza uma corda específica
+  function changeOpenNote(stringClass) {
+    const note = $('.mask.' + stringClass + ' li:last-child').text();
+    $('.open-notes .' + stringClass).text(note);
+  }
+
+  // Atualiza todas as cordas abertas
+  function changeAllOpenNotes() {
+    strings.forEach((stringClass) => {
+      changeOpenNote(stringClass);
+    });
+  }
+
+  // Mostrar/esconder notas conforme seleção
+  function showNotes(noteToShow) {
+    const allNotes = $('.guitar-neck .notes li');
+    allNotes.removeClass('highlight');
+    if (noteToShow === "All") {
+      allNotes.animate({ opacity: 1 }, 500);
+    } else {
+      allNotes.each(function () {
+        const isMatch = $(this).attr('note') === noteToShow;
+        $(this).animate({ opacity: isMatch ? 1 : 0 }, 500);
+        if (isMatch) $(this).addClass('highlight');
+      });
+    }
+  }
+
+  // Clique para selecionar nota
   $('#note-selector li').click(function () {
     $('#note-selector li').removeClass('active');
     $(this).addClass('active');
     noteToShow = $(this).data('note');
     showNotes(noteToShow);
   });
-
-  // Mostrar/esconder notas conforme seleção
-  function showNotes(noteToShow) {
-    if (noteToShow == "All") {
-      $('.guitar-neck .notes li').animate({ opacity: 1 }, 500);
-    } else {
-      $('.guitar-neck .notes li').not('[note="' + noteToShow + '"]').animate({ opacity: 0 }, 500);
-      $('.guitar-neck .notes li[note="' + noteToShow + '"]').animate({ opacity: 1 }, 500);
-    }
-  }
-
-  // Atualizar notas abertas (cordas soltas)
-  function changeOpenNotes() {
-    $('.notes .mask').each(function () {
-      var el = $(this);
-      var elClass = el.attr('class').split(' ')[1];
-      var note = el.find('li:last-child').text();
-
-      $('.open-notes .' + elClass).text(note);
-    });
-  }
 });
