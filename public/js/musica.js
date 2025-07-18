@@ -73,7 +73,6 @@ function loadSelectedSong() {
 
             const songDetails = artistData.músicas[foundKey];
 
-            // Agora busca dados extras no infoARTISTAS.json para álbum, ano e duração
             fetch('/data/infoARTISTAS.json')
                 .then(res => res.json())
                 .then(infoData => {
@@ -82,7 +81,6 @@ function loadSelectedSong() {
                         normalizeString(t.name) === normalizeString(foundKey)
                     );
 
-                    // Se encontrar no infoARTISTAS, substitui as infos de álbum, ano e duração
                     if (trackInfo) {
                         songDetails.album = trackInfo.album || songDetails.album;
                         songDetails.year = trackInfo.year || songDetails.year;
@@ -93,14 +91,12 @@ function loadSelectedSong() {
                     loadRelatedSongs(selectedArtist, foundKey);
                 })
                 .catch(() => {
-                    // Se falhar, exibe com os dados locais mesmo
                     displaySongDetails(foundKey, artistData, songDetails);
                     loadRelatedSongs(selectedArtist, foundKey);
                 });
         })
         .catch(() => showError("Erro ao carregar música"));
 }
-
 
 function normalizeString(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, ' ').trim();
@@ -124,6 +120,10 @@ function displaySongDetails(songName, artistData, songDetails) {
         const maxLineLength = getMaxLineLengthByScreenWidth();
         const formattedTabs = formatTabsWithBreaks(rawTabs, maxLineLength);
         chordsContainer.innerHTML = formatChords(formattedTabs);
+
+        // Extrair e exibir os acordes únicos da música
+        extractAndDisplayUniqueChords(rawTabs);
+
         addChordHoverPopups();
     } else {
         chordsContainer.innerHTML = `
@@ -158,7 +158,6 @@ function displaySongDetails(songName, artistData, songDetails) {
                 }
             }
         });
-
     } else {
         document.querySelector('.video-preview')?.style.setProperty('display', 'none');
     }
@@ -179,6 +178,76 @@ function displaySongDetails(songName, artistData, songDetails) {
     setupTabs();
     initAutoscrollControls();
     addChordHoverPopups();
+}
+
+// Nova função para extrair e exibir acordes únicos
+function extractAndDisplayUniqueChords(tabText) {
+    // Padrão regex melhorado para capturar apenas acordes válidos
+    const chordPattern = /\b([A-G](?:#|b)?(?:m|maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^\)]*\))?(?:\/[A-G](?:#|b)?)?)\b/g;
+
+    const chords = new Set();
+    let match;
+
+    // Filtra notas isoladas (como afinações de guitarra)
+    const isTuningSequence = /^([A-G][#b]?\s){2,}[A-G][#b]?$/;
+    if (isTuningSequence.test(tabText)) return;
+
+    while ((match = chordPattern.exec(tabText)) !== null) {
+        const chord = match[1];
+        // Verifica se é um acorde válido (não apenas nota única sem qualificador)
+        if (!/^[A-G][#b]?$/.test(chord) ||
+            /^[A-G][#b]?\/[A-G][#b]?$/.test(chord)) {
+            chords.add(chord);
+        }
+    }
+
+    // Ordena os acordes alfabeticamente
+    const sortedChords = Array.from(chords).sort();
+
+    // Exibe os acordes na seção de resumo
+    const chordsList = document.getElementById('chords-list');
+    if (sortedChords.length > 0) {
+        chordsList.innerHTML = sortedChords.map(chord =>
+            `<span class="chord-badge">${chord}</span>`
+        ).join('');
+
+        // Adiciona eventos de hover para mostrar os diagramas
+        document.querySelectorAll('.chord-badge').forEach(badge => {
+            badge.addEventListener('mouseenter', async e => {
+                const chordName = e.target.textContent.trim();
+                const popup = document.getElementById('chord-popup');
+                popup.innerHTML = await getChordDiagramSVG(chordName);
+                popup.style.display = 'block';
+                popup.style.left = `${e.pageX + 10}px`;
+                popup.style.top = `${e.pageY + 10}px`;
+            });
+            badge.addEventListener('mousemove', e => {
+                const popup = document.getElementById('chord-popup');
+                popup.style.left = `${e.pageX + 10}px`;
+                popup.style.top = `${e.pageY + 10}px`;
+            });
+            badge.addEventListener('mouseleave', () => {
+                document.getElementById('chord-popup').style.display = 'none';
+            });
+
+            // Adiciona clique para rolar até o acorde na cifra
+            badge.addEventListener('click', () => {
+                const chordsContainer = document.getElementById('song-chords');
+                const firstOccurrence = chordsContainer.querySelector(`.chord:contains('${chordName}')`);
+                if (firstOccurrence) {
+                    firstOccurrence.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Destaca temporariamente o acorde
+                    firstOccurrence.classList.add('highlighted');
+                    setTimeout(() => {
+                        firstOccurrence.classList.remove('highlighted');
+                    }, 2000);
+                }
+            });
+        });
+    } else {
+        chordsList.innerHTML = '<p>Nenhum acorde identificado</p>';
+    }
 }
 
 function loadRelatedSongs(artistKey, currentSong) {
@@ -324,25 +393,17 @@ function formatChords(text) {
         if (/^[EADGBe]\|/.test(line) || line.trim() === '') return line;
 
         const words = line.trim().split(/\s+/);
-
-        // Verifica quantas palavras são acordes
         const chordCount = words.filter(isChord).length;
 
-        // Se a maioria das palavras na linha forem acordes, formatamos
         if (chordCount >= words.length / 2) {
-            // Substitui múltiplos espaços por spans para preservar alinhamento
             let processedLine = line.replace(/(\s{2,})/g, '<span class="space">$1</span>');
-            // Marca só os acordes
             const chordPattern = /\b([A-G](?:[#b]?m?(?:maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^\)]*\))?(?:\/[A-G][#b]?)?))\b/g;
             return processedLine.replace(chordPattern, '<span class="chord">$1</span>');
         } else {
-            // Linha normal, retorna sem formatar
             return line;
         }
     }).join('<br>');
 }
-
-
 
 function setupTabs() {
     document.querySelectorAll('.tab-button').forEach(button => {
@@ -380,6 +441,14 @@ function addChordHoverPopups() {
         });
         el.addEventListener('mouseleave', () => {
             document.getElementById('chord-popup').style.display = 'none';
+        });
+
+        // Adiciona classe temporária ao clicar no acorde
+        el.addEventListener('click', () => {
+            el.classList.add('highlighted');
+            setTimeout(() => {
+                el.classList.remove('highlighted');
+            }, 2000);
         });
     });
 }
@@ -426,22 +495,18 @@ function gerarSVG(pos) {
 
     let svg = `<svg width="${largura}" height="${altura}" xmlns="http://www.w3.org/2000/svg">`;
 
-    // Número da casa base
     if (baseFret > 1) {
         svg += `<text x="0" y="12" font-size="10" fill="black">${baseFret}fr</text>`;
     }
 
-    // Linhas horizontais (casas)
     for (let i = 0; i <= numCasas; i++) {
         svg += `<line x1="0" y1="${20 + i * casaAltura}" x2="${largura}" y2="${20 + i * casaAltura}" stroke="black" />`;
     }
 
-    // Linhas verticais (cordas)
     for (let i = 0; i < cordas; i++) {
         svg += `<line x1="${i * espacamento}" y1="20" x2="${i * espacamento}" y2="${20 + numCasas * casaAltura}" stroke="black" />`;
     }
 
-    // Bolinhas nas casas
     for (let i = 0; i < frets.length; i++) {
         const casa = frets[i];
         const x = i * espacamento;
@@ -459,37 +524,6 @@ function gerarSVG(pos) {
     return new DOMParser().parseFromString(svg, "image/svg+xml").documentElement;
 }
 
-
-function criarLinha(x1, y1, x2, y2, strokeWidth = 1) {
-    const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    l.setAttribute("x1", x1);
-    l.setAttribute("y1", y1);
-    l.setAttribute("x2", x2);
-    l.setAttribute("y2", y2);
-    l.setAttribute("stroke", "#000");
-    l.setAttribute("stroke-width", strokeWidth);
-    return l;
-}
-
-function criarCirculo(cx, cy, r) {
-    const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    c.setAttribute("cx", cx);
-    c.setAttribute("cy", cy);
-    c.setAttribute("r", r);
-    c.setAttribute("fill", "black");
-    return c;
-}
-
-function criarTexto(txt, x, y) {
-    const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    t.setAttribute("x", x);
-    t.setAttribute("y", y);
-    t.setAttribute("text-anchor", "middle");
-    t.setAttribute("font-size", "12");
-    t.textContent = txt;
-    return t;
-}
-
 function formatTabsWithBreaks(tabText, maxLineLength = 50) {
     const lines = tabText.split('\n');
     const formattedLines = [];
@@ -498,16 +532,15 @@ function formatTabsWithBreaks(tabText, maxLineLength = 50) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
 
-        // Detecta início de uma nova parte (ex: "Parte 1 de 4")
         const isNewSection = /^Parte\s+\d+\s+de\s+\d+/i.test(line);
         if (isNewSection) {
             if (buffer.length > 0) {
                 formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
                 buffer = [];
             }
-            formattedLines.push(line); // Adiciona título da parte
+            formattedLines.push(line);
         } else if (/^[EADGBe]\|/.test(line)) {
-            buffer.push(line); // Adiciona linha da tablatura (começa com E|, A|, etc.)
+            buffer.push(line);
             if (buffer.length === 6) {
                 formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
                 buffer = [];
@@ -517,11 +550,10 @@ function formatTabsWithBreaks(tabText, maxLineLength = 50) {
                 formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
                 buffer = [];
             }
-            formattedLines.push(line); // Linha comum (ex: direcional ↓↑ ou texto)
+            formattedLines.push(line);
         }
     }
 
-    // Adiciona qualquer sobra
     if (buffer.length > 0) {
         formattedLines.push(...splitAndFormatTabBlock(buffer, maxLineLength));
     }
@@ -532,18 +564,16 @@ function formatTabsWithBreaks(tabText, maxLineLength = 50) {
 function splitAndFormatTabBlock(lines, maxLength) {
     const result = [];
     const labelLength = lines[0].indexOf('|') + 1;
-
-    // Remove os labels antes de cortar (ex: "E|")
     const strippedLines = lines.map(line => line.slice(labelLength));
     const totalLength = strippedLines[0].length;
 
     for (let i = 0; i < totalLength; i += maxLength) {
         for (let j = 0; j < lines.length; j++) {
-            const label = lines[j].slice(0, labelLength); // "E|"
+            const label = lines[j].slice(0, labelLength);
             const segment = strippedLines[j].slice(i, i + maxLength);
             result.push(label + segment);
         }
-        result.push(''); // Espaço entre blocos
+        result.push('');
     }
 
     return result;
@@ -552,11 +582,11 @@ function splitAndFormatTabBlock(lines, maxLength) {
 function getMaxLineLengthByScreenWidth() {
     const width = window.innerWidth;
 
-    if (width >= 1200) return 80;   // telas largas
-    if (width >= 992) return 70;    // telas desktop menores
-    if (width >= 768) return 60;    // tablets
-    if (width >= 576) return 40;    // celulares maiores
-    return 25;                      // celulares pequenos
+    if (width >= 1200) return 80;
+    if (width >= 992) return 70;
+    if (width >= 768) return 60;
+    if (width >= 576) return 40;
+    return 25;
 }
 
 function updateTabs() {

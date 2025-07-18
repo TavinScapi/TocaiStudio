@@ -33,6 +33,46 @@
 
     <script type="module" src="/js/musica.js"></script>
     <script type="module" src="/js/load-components.js"></script>
+
+    <style>
+        /* Seção de resumo de acordes */
+        .song-chords-summary {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .song-chords-summary h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .chords-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chords-list .chord-badge {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chords-list .chord-badge:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 
 <body>
@@ -88,6 +128,12 @@
         <div class="song-content">
             <!-- Seção de abas + autoscroll -->
             <section class="tabs-section">
+
+                <div class="song-chords-summary" id="song-chords-summary">
+                    <h3>Acordes desta música:</h3>
+                    <div class="chords-list" id="chords-list"></div>
+                </div>
+
                 <div class="tabs-top-controls">
                     <div class="tabs-header">
                         <button class="tab-button active" data-tab="chords">Cifra</button>
