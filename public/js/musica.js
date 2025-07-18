@@ -314,15 +314,35 @@ function extractYouTubeId(url) {
     return match ? match[1] : null;
 }
 
+function isChord(word) {
+    const chordPattern = /^[A-G](?:[#b]?m?(?:maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^\)]*\))?(?:\/[A-G][#b]?)?)$/;
+    return chordPattern.test(word);
+}
+
 function formatChords(text) {
-    const chordRegex = /(?<=^|[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-])([A-G](#|b)?m?(maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(\([^\)]*\))?(\/[A-G](#|b)?)?)(?=[\s\(\)\[\]\{\},;:\/\\|'"“”‘’\-]|$)/g;
     return text.split('\n').map(line => {
-        let formatted = line.replace(/\[([^\]]+)\]/g, '<span class="chord">$1</span>');
-        formatted = formatted.replace(/(<span class="chord">.*?<\/span>)|([A-G][#b]?m?(?:maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^)]*\))?(?:\/[A-G][#b]?)?)/g,
-            (match, chordTag, chord) => chordTag || `<span class="chord">${chord}</span>`);
-        return formatted.replace(/(\s{2,})/g, '<span class="space">$1</span>');
+        if (/^[EADGBe]\|/.test(line) || line.trim() === '') return line;
+
+        const words = line.trim().split(/\s+/);
+
+        // Verifica quantas palavras são acordes
+        const chordCount = words.filter(isChord).length;
+
+        // Se a maioria das palavras na linha forem acordes, formatamos
+        if (chordCount >= words.length / 2) {
+            // Substitui múltiplos espaços por spans para preservar alinhamento
+            let processedLine = line.replace(/(\s{2,})/g, '<span class="space">$1</span>');
+            // Marca só os acordes
+            const chordPattern = /\b([A-G](?:[#b]?m?(?:maj7|7M|m7|7|6|9|11|13|sus2|sus4|add9|dim|aug|4|5)?(?:\([^\)]*\))?(?:\/[A-G][#b]?)?))\b/g;
+            return processedLine.replace(chordPattern, '<span class="chord">$1</span>');
+        } else {
+            // Linha normal, retorna sem formatar
+            return line;
+        }
     }).join('<br>');
 }
+
+
 
 function setupTabs() {
     document.querySelectorAll('.tab-button').forEach(button => {
@@ -379,7 +399,7 @@ function normalizeKey(key) {
 }
 
 async function getChordDiagramSVG(chordName) {
-    const res = await fetch('../data/guitar.json');
+    const res = await fetch('/data/guitar.json');
     const data = await res.json();
     const match = chordName.match(/^([A-G][#b]?)(.*)$/);
     if (!match) return '<div style="padding:8px;">Acorde não reconhecido</div>';
@@ -396,27 +416,49 @@ async function getChordDiagramSVG(chordName) {
 }
 
 function gerarSVG(pos) {
-    const { frets, barres = [], baseFret = 1 } = pos;
-    const casaInicial = Math.min(...frets.filter(f => f > 0)) || 1;
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", 110);
-    svg.setAttribute("height", 140);
+    const { frets, fingers, baseFret = 1 } = pos;
+    const numCasas = 5;
+    const largura = 120;
+    const altura = 160;
+    const casaAltura = 20;
+    const cordas = 6;
+    const espacamento = largura / (cordas - 1);
 
-    for (let i = 0; i < 5; i++) svg.appendChild(criarLinha(20, 30 + i * 20, 100, 30 + i * 20));
-    for (let i = 0; i < 6; i++) {
-        const x = 20 + i * 16;
-        svg.appendChild(criarLinha(x, 30, x, 110));
+    let svg = `<svg width="${largura}" height="${altura}" xmlns="http://www.w3.org/2000/svg">`;
+
+    // Número da casa base
+    if (baseFret > 1) {
+        svg += `<text x="0" y="12" font-size="10" fill="black">${baseFret}fr</text>`;
     }
-    if (baseFret > 1) svg.appendChild(criarTexto(baseFret, 10, 45));
-    barres.forEach(f => svg.appendChild(criarLinha(20, 30 + (f - casaInicial + 0.5) * 20, 100, 30 + (f - casaInicial + 0.5) * 20, 6)));
-    frets.forEach((f, i) => {
-        const x = 20 + i * 16;
-        if (f > 0 && !barres.includes(f)) svg.appendChild(criarCirculo(x, 30 + (f - casaInicial + 0.5) * 20, 5));
-        else if (f === 0) svg.appendChild(criarTexto("O", x, 20));
-        else if (f === -1) svg.appendChild(criarTexto("X", x, 20));
-    });
-    return svg;
+
+    // Linhas horizontais (casas)
+    for (let i = 0; i <= numCasas; i++) {
+        svg += `<line x1="0" y1="${20 + i * casaAltura}" x2="${largura}" y2="${20 + i * casaAltura}" stroke="black" />`;
+    }
+
+    // Linhas verticais (cordas)
+    for (let i = 0; i < cordas; i++) {
+        svg += `<line x1="${i * espacamento}" y1="20" x2="${i * espacamento}" y2="${20 + numCasas * casaAltura}" stroke="black" />`;
+    }
+
+    // Bolinhas nas casas
+    for (let i = 0; i < frets.length; i++) {
+        const casa = frets[i];
+        const x = i * espacamento;
+        if (casa === 0) {
+            svg += `<text x="${x - 4}" y="16" font-size="12" fill="black">O</text>`;
+        } else if (casa === -1) {
+            svg += `<text x="${x - 4}" y="16" font-size="12" fill="black">X</text>`;
+        } else {
+            const y = 20 + (casa - baseFret + 1) * casaAltura - casaAltura / 2;
+            svg += `<circle cx="${x}" cy="${y}" r="6" fill="black" />`;
+        }
+    }
+
+    svg += '</svg>';
+    return new DOMParser().parseFromString(svg, "image/svg+xml").documentElement;
 }
+
 
 function criarLinha(x1, y1, x2, y2, strokeWidth = 1) {
     const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
