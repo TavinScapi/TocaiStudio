@@ -865,15 +865,3 @@ footer {
     border: none;
     border-radius: 10px;
 }
-
-.icon-text {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.icon-img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-}
