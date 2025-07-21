@@ -681,6 +681,10 @@ footer {
         font-size: 12px;
         padding: 5px 10px;
     }
+
+    .velocidade {
+        display: none;
+    }
 }
 
 /* Letras e relacionados */
