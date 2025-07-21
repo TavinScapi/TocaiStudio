@@ -811,8 +811,9 @@ footer {
     border-bottom-left-radius: 30px;
     margin-bottom: 5px;
     position: relative;
-    right: -140px;
+    right: -130px;
     transition: right 0.5s ease;
+    cursor: pointer;
 }
 
 .social-btn:hover {
@@ -827,38 +828,11 @@ footer {
     background-color: #3f51b5;
 }
 
-.color-key {
-    background-color: #009688;
-}
-
 .google-font {
     font-family: "Lato", sans-serif;
     font-size: 1.1rem;
     color: white;
     margin: 0;
-}
-
-.icon-metronome,
-.icon-tuner,
-.icon-key {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.icon-metronome {
-    background-image: url('metronome_icon.svg');
-}
-
-.icon-tuner {
-    background-image: url('tuner_icon.svg');
-}
-
-.icon-key {
-    background-image: url('key_icon.svg');
 }
 
 /* AFINADOR */
@@ -879,8 +853,6 @@ footer {
     border-radius: 10px;
 }
 
-
-/* ...existing code... */
 .metronomo-container {
     display: none;
     width: 100%;
@@ -894,4 +866,14 @@ footer {
     border-radius: 10px;
 }
 
-/* ...existing code... */
+.icon-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}

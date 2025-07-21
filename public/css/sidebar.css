@@ -317,3 +317,22 @@
 .sidebar.open .nav-category::before {
     content: none;
 }
+
+/* ...existing code... */
+
+/* Estilização específica para o ícone do afinador */
+.sidebar li a .icon-img {
+    height: 28px;
+    width: 28px;
+    object-fit: contain;
+    margin-right: 10px;
+    border-radius: 6px;
+    background: transparent;
+    transition: background 0.3s;
+    filter: grayscale(40%) brightness(1.2);
+}
+
+.sidebar li a:hover .icon-img {
+    background: var(--spotify-gray);
+    filter: none;
+}
