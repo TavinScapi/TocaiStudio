@@ -201,3 +201,7 @@ li .tooltip {
     }
 
 }
+
+body.in-iframe .nav {
+    display: none !important;
+}
