@@ -202,6 +202,8 @@ li .tooltip {
 
 }
 
-body.in-iframe .nav {
+body.in-iframe .nav,
+body.in-iframe .a4,
+body.in-iframe .auto {
     display: none !important;
 }

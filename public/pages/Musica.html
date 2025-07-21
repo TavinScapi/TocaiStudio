@@ -210,7 +210,7 @@
                  ou usar um iframe como exemplo:
             -->
                     <iframe src="/pages/Afinador.html"
-                        style="width:100%; height:300px; border:none; margin-top:10px;"></iframe>
+                        style="width: 150px;; height:200px; border:none; margin-top:10px;"></iframe>
                 </div>
             </div>
 
@@ -221,16 +221,96 @@
                     <div class="icon-key"></div>
                 </div>
             </a>
-
         </div>
+
+        <style>
+            .social {
+                position: fixed;
+                top: 50px;
+                right: 0;
+            }
+
+            .social a {
+                text-decoration: none;
+            }
+
+            .social-btn {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 180px;
+                padding: 5px 10px 5px 20px;
+                border-top-left-radius: 30px;
+                border-bottom-left-radius: 30px;
+                margin-bottom: 5px;
+                position: relative;
+                right: -140px;
+                transition: right 0.5s ease;
+            }
+
+            .social-btn:hover {
+                right: 0;
+            }
+
+            .color-metronome {
+                background-color: #ff9800;
+            }
+
+            .color-tuner {
+                background-color: #3f51b5;
+            }
+
+            .color-key {
+                background-color: #009688;
+            }
+
+            .google-font {
+                font-family: "Lato", sans-serif;
+                font-size: 1.1rem;
+                color: white;
+                margin: 0;
+            }
+
+            .icon-metronome,
+            .icon-tuner,
+            .icon-key {
+                display: inline-block;
+                width: 36px;
+                height: 36px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+
+            .icon-metronome {
+                background-image: url('metronome_icon.svg');
+            }
+
+            .icon-tuner {
+                background-image: url('tuner_icon.svg');
+            }
+
+            .icon-key {
+                background-image: url('key_icon.svg');
+            }
+        </style>
 
     </div>
 
     <script>
         function abrirAfinador(botao) {
             const afinador = botao.querySelector('.afinador-container');
-            afinador.style.display = (afinador.style.display === 'none') ? 'block' : 'none';
+            const isHidden = (afinador.style.display === 'none' || afinador.style.display === '');
+
+            if (isHidden) {
+                afinador.style.display = 'block';
+                botao.classList.add('expanded');  // Expande o botão
+            } else {
+                afinador.style.display = 'none';
+                botao.classList.remove('expanded');  // Volta ao tamanho original
+            }
         }
+
     </script>
 
 </body>
