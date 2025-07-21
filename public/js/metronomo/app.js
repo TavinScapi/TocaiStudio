@@ -99,3 +99,8 @@ function playClick() {
 }
 
 const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
+
+
+if (window.self !== window.top) {
+    document.body.classList.add('in-iframe');
+}
