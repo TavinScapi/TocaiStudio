@@ -254,7 +254,7 @@
         grid-template-columns: 1fr;
     }
     .album, .album.small {
-        --album-size: 120px;
-        --vinyl-size: 90px;
+        --album-size: 180px;
+        --vinyl-size: 150px;
     }
 }
