@@ -78,29 +78,33 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     lastFour.forEach(artist => {
         listaArtistas.innerHTML += `
-            <div class="card-vinil" data-genre="${artist.genres ? artist.genres.toLowerCase().replace(/ • /g, ' ') : ''}" onclick="selectArtist('${artist.id}')">
-                <div class="record_case">
-                    <div class="genre-label">${artist.genres || ''}</div>
-                    <div class="record recorddefault">
-                        <div class="front">
-                            <img src="${artist.capa || ''}" alt="${artist.name || ''}">
-                            <div class="cover"></div>
-                            <div class="cover-back"></div>
-                        </div>
-                        <div class="vinyl"></div>
-                        <div class="back">
-                            <img src="${artist.capa || ''}" alt="${artist.name || ''}">
-                        </div>
-                        <div class="right"></div>
-                        <div class="left"></div>
-                        <div class="top"></div>
-                        <div class="bottom"></div>
-                    </div>
-                </div>
-                <h3>${artist.name || ''}</h3>
-                    <p class="music-count">Músicas disponíveis: ${artist.popularTracks ? artist.popularTracks.length : 0}</p>
-
+        <div class="album small card-vinil" 
+            data-genre="${artist.genres ? artist.genres.toLowerCase().replace(/ • /g, ' ') : ''}" 
+            data-cover-url="${artist.capa || ''}" 
+            onclick="selectArtist('${artist.id}')">
+            <div class="cover">
+                <img src="${artist.capa || ''}" alt="${artist.name || ''}">
             </div>
-        `;
+            <div class="vinyl">
+                <div class="vinyl-cover"></div>
+            </div>
+            <div class="album-info">
+                <strong>${artist.name || ''}</strong><br>
+                Gênero: ${artist.genres || 'N/A'}<br>
+                Músicas: ${artist.popularTracks ? artist.popularTracks.length : 0}
+            </div>
+            <br>
+            <h3>${artist.name || ''}</h3>
+        </div>
+    `;
+    });
+
+    // Após inserir os cards:
+    document.querySelectorAll('.album').forEach(album => {
+        const coverUrl = album.getAttribute('data-cover-url');
+        const vinylCover = album.querySelector('.vinyl-cover');
+        if (coverUrl && vinylCover) {
+            vinylCover.style.backgroundImage = `url('${coverUrl}')`;
+        }
     });
 });

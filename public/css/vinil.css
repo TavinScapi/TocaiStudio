@@ -1,0 +1,225 @@
+.album {
+    --album-size: 380px;
+    /* Base size */
+    --vinyl-size: 340px;
+    /* Base vinyl size */
+    --border-radius: 3px;
+    /* Border radius */
+    --cover-translate: -10px;
+    /* Translation for hover */
+    --cover-rotate: -2deg;
+    /* Rotation for hover */
+    --vinyl-translate: 50%;
+    /* Vinyl translation for hover */
+    --vinyl-rotate: 360deg;
+    /* Vinyl rotation for hover */
+
+    position: relative;
+    width: var(--album-size);
+    height: var(--album-size);
+    margin: 1rem 100px;
+
+    .cover {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+        transition: transform 0.5s ease-in-out;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 1%, transparent 50%);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 4%),
+                linear-gradient(225deg,
+                    rgba(162, 162, 162, 0.1) 0%,
+                    rgba(162, 162, 162, 0.2) 4%,
+                    rgba(255, 255, 255, 0.2) 6%,
+                    rgba(255, 255, 255, 0.6) 7%,
+                    rgba(255, 255, 255, 0.2) 7%,
+                    rgba(218, 218, 218, 0.04) 7%,
+                    transparent 6%),
+                linear-gradient(45deg,
+                    rgba(14, 14, 14, 0.7),
+                    rgba(0, 0, 0, 0.5) 0%,
+                    rgba(0, 0, 0, 0.2) 4%,
+                    rgba(14, 14, 14, 0.2) 6%,
+                    rgba(255, 255, 255, 0.3) 7%,
+                    rgba(218, 218, 218, 0.4) 7%,
+                    transparent 8%);
+            pointer-events: none;
+            z-index: 3;
+        }
+    }
+
+    .vinyl {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        width: var(--vinyl-size);
+        height: var(--vinyl-size);
+        border-radius: 50%;
+        background:
+            conic-gradient(from 50deg at 50% 50%,
+                transparent 46%,
+                rgba(255, 255, 255, 0.1) 48%,
+                rgba(255, 255, 255, 0.15) 51%,
+                transparent 56%),
+            conic-gradient(from 225deg at 50% 50%,
+                transparent 46%,
+                rgba(255, 255, 255, 0.1) 48%,
+                rgba(255, 255, 255, 0.15) 51%,
+                transparent 56%),
+            repeating-radial-gradient(circle,
+                rgba(120, 120, 120, 0.1) 0%,
+                rgba(192, 192, 192, 0.01) 1px,
+                transparent 1px,
+                transparent 4px),
+            black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(0) rotate(270deg);
+        transition: transform 0.5s ease-in-out;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        z-index: 1;
+
+        .vinyl-cover {
+            width: calc(var(--vinyl-size) / 2.8);
+            height: calc(var(--vinyl-size) / 2.8);
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px black;
+        }
+    }
+
+    &:hover .cover {
+        transform: translateX(var(--cover-translate)) rotate(var(--cover-rotate));
+    }
+
+    &:hover .vinyl {
+        transform: translateX(var(--vinyl-translate)) rotate(var(--vinyl-rotate));
+    }
+
+    &.small {
+        // margin-right: 70px;
+        --album-size: 220px;
+        /* Reduced size */
+        --vinyl-size: 190px;
+        /* Reduced vinyl size */
+        --border-radius: 2px;
+        /* Adjusted border radius */
+        --cover-translate: -5px;
+        /* Adjusted translation for hover */
+        --cover-rotate: -1deg;
+        /* Adjusted rotation for hover */
+        --vinyl-translate: 50%;
+        /* Adjusted vinyl translation for hover */
+        --vinyl-rotate: 360deg;
+        /* Same vinyl rotation */
+    }
+}
+
+.album.open {
+    .cover {
+        transform: translateX(var(--cover-translate)) rotate(var(--cover-rotate));
+    }
+
+    .vinyl {
+        transform: translateX(var(--vinyl-translate)) rotate(var(--vinyl-rotate));
+    }
+}
+
+.container-top {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    justify-content: space-between;
+
+    &.smaller {
+        min-width: 600px;
+    }
+}
+
+/* ...existing code... */
+.album .album-info {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-height: 100%;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    z-index: 10;
+    padding: 20px 10px 10px 10px;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    font-size: 0.95em;
+    text-align: left;
+    transition: opacity 0.3s, transform 0.5s;
+    transform: translateX(0) rotate(0deg);
+}
+
+.album:hover .album-info,
+.album.open .album-info {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(var(--cover-translate)) rotate(var(--cover-rotate));
+}
+
+.lista-artistas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px 48px;
+    justify-items: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.album {
+    margin: 0;
+    /* O grid já cuida do espaçamento */
+}
+
+@media (max-width: 1200px) {
+    .lista-artistas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .lista-artistas {
+        grid-template-columns: 1fr;
+    }
+}
