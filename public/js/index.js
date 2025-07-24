@@ -88,11 +88,11 @@ document.addEventListener('DOMContentLoaded', async function () {
             <div class="vinyl">
                 <div class="vinyl-cover"></div>
             </div>
-            <div class="album-info">
-                <strong>${artist.name || ''}</strong><br>
-                Gênero: ${artist.genres || 'N/A'}<br>
-                Músicas: ${artist.popularTracks ? artist.popularTracks.length : 0}
-            </div>
+<div class="album-info">
+    <strong>${artist.name || ''}</strong>
+    <div><span class="info-icon"><i class="fa fa-music"></i></span>Músicas: ${artist.popularTracks ? artist.popularTracks.length : 0}</div>
+    <div><span class="info-icon"><i class="fa fa-tag"></i></span>Gênero: ${artist.genres || 'N/A'}</div>
+</div>
             <br>
             <h3>${artist.name || ''}</h3>
         </div>
