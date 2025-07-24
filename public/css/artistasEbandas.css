@@ -474,3 +474,187 @@ body {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* home section */
+.home-section {
+    z-index: 100;
+    position: relative;
+    top: 0;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    height: 10px;
+    background-color: #0D0D0D;
+}
+
+.home-section .text {
+    color: #FFFFFF;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 18px;
+}
+
+/* seção artistas */
+#artistas {
+    padding: 20px;
+    background-color: #0D0D0D;
+}
+
+#artistas h2,
+#artistas h3 {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* Botões de filtro */
+.genre-button,
+.dropdown-button {
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+    border-color: #00BCD4;
+}
+
+.genre-button:hover,
+.dropdown-button:hover {
+    background-color: #0097A7;
+    transform: scale(1.05);
+}
+
+/* Dropdown */
+.dropdown-content {
+    background-color: #161616;
+    color: #FFFFFF;
+    border: 1px solid #00BCD4;
+}
+
+.dropdown-content input {
+    border: 1px solid #989CA6;
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+}
+
+.dropdown-item {
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+.dropdown-item:hover {
+    background-color: #0097A7;
+}
+
+/* Cards */
+.card {
+    background-color: #161616;
+    border-radius: 25px;
+    color: #FFFFFF;
+}
+
+.overlay {
+    background-color: #00bbd4b4;
+}
+
+.overlay::after {
+    background-color: #0096a769;
+}
+
+.card-image {
+    background: #FFFFFF;
+}
+
+.card-img {
+    border: 4px solid #0D0D0D;
+}
+
+/* Botões */
+.button {
+    background-color: #00BCD4;
+    color: #FFFFFF;
+}
+
+.button:hover {
+    background-color: #0097A7;
+}
+
+/* Descubra mais */
+.descubra-mais .button {
+    background-color: #00BCD4;
+    color: #FFFFFF;
+}
+
+.descubra-mais .button:hover {
+    background-color: #0097A7;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #0D0D0D;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #989CA6;
+}
+
+/* Paginação */
+.pagination button {
+    background-color: #161616;
+    color: #FFFFFF;
+    border-color: #00BCD4;
+}
+
+.pagination button:hover:not(.active) {
+    background-color: #0097A7;
+}
+
+.pagination .active {
+    background-color: #00BCD4;
+    color: #0D0D0D;
+}
+
+/* Search */
+.search-box input {
+    background-color: #161616;
+    color: #FFFFFF;
+    border: 1px solid #00BCD4;
+}
+
+.search-box input:focus {
+    border-color: #00BCD4;
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.3);
+}
+
+.search-box i {
+    color: #00BCD4;
+}
+
+.search-dropdown {
+    background-color: #161616;
+    border: 1px solid #00BCD4;
+}
+
+.search-result {
+    background: transparent;
+    color: #FFFFFF;
+}
+
+.search-result:hover {
+    background: #0097A7;
+}
+
+.search-divider,
+.no-results {
+    background: #0D0D0D;
+    color: #ccc;
+}
