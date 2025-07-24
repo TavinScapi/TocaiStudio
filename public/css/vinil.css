@@ -234,8 +234,7 @@
 }
 
 .lista-artistas .album {
-    margin: 0;
-    /* Grid cuida do espaçamento */
+    margin: 0 0 32px 0; /* Espaço de 32px abaixo de cada card */
 }
 
 /* Responsivo */

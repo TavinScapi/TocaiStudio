@@ -23,12 +23,10 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../css/artistasEbandas.css">
-    <link rel="stylesheet" href="../css/disco.css">
+    <link rel="stylesheet" href="../css/vinil.css">
     <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/Menu-mobile.css">
-    <link rel="stylesheet" href="../css/pagination.css">
-
 
     <!-- Scripts -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
@@ -66,9 +64,11 @@
 
             <div class="search-container">
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Pesquise artistas, músicas, gêneros.." onkeyup="searchArtists()">
+                    <input type="text" id="searchInput" placeholder="Pesquise artistas, músicas, gêneros.."
+                        onkeyup="searchArtists()">
                     <i class="fas fa-search"></i>
                 </div>
+                <div id="search-dropdown" class="search-dropdown" style="display: none;"></div>
             </div>
 
             <div class="lista-artistas">

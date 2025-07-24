@@ -108,72 +108,98 @@ function filterByGenre(selectedGenre) {
 
 function searchArtists() {
     const searchTerm = normalizeString(document.getElementById('searchInput').value.trim());
+    const dropdown = document.getElementById('search-dropdown');
+    if (!dropdown) return;
 
     if (searchTerm === '') {
-        displayArtists(filteredArtists, 1);
-        setupPagination(filteredArtists);
-        currentPage = 1;
-        document.getElementById('pagination').style.display = 'block';
+        dropdown.style.display = 'none';
         return;
     }
 
-    const matchedCards = [];
+    const musicResults = [];
+    const artistResults = [];
     const followed = JSON.parse(localStorage.getItem('followedArtists') || '[]');
 
     for (const [artistKey, artist] of Object.entries(infoArtistas)) {
         const artistName = normalizeString(artist.name);
         const genres = normalizeString(artist.genres || '');
         const biography = normalizeString(artist.biography || '');
-        const isFollowed = followed.includes(artistKey);
-        const musicMatch = (artist.popularTracks || []).find(song => normalizeString(song.name).includes(searchTerm));
 
-        if (artistName.includes(searchTerm) || genres.includes(searchTerm) || biography.includes(searchTerm) || musicMatch) {
-            const card = document.createElement('div');
-            card.className = 'card-vinil';
-            card.setAttribute('data-genre', artist.genres);
-            card.onclick = () => { if (!musicMatch) selectArtist(artistKey); };
+        // Músicas que batem com a busca
+        (artist.popularTracks || []).forEach(song => {
+            if (normalizeString(song.name).includes(searchTerm)) {
+                musicResults.push({
+                    artistKey,
+                    artist,
+                    song
+                });
+            }
+        });
 
-            card.innerHTML = `
-    <div class="record_case">
-        <div class="genre-label">${artist.genres}</div>
-        <div class="record recorddefault">
-            <div class="front">
-                <img src="${artist.capa}" alt="${artist.name}">
-                <div class="cover"></div>
-                <div class="cover-back"></div>
-            </div>
-            <div class="vinyl"></div>
-            <div class="back">
-                <img src="${artist.capa}" alt="${artist.name}">
-            </div>
-            <div class="right"></div>
-            <div class="left"></div>
-            <div class="top"></div>
-            <div class="bottom"></div>
-        </div>
-    </div>
-    <h3>${artist.name} ${isFollowed ? '<span class="seguindo-icon" title="Seguindo"><i class="fas fa-check-circle" style="color: #2ecc71;"></i></span>' : ''}</h3>
-    ${musicMatch
-                    ? `<button class="button" onclick="event.stopPropagation(); window.location.href='/musica/${artistKey}/${encodeURIComponent(musicMatch.name)}'">🎵 ${musicMatch.name}</button>`
-                    : `<p class="music-count">Músicas disponíveis: ${artist.popularTracks ? artist.popularTracks.length : 0}</p>`
-                }
-`;
-
-            matchedCards.push(card);
+        // Artistas que batem com a busca
+        if (
+            artistName.includes(searchTerm) ||
+            genres.includes(searchTerm) ||
+            biography.includes(searchTerm)
+        ) {
+            artistResults.push({
+                artistKey,
+                artist,
+                isFollowed: followed.includes(artistKey)
+            });
         }
     }
 
-    const container = document.querySelector('.lista-artistas');
-    container.innerHTML = '';
+    let html = '';
 
-    if (matchedCards.length === 0) {
-        container.innerHTML = '<p class="no-results">Nenhum artista ou música encontrada.</p>';
-    } else {
-        matchedCards.forEach(card => container.appendChild(card));
+    // Músicas
+    if (musicResults.length > 0) {
+        html += `<div class="search-divider">Músicas</div>`;
+        musicResults.forEach(({ artistKey, artist, song }) => {
+            html += `
+                <div class="search-result" onclick="window.location.href='/musica/${artistKey}/${encodeURIComponent(song.name)}'">
+                    <img src="${artist.capa}" alt="${artist.name}" class="result-thumb">
+                    <div class="result-info">
+                        <strong>${song.name}</strong> - ${artist.name}
+                    </div>
+                </div>
+            `;
+        });
     }
 
-    document.getElementById('pagination').style.display = 'none';
+    // Artistas
+    if (artistResults.length > 0) {
+        html += `<div class="search-divider">Artistas</div>`;
+        artistResults.forEach(({ artistKey, artist, isFollowed }) => {
+            html += `
+                <div class="search-result" onclick="selectArtist('${artistKey}')">
+                    <img src="${artist.capa}" alt="${artist.name}" class="result-thumb">
+                    <div class="result-info">
+                        <strong>${artist.name}</strong>
+                        ${isFollowed ? '<span class="seguindo-icon" title="Seguindo"><i class="fas fa-check-circle" style="color: #00bcd4;"></i></span>' : ''}
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    if (musicResults.length === 0 && artistResults.length === 0) {
+        html = `<div class="no-results">Nenhum artista ou música encontrada.</div>`;
+    }
+
+    dropdown.innerHTML = html;
+    dropdown.style.display = 'block';
 }
+
+// Fecha o dropdown ao clicar fora
+document.addEventListener('click', function (event) {
+    const dropdown = document.getElementById('search-dropdown');
+    const searchInput = document.getElementById('searchInput');
+    if (!dropdown || !searchInput) return;
+    if (!dropdown.contains(event.target) && event.target !== searchInput) {
+        dropdown.style.display = 'none';
+    }
+});
 
 // ===================
 // Exibir Artistas (sem biografia)
@@ -197,34 +223,37 @@ function displayArtists(artists, page) {
     paginated.forEach(artist => {
         const isFollowed = followed.includes(artist.id);
         const card = document.createElement('div');
-        card.className = 'card-vinil';
-        card.setAttribute('data-genre', artist.genres);
+        card.className = 'album small card-vinil';
+        card.setAttribute('data-genre', artist.genres ? artist.genres.toLowerCase().replace(/ • /g, ' ') : '');
+        card.setAttribute('data-cover-url', artist.capa || '');
         card.onclick = () => selectArtist(artist.id);
 
         card.innerHTML = `
-    <div class="record_case">
-        <div class="genre-label">${artist.genres}</div>
-        <div class="record recorddefault">
-            <div class="front">
-                <img src="${artist.capa}" alt="${artist.name}">
-                <div class="cover"></div>
-                <div class="cover-back"></div>
-            </div>
-            <div class="vinyl"></div>
-            <div class="back">
-                <img src="${artist.capa}" alt="${artist.name}">
-            </div>
-            <div class="right"></div>
-            <div class="left"></div>
-            <div class="top"></div>
-            <div class="bottom"></div>
+        <div class="cover">
+            <img src="${artist.capa || ''}" alt="${artist.name || ''}">
         </div>
-    </div>
-    <h3>${artist.name} ${isFollowed ? '<span class="seguindo-icon" title="Seguindo"><i class="fas fa-check-circle" style="color: #2ecc71;"></i></span>' : ''}</h3>
-    <p class="music-count">Músicas disponíveis: ${artist.popularTracks ? artist.popularTracks.length : 0}</p>
-        `;
+        <div class="vinyl">
+            <div class="vinyl-cover"></div>
+        </div>
+        <div class="album-info">
+            <strong>${artist.name || ''}</strong>
+            <div><span class="info-icon"><i class="fa fa-music"></i></span>Músicas: ${artist.popularTracks ? artist.popularTracks.length : 0}</div>
+            <div><span class="info-icon"><i class="fa fa-tag"></i></span>Gênero: ${artist.genres || 'N/A'}</div>
+        </div>
+        <br>
+        <h3>${artist.name || ''} ${isFollowed ? '<span class="seguindo-icon" title="Seguindo"><i class="fas fa-check-circle" style="color: #00bcd4;"></i></span>' : ''}</h3>
+    `;
 
         container.appendChild(card);
+    });
+
+    // Após inserir os cards, defina a imagem do vinil:
+    document.querySelectorAll('.album').forEach(album => {
+        const coverUrl = album.getAttribute('data-cover-url');
+        const vinylCover = album.querySelector('.vinyl-cover');
+        if (coverUrl && vinylCover) {
+            vinylCover.style.backgroundImage = `url('${coverUrl}')`;
+        }
     });
 }
 
