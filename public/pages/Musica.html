@@ -35,44 +35,123 @@
     <script type="module" src="/js/load-components.js"></script>
 
     <style>
-        /* Seção de resumo de acordes */
-        .song-chords-summary {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #2d2d2d;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .metronomy {
+            background-color: var(--fundo-secundario);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
-        .song-chords-summary h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #ffffff;
+        .metronomy .indicator,
+        .metronomy .bpms {
+            display: block;
+            font-size: 20px;
+            font-weight: 900;
+            text-align: center;
         }
 
-        .chords-list {
+        .metronomy .beats {
+            width: 100%;
+            margin: 2em 0;
             display: flex;
+            gap: 0.25rem;
+        }
+
+        .metronomy .beat {
+            flex: 1;
+            height: 4px;
+            background-color: #242421;
+            transition: background-color 0.16s;
+        }
+
+        .metronomy .beat.is-first-beat {
+            background-color: purple;
+        }
+
+        .metronomy .beat.is-active {
+            background-color: #ffffe6;
+        }
+
+        .range-slider {
+            width: 100%;
+            display: flex;
+            align-items: stretch;
+            gap: 0.5rem;
+        }
+
+        .range-slider input[type="range"] {
+            margin: 0;
+            outline: none;
+            border: none;
+            transition: box-shadow 0.2s ease-in-out;
+            overflow: hidden;
+            height: 42px;
+            -webkit-appearance: none;
+            background-color: #242421;
+            flex: 1;
+        }
+
+        .range-slider input[type="range"]::-webkit-slider-runnable-track {
+            appearance: none;
+            height: 42px;
+        }
+
+        .range-slider input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 42px;
+            height: 42px;
+            position: relative;
+            cursor: ew-resize;
+            background: #ffffe6;
+            box-shadow: -340px 0 0 320px #00bcd4,
+                inset 0 0 0 40px #00bcd4;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        .range-slider input[type="range"]:active::-webkit-slider-thumb {
+            background: #ffffe6;
+            box-shadow: -340px 0 0 320px #0097a7,
+                inset 0 0 0 3px #0097a7;
+        }
+
+        .bpms {
+            margin: 1em 0;
+            text-align: center;
+        }
+
+        .time-presets {
+            display: flex;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 0.5rem;
+            margin-top: 1rem;
         }
 
-        .chords-list .chord-badge {
-            padding: 6px 12px;
-            background-color: #00bcd4;
-            color: white;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
+        .btn-metro {
+            max-height: 42px;
+            margin: 0;
+            padding: 0.25rem 1rem;
+            border: none;
             cursor: pointer;
-            transition: all 0.2s;
+            text-transform: uppercase;
+            font-size: inherit;
+            font-weight: 900;
+            color: #10100e;
+            background-color: #ffffe6;
+            transition: transform 0.2s ease-in-out;
         }
 
-        .chords-list .chord-badge:hover {
-            background-color: #0097a7;
-            transform: translateY(-2px);
+        .btn-metro:focus,
+        .btn-metro:hover {
+            transform: scale(0.95);
+        }
+
+        .btn-metro.is-active {
+            background-color: #00bcd4;
+            color: #fff;
         }
     </style>
+
 </head>
 
 <body>
@@ -171,6 +250,36 @@
 
             <!-- Seção lateral com ferramentas e relacionadas -->
             <aside class="tools-and-related">
+                <main class="container-80">
+                    <div class="row flow-column-wrap">
+                        <h1 style="text-align:center;">Metrônomo</h1>
+                        <div class="metronomy row flow-column-wrap">
+                            <div class="indicator">--</div>
+                            <div class="beats">
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                            </div>
+                            <div class="range-slider">
+                                <button class="btn-metro bdecrease">Menos</button>
+                                <input type="range" min="30" max="244" step="1" value="100" class="range" />
+                                <button class="btn-metro bincrease">Mais</button>
+                            </div>
+                            <span class="bpms">100 BPM</span>
+                            <div style="text-align:center; margin-top:1rem;">
+                                <button class="btn-metro btoogle-metronome">Iniciar</button>
+                            </div>
+                            <div class="time-presets">
+                                <button class="btn-metro preset" data-set-time="3">3/4</button>
+                                <button class="btn-metro preset" data-set-time="4">4/4</button>
+                                <button class="btn-metro preset is-active" data-set-time="6">6/8</button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
                 <div class="related-section">
                     <h3>Músicas relacionadas</h3>
                     <div class="related-tracks" id="related-tracks">
@@ -180,55 +289,116 @@
             </aside>
         </div>
         <div id="chord-popup" style="display:none; position:absolute; z-index:1000;"></div>
-        <div class="social">
-
-            <div class="social-btn color-metronome" onclick="abrirMetronomo(this)">
-                <p class="google-font">Metrônomo</p>
-                <div class="metronomo-container">
-                    <iframe src="/metronomo"></iframe>
-                </div>
-            </div>
-
-            <div class="social-btn color-tuner" onclick="abrirAfinador(this)">
-                <p class="google-font">Afinador</p>
-                <div class="afinador-container">
-                    <iframe src="/afinador"></iframe>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        let botaoAberto = null;
+        document.addEventListener("DOMContentLoaded", () => {
+            const click1 = new Audio("../../js/metronomo/click1.mp3");
+            const click2 = new Audio("../../js/metronomo/click2.mp3");
 
-        function abrirAfinador(botao) {
-            const atualContainer = botao.querySelector('.afinador-container');
-            if (botaoAberto && botaoAberto !== atualContainer) {
-                botaoAberto.style.display = 'none';
+            let beat = 0;
+            let timeSig = 6;
+            let metronomeState = false;
+            let interval;
+
+            const elements = {
+                beatsIndicator: document.querySelector(".indicator"),
+                beatsButtons: document.querySelectorAll(".beat"),
+                inputRange: document.querySelector(".range"),
+                bpmsDisplay: document.querySelector(".bpms"),
+                presetsButtons: document.querySelectorAll(".preset"),
+                metronomeToggle: document.querySelector(".btoogle-metronome"),
+                increaseButton: document.querySelector(".bincrease"),
+                decreaseButton: document.querySelector(".bdecrease")
+            };
+
+            elements.inputRange.addEventListener("input", handleBpmChange);
+            elements.increaseButton.addEventListener("click", () => adjustBpm(1));
+            elements.decreaseButton.addEventListener("click", () => adjustBpm(-1));
+            elements.metronomeToggle.addEventListener("click", toggleMetronome);
+            elements.presetsButtons.forEach((btn) =>
+                btn.addEventListener("click", handlePresetClick)
+            );
+
+            function toggleMetronome() {
+                metronomeState = !metronomeState;
+                elements.metronomeToggle.textContent = metronomeState ? "Parar" : "Iniciar";
+                metronomeState ? startMetronome() : stopMetronome();
             }
-            atualContainer.style.display = 'block';
-            botaoAberto = atualContainer;
-        }
 
-        function abrirMetronomo(botao) {
-            const atualContainer = botao.querySelector('.metronomo-container');
-            if (botaoAberto && botaoAberto !== atualContainer) {
-                botaoAberto.style.display = 'none';
+            function startMetronome() {
+                interval = setInterval(() => {
+                    beat = (beat % timeSig) + 1;
+                    playClickSound();
+                    updateMetronomeDisplay();
+                }, 60000 / elements.inputRange.value);
             }
-            atualContainer.style.display = 'block';
-            botaoAberto = atualContainer;
-        }
 
-        // Fechar se clicar fora
-        document.addEventListener('click', function (e) {
-            const aberto = botaoAberto;
-            if (
-                aberto &&
-                !aberto.contains(e.target) &&
-                !aberto.parentElement.contains(e.target)
-            ) {
-                aberto.style.display = 'none';
-                botaoAberto = null;
+            function stopMetronome() {
+                clearInterval(interval);
+                beat = 0;
+                updateMetronomeDisplay();
+            }
+
+            function updateMetronomeDisplay() {
+                elements.beatsIndicator.textContent = metronomeState ? beat : "--";
+                elements.beatsButtons.forEach((btn, index) => {
+                    btn.classList.toggle("is-active", metronomeState && index === beat - 1);
+                    btn.classList.toggle("is-first-beat", metronomeState && beat === 1 && index === 0);
+                });
+            }
+
+            function playClickSound() {
+                if (beat === 1) {
+                    click1.currentTime = 0;
+                    click1.play();
+                } else {
+                    click2.currentTime = 0;
+                    click2.play();
+                }
+            }
+
+            function adjustBpm(amount) {
+                elements.inputRange.value = parseInt(elements.inputRange.value) + amount;
+                handleBpmChange();
+            }
+
+            function handleBpmChange() {
+                updateBpmDisplay();
+                if (metronomeState) {
+                    stopMetronome();
+                    startMetronome();
+                }
+            }
+
+            function updateBpmDisplay() {
+                elements.bpmsDisplay.textContent = `${elements.inputRange.value} BPM`;
+            }
+
+            function handlePresetClick(event) {
+                const preset = event.target.dataset.setTime;
+                resetPresetsButtons();
+                event.target.classList.add("is-active");
+                setPreset(preset);
+                metronomeState = false;
+                elements.metronomeToggle.textContent = "Iniciar";
+                updateMetronomeDisplay();
+                stopMetronome();
+            }
+
+            function setPreset(preset) {
+                resetBeatsButtonsState();
+                timeSig = parseInt(preset);
+            }
+
+            function resetPresetsButtons() {
+                elements.presetsButtons.forEach((btn) => btn.classList.remove("is-active"));
+            }
+
+            function resetBeatsButtonsState() {
+                elements.beatsButtons.forEach((btn) =>
+                    btn.classList.remove("is-muted", "is-active")
+                );
             }
         });
     </script>

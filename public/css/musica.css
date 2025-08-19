@@ -789,79 +789,41 @@ footer {
     pointer-events: none;
 }
 
-/* SOCIAL */
-.social {
-    position: fixed;
-    top: 50px;
-    right: 0;
+
+/* Seção de resumo de acordes */
+.song-chords-summary {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.social a {
-    text-decoration: none;
+.song-chords-summary h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #ffffff;
 }
 
-.social-btn {
+.chords-list {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 180px;
-    padding: 5px 10px 5px 20px;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    margin-bottom: 5px;
-    position: relative;
-    right: -130px;
-    transition: right 0.5s ease;
-    cursor: pointer;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.social-btn:hover {
-    right: 0;
-}
-
-.color-metronome {
-    background-color: #ff9800;
-}
-
-.color-tuner {
-    background-color: #3f51b5;
-}
-
-.google-font {
-    font-family: "Lato", sans-serif;
-    font-size: 1.1rem;
+.chords-list .chord-badge {
+    padding: 6px 12px;
+    background-color: #00bcd4;
     color: white;
-    margin: 0;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-/* AFINADOR */
-.afinador-wrapper {
-    position: relative;
-}
-
-.afinador-container {
-    display: none;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.afinador-container iframe {
-    width: 100%;
-    height: 200px;
-    border: none;
-    border-radius: 10px;
-}
-
-.metronomo-container {
-    display: none;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.metronomo-container iframe {
-    width: 100%;
-    height: 250px;
-    border: none;
-    border-radius: 10px;
+.chords-list .chord-badge:hover {
+    background-color: #0097a7;
+    transform: translateY(-2px);
 }
