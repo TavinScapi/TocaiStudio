@@ -1506,5 +1506,75 @@
             }
         ],
         "biography": "Ney Matogrosso é um cantor, compositor e performer brasileiro, conhecido por sua voz aguda e presença de palco marcante. Iniciou sua carreira no grupo Secos & Molhados nos anos 70, e logo se destacou pela teatralidade e ousadia, rompendo padrões de gênero e comportamento. Em sua carreira solo, construiu uma trajetória sólida e diversificada, explorando diversos gêneros musicais da MPB ao rock, com forte apelo visual e artístico. É considerado um dos artistas mais inovadores e respeitados da música brasileira, tendo influenciado gerações com seu estilo inconfundível e sua coragem artística."
+    },
+    "creed": {
+        "name": "Creed",
+        "genres": "Post-Grunge • Rock Alternativo • Hard Rock",
+        "capa": "https://i.pinimg.com/736x/68/f8/f7/68f8f7ae2df1530f6292b905af8e47b8.jpg",
+        "avatar": "https://i.pinimg.com/1200x/33/3c/f1/333cf1d5e4d3581621d43727ba0d5b76.jpg",
+        "stats": {
+            "songs": 60,
+            "albums": 4,
+            "listeners": "20M+"
+        },
+        "popularTracks": [
+            {
+                "name": "My Sacrifice",
+                "album": "Weathered",
+                "year": "2001",
+                "duration": "4:54"
+            },
+            {
+                "name": "With Arms Wide Open",
+                "album": "Human Clay",
+                "year": "1999",
+                "duration": "4:35"
+            },
+            {
+                "name": "One Last Breath",
+                "album": "Weathered",
+                "year": "2001",
+                "duration": "4:34"
+            },
+            {
+                "name": "Higher",
+                "album": "Human Clay",
+                "year": "1999",
+                "duration": "5:16"
+            },
+            {
+                "name": "One",
+                "album": "My Own Prison",
+                "year": "1997",
+                "duration": "5:05"
+            }
+        ],
+        "discography": [
+            {
+                "title": "My Own Prison",
+                "year": "1997",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/1/13/Myownprison.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Human Clay",
+                "year": "1999",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/2/24/Humanclay.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Weathered",
+                "year": "2001",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e6/Creed_Weathered.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Full Circle",
+                "year": "2009",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/7f/Creed_Full_Circle.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Creed é uma banda americana de post-grunge formada em 1994 em Tallahassee, Flórida. Composta originalmente por Scott Stapp (vocais), Mark Tremonti (guitarra), Brian Marshall (baixo) e Scott Phillips (bateria), a banda alcançou enorme sucesso no final dos anos 90 e início dos anos 2000. Seu segundo álbum, 'Human Clay', vendeu mais de 20 milhões de cópias mundialmente, consolidando-os como um dos grupos mais populares da época. Conhecidos por seu som característico com riffs poderosos e letras de tom espiritual e existencial, o Creed marcou uma geração com hits como 'With Arms Wide Open', 'My Sacrifice' e 'Higher'. Apesar de períodos de separação, a banda retornou em turnês ocasionais, mantendo seu legado no rock alternativo."
     }
 }

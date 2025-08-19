@@ -45,8 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('back-to-artist-btn')?.addEventListener('click', () => {
-        const artistKey = localStorage.getItem('selectedArtist');
-        artistKey ? window.location.href = `/artista/${encodeURIComponent(artistKey)}` : window.history.back();
+        const pathParts = window.location.pathname.split('/');
+        // pathParts = ["", "musica", "jorge-mateus", "os-anjos-cantam"]
+
+        const artistKey = pathParts[2]; // pega "jorge-mateus"
+        if (artistKey) {
+            window.location.href = `/artista/${encodeURIComponent(artistKey)}`;
+        } else {
+            window.location.href = '/artistas-e-bandas'; // fallback
+        }
     });
 });
 
