@@ -688,7 +688,7 @@ footer {
 }
 
 /* Letras e relacionados */
-.lyrics-section h3,
+.metronomy h3,
 .related-section h3 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
@@ -826,4 +826,168 @@ footer {
 .chords-list .chord-badge:hover {
     background-color: #0097a7;
     transform: translateY(-2px);
+}
+
+.metronomy {
+    background-color: var(--fundo-secundario);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.metronomy .indicator,
+.metronomy .bpms {
+    display: block;
+    font-size: 20px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.metronomy .beats {
+    width: 100%;
+    margin: 2em 0;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.metronomy .beat {
+    flex: 1;
+    height: 4px;
+    background-color: #242421;
+    transition: background-color 0.16s;
+}
+
+.metronomy .beat.is-first-beat {
+    background-color: purple;
+}
+
+.metronomy .beat.is-active {
+    background-color: #ffffe6;
+}
+
+.range-slider {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+}
+
+.range-slider input[type="range"] {
+    margin: 0;
+    outline: none;
+    border: none;
+    transition: box-shadow 0.2s ease-in-out;
+    overflow: hidden;
+    height: 42px;
+    -webkit-appearance: none;
+    background-color: #242421;
+    flex: 1;
+}
+
+.range-slider input[type="range"]::-webkit-slider-runnable-track {
+    appearance: none;
+    height: 42px;
+}
+
+.range-slider input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 42px;
+    height: 42px;
+    position: relative;
+    cursor: ew-resize;
+    background: #ffffe6;
+    box-shadow: -340px 0 0 320px #00bcd4,
+        inset 0 0 0 40px #00bcd4;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.range-slider input[type="range"]:active::-webkit-slider-thumb {
+    background: #ffffe6;
+    box-shadow: -340px 0 0 320px #0097a7,
+        inset 0 0 0 3px #0097a7;
+}
+
+.bpms {
+    margin: 1em 0;
+    text-align: center;
+}
+
+.time-presets {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.btn-metro {
+    max-height: 42px;
+    margin: 0;
+    padding: 0.25rem 1rem;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: inherit;
+    font-weight: 900;
+    color: #10100e;
+    background-color: #ffffe6;
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn-metro:focus,
+.btn-metro:hover {
+    transform: scale(0.95);
+}
+
+.btn-metro.is-active {
+    background-color: #00bcd4;
+    color: #fff;
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+    .metronomy {
+        padding: 1rem;
+    }
+
+    .metronomy .indicator,
+    .metronomy .bpms {
+        font-size: 18px;
+    }
+
+    .range-slider input[type="range"] {
+        height: 32px;
+    }
+
+    .range-slider input[type="range"]::-webkit-slider-thumb {
+        width: 32px;
+        height: 32px;
+    }
+
+    .btn-metro {
+        font-size: 14px;
+        padding: 0.25rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .metronomy {
+        padding: 0.75rem;
+        border-radius: 8px;
+    }
+
+    .metronomy .indicator,
+    .metronomy .bpms {
+        font-size: 16px;
+    }
+
+    .time-presets {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-metro {
+        width: 100%;
+        max-width: 200px;
+    }
 }
