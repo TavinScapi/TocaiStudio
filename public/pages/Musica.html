@@ -150,6 +150,54 @@
             background-color: #00bcd4;
             color: #fff;
         }
+
+        /* 📱 Responsividade */
+        @media (max-width: 768px) {
+            .metronomy {
+                padding: 1rem;
+            }
+
+            .metronomy .indicator,
+            .metronomy .bpms {
+                font-size: 18px;
+            }
+
+            .range-slider input[type="range"] {
+                height: 32px;
+            }
+
+            .range-slider input[type="range"]::-webkit-slider-thumb {
+                width: 32px;
+                height: 32px;
+            }
+
+            .btn-metro {
+                font-size: 14px;
+                padding: 0.25rem 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metronomy {
+                padding: 0.75rem;
+                border-radius: 8px;
+            }
+
+            .metronomy .indicator,
+            .metronomy .bpms {
+                font-size: 16px;
+            }
+
+            .time-presets {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-metro {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
     </style>
 
 </head>
@@ -248,7 +296,42 @@
                 </div>
             </section>
 
+            <!-- Seção lateral com ferramentas e relacionadas -->
+            <aside class="tools-and-related">
+                <div class="metronomy row flow-column-wrap">
+                    <h3>Metrônomo</h3>
+                    <div class="indicator">--</div>
+                    <div class="beats">
+                        <span class="beat"></span>
+                        <span class="beat"></span>
+                        <span class="beat"></span>
+                        <span class="beat"></span>
+                        <span class="beat"></span>
+                        <span class="beat"></span>
+                    </div>
+                    <div class="range-slider">
+                        <button class="btn-metro bdecrease">Menos</button>
+                        <input type="range" min="30" max="244" step="1" value="100" class="range" />
+                        <button class="btn-metro bincrease">Mais</button>
+                    </div>
+                    <span class="bpms">100 BPM</span>
+                    <div style="text-align:center; margin-top:1rem;">
+                        <button class="btn-metro btoogle-metronome">Iniciar</button>
+                    </div>
+                    <div class="time-presets">
+                        <button class="btn-metro preset" data-set-time="3">3/4</button>
+                        <button class="btn-metro preset" data-set-time="4">4/4</button>
+                        <button class="btn-metro preset is-active" data-set-time="6">6/8</button>
+                    </div>
+                </div>
 
+                <div class="related-section">
+                    <h3>Músicas relacionadas</h3>
+                    <div class="related-tracks" id="related-tracks">
+                        <!-- Inserido via JS -->
+                    </div>
+                </div>
+            </aside>
         </div>
         <div id="chord-popup" style="display:none; position:absolute; z-index:1000;"></div>
     </div>
