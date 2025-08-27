@@ -1,6 +1,8 @@
 let songData = {};
 let currentArtistKey = null;
+let scrollInterval;
 let currentSpeed = 1;
+let isScrolling = false;
 let player;
 
 function onYouTubeIframeAPIReady() {
@@ -181,6 +183,7 @@ function displaySongDetails(songName, artistData, songDetails) {
     }
 
     setupTabs();
+    initAutoscrollControls();
     addChordHoverPopups();
 }
 
@@ -323,6 +326,63 @@ function showError(message) {
     img.alt = "Música não encontrada";
 }
 
+function startAutoscroll() {
+    if (isScrolling) return;
+    isScrolling = true;
+
+    // Calcula até onde pode rolar (fim da página)
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollStep = 1;
+
+    scrollInterval = setInterval(() => {
+        if (window.scrollY >= maxScroll) return stopAutoscroll();
+        window.scrollBy(0, scrollStep * currentSpeed);
+    }, 50);
+}
+
+function stopAutoscroll() {
+    clearInterval(scrollInterval);
+    isScrolling = false;
+    updateAutoscrollButtons();
+}
+
+function updateAutoscrollButtons() {
+    document.querySelector('.autoscroll-btn.play')?.toggleAttribute('disabled', isScrolling);
+    document.querySelector('.autoscroll-btn.stop')?.toggleAttribute('disabled', !isScrolling);
+}
+
+function initAutoscrollControls() {
+    const playBtn = document.querySelector('.autoscroll-btn.play');
+    const stopBtn = document.querySelector('.autoscroll-btn.stop');
+    const speedBtns = document.querySelectorAll('.speed-btn');
+
+    playBtn?.addEventListener('click', () => {
+        startAutoscroll();
+        updateAutoscrollButtons();
+    });
+
+    stopBtn?.addEventListener('click', stopAutoscroll);
+
+    speedBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            speedBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSpeed = parseFloat(btn.dataset.speed);
+            if (isScrolling) {
+                stopAutoscroll();
+                startAutoscroll();
+                updateAutoscrollButtons();
+            }
+        });
+    });
+
+    document.querySelectorAll('.chords-container, .lyrics-container').forEach(container => {
+        container.addEventListener('wheel', () => {
+            if (isScrolling) stopAutoscroll();
+        });
+    });
+}
+
 function extractYouTubeId(url) {
     const match = url.match(/^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]{11}).*/);
     return match ? match[1] : null;
@@ -353,9 +413,11 @@ function formatChords(text) {
 function setupTabs() {
     document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', () => {
+            stopAutoscroll();
             document.querySelectorAll('.tab-button, .tab-content').forEach(el => el.classList.remove('active'));
             button.classList.add('active');
             document.getElementById(`${button.dataset.tab}-tab`).classList.add('active');
+            initAutoscrollControls();
         });
     });
 }
