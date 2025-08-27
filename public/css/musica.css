@@ -305,7 +305,7 @@ footer {
     padding: 2rem;
 }
 
-/* TOPO COM ABAS + AUTOSCROLL */
+/* TOPO COM ABAS */
 .tabs-top-controls {
     display: flex;
     justify-content: space-between;
@@ -339,32 +339,6 @@ footer {
 
 .tab-button:hover {
     transform: scale(1.05);
-}
-
-.autoscroll-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.autoscroll-btn {
-    background-color: var(--card-escuro);
-    border: none;
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--texto-principal);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.autoscroll-btn:hover {
-    background-color: var(--hover-botao);
 }
 
 .speed-control {

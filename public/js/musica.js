@@ -1,8 +1,6 @@
 let songData = {};
 let currentArtistKey = null;
-let scrollInterval;
 let currentSpeed = 1;
-let isScrolling = false;
 let player;
 
 function onYouTubeIframeAPIReady() {
@@ -183,7 +181,6 @@ function displaySongDetails(songName, artistData, songDetails) {
     }
 
     setupTabs();
-    initAutoscrollControls();
     addChordHoverPopups();
 }
 
@@ -326,63 +323,6 @@ function showError(message) {
     img.alt = "Música não encontrada";
 }
 
-function startAutoscroll() {
-    if (isScrolling) return;
-    isScrolling = true;
-
-    // Calcula até onde pode rolar (fim da página)
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const scrollStep = 1;
-
-    scrollInterval = setInterval(() => {
-        if (window.scrollY >= maxScroll) return stopAutoscroll();
-        window.scrollBy(0, scrollStep * currentSpeed);
-    }, 50);
-}
-
-function stopAutoscroll() {
-    clearInterval(scrollInterval);
-    isScrolling = false;
-    updateAutoscrollButtons();
-}
-
-function updateAutoscrollButtons() {
-    document.querySelector('.autoscroll-btn.play')?.toggleAttribute('disabled', isScrolling);
-    document.querySelector('.autoscroll-btn.stop')?.toggleAttribute('disabled', !isScrolling);
-}
-
-function initAutoscrollControls() {
-    const playBtn = document.querySelector('.autoscroll-btn.play');
-    const stopBtn = document.querySelector('.autoscroll-btn.stop');
-    const speedBtns = document.querySelectorAll('.speed-btn');
-
-    playBtn?.addEventListener('click', () => {
-        startAutoscroll();
-        updateAutoscrollButtons();
-    });
-
-    stopBtn?.addEventListener('click', stopAutoscroll);
-
-    speedBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            speedBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentSpeed = parseFloat(btn.dataset.speed);
-            if (isScrolling) {
-                stopAutoscroll();
-                startAutoscroll();
-                updateAutoscrollButtons();
-            }
-        });
-    });
-
-    document.querySelectorAll('.chords-container, .lyrics-container').forEach(container => {
-        container.addEventListener('wheel', () => {
-            if (isScrolling) stopAutoscroll();
-        });
-    });
-}
-
 function extractYouTubeId(url) {
     const match = url.match(/^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]{11}).*/);
     return match ? match[1] : null;
@@ -413,11 +353,9 @@ function formatChords(text) {
 function setupTabs() {
     document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', () => {
-            stopAutoscroll();
             document.querySelectorAll('.tab-button, .tab-content').forEach(el => el.classList.remove('active'));
             button.classList.add('active');
             document.getElementById(`${button.dataset.tab}-tab`).classList.add('active');
-            initAutoscrollControls();
         });
     });
 }
@@ -609,3 +547,126 @@ function updateTabs() {
 }
 
 updateTabs();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const click1 = new Audio("../../js/metronomo/click1.mp3");
+    const click2 = new Audio("../../js/metronomo/click2.mp3");
+
+    let beat = 0;
+    let timeSig = 4;
+    let metronomeState = false;
+    let interval;
+
+    const elements = {
+        beatsIndicator: document.querySelector(".indicator"),
+        beatsButtons: document.querySelectorAll(".beat"),
+        inputRange: document.querySelector(".range"),
+        bpmsDisplay: document.querySelector(".bpms"),
+        presetsButtons: document.querySelectorAll(".preset"),
+        metronomeToggle: document.querySelector(".btoogle-metronome"),
+        increaseButton: document.querySelector(".bincrease"),
+        decreaseButton: document.querySelector(".bdecrease")
+    };
+
+    elements.inputRange.addEventListener("input", handleBpmChange);
+    elements.increaseButton.addEventListener("click", () => adjustBpm(1));
+    elements.decreaseButton.addEventListener("click", () => adjustBpm(-1));
+    elements.metronomeToggle.addEventListener("click", toggleMetronome);
+    elements.presetsButtons.forEach((btn) =>
+        btn.addEventListener("click", handlePresetClick)
+    );
+
+    function toggleMetronome() {
+        metronomeState = !metronomeState;
+        elements.metronomeToggle.textContent = metronomeState ? "Parar" : "Iniciar";
+        metronomeState ? startMetronome() : stopMetronome();
+    }
+
+    function startMetronome() {
+        interval = setInterval(() => {
+            beat = (beat % timeSig) + 1;
+            playClickSound();
+            updateMetronomeDisplay();
+        }, 60000 / elements.inputRange.value);
+    }
+
+    function stopMetronome() {
+        clearInterval(interval);
+        beat = 0;
+        updateMetronomeDisplay();
+    }
+
+    function updateMetronomeDisplay() {
+        elements.beatsIndicator.textContent = metronomeState ? beat : "--";
+        elements.beatsButtons.forEach((btn, index) => {
+            btn.classList.toggle("is-active", metronomeState && index === beat - 1);
+            btn.classList.toggle("is-first-beat", metronomeState && beat === 1 && index === 0);
+        });
+    }
+
+    function playClickSound() {
+        if (beat === 1) {
+            click1.currentTime = 0;
+            click1.play();
+        } else {
+            click2.currentTime = 0;
+            click2.play();
+        }
+    }
+
+    function adjustBpm(amount) {
+        elements.inputRange.value = parseInt(elements.inputRange.value) + amount;
+        handleBpmChange();
+    }
+
+    function handleBpmChange() {
+        updateBpmDisplay();
+        if (metronomeState) {
+            stopMetronome();
+            startMetronome();
+        }
+    }
+
+    function updateBpmDisplay() {
+        elements.bpmsDisplay.textContent = `${elements.inputRange.value} BPM`;
+    }
+
+    function handlePresetClick(event) {
+        const preset = event.target.dataset.setTime;
+        resetPresetsButtons();
+        event.target.classList.add("is-active");
+        setPreset(preset);
+        metronomeState = false;
+        elements.metronomeToggle.textContent = "Iniciar";
+        updateMetronomeDisplay();
+        stopMetronome();
+    }
+
+    function setPreset(preset) {
+        resetBeatsButtonsState();
+        timeSig = parseInt(preset);
+
+        // Recria os botões de beats conforme o compasso
+        const beatsContainer = document.querySelector(".beats");
+        beatsContainer.innerHTML = "";
+        for (let i = 0; i < timeSig; i++) {
+            const span = document.createElement("span");
+            span.classList.add("beat");
+            beatsContainer.appendChild(span);
+        }
+        // Atualiza a lista dos botões
+        elements.beatsButtons = document.querySelectorAll(".beat");
+    }
+
+
+    function resetPresetsButtons() {
+        elements.presetsButtons.forEach((btn) => btn.classList.remove("is-active"));
+    }
+
+    function resetBeatsButtonsState() {
+        elements.beatsButtons.forEach((btn) =>
+            btn.classList.remove("is-muted", "is-active")
+        );
+    }
+});

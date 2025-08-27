@@ -3,55 +3,70 @@
 <div class="nav">
     <ul class="nav__list">
         <li>
-            <a href="/" class="nav__link active-link" aria-label="">
-                <i class="ri-arrow-left-line"></i>
-            </a>
-        </li>
-
-        <li>
-            <a href="/" class="nav__link" aria-label="HarmonIA">
-                <i class="ri-arrow-down-line"></i>
-            </a>
-        </li>
-
-        <li>
-            <a href="/" class="nav__link" aria-label="">
+            <a class="nav__link" aria-label="Ouvir">
                 <i class="ri-play-circle-line"></i>
             </a>
         </li>
 
         <li>
-            <a href="/" class="nav__link" aria-label="">
-                <i class="ri-play-circle-line"></i>
-            </a>
-        </li>
-
-        <li>
-            <button class="nav__expand" id="nav-expand" aria-label="">
-                <i class="ri-book-line nav__expand-icon" id="nav-expand-icon"></i>
+            <!-- Botão de rolagem -->
+            <button class="nav__expand" id="nav-expand-scroll" aria-label="Rolagem">
+                <i class="ri-scroll-to-bottom-line nav__expand-icon" id="nav-expand-icon-scroll"></i>
             </button>
 
-            <ul class="nav__expand-list" id="nav-expand-list">
+            <ul class="nav__expand-list" id="nav-expand-list-scroll">
                 <li>
-                    <a href="/" class="nav__expand-link">
-                        <i class="ri-music-line"></i>
-                        <span>Afinador</span>
-                    </a>
+                    <button class="nav__expand-link" id="menu-autoscroll-play">
+                        <i class="ri-play-line"></i> <span>Play</span>
+                    </button>
                 </li>
+                <li>
+                    <input type="range" id="menu-autoscroll-speed" min="1" max="5" step="1" value="1"
+                        style="width:80px;">
+                    <span id="menu-autoscroll-speed-label">1x</span>
+                </li>
+                <li>
+                    <button class="nav__expand-link" id="menu-autoscroll-increase">
+                        <i class="ri-add-line"></i> <span>Aumentar</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav__expand-link" id="menu-autoscroll-decrease">
+                        <i class="ri-subtract-line"></i> <span>Diminuir</span>
+                    </button>
+                </li>
+            </ul>
+        </li>
 
-                <li>
-                    <a href="/" class="nav__expand-link">
-                        <i class="ri-music-2-line"></i>
-                        <span>Metrônomo</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/" class="nav__expand-link">
-                        <i class="ri-music-2-line"></i>
-                        <span>Teoria Musical</span>
-                    </a>
-                </li>
+        <li>
+            <a href="#metronomo" class="nav__link" aria-label="Metronomo">
+                <i class="ri-timer-line"></i>
+            </a>
+        </li>
 
+        <li>
+            <a href="#afinador" class="nav__link" aria-label="Afinador">
+                <i class="ri-rfid-line"></i>
+            </a>
+        </li>
+
+        <li>
+            <!-- Botão de +/- tom -->
+            <button class="nav__expand" id="nav-expand-tom" aria-label="+/- tom">
+                <i class="ri-menu-add-line nav__expand-icon" id="nav-expand-icon-tom"></i>
+            </button>
+
+            <ul class="nav__expand-list" id="nav-expand-list-tom">
+                <li>
+                    <a class="nav__expand-link">
+                        <i class="ri-add-line"></i> <span>Aumentar</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav__expand-link">
+                        <i class="ri-subtract-line"></i> <span>Diminuir</span>
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>

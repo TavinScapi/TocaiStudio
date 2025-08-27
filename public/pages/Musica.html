@@ -107,21 +107,6 @@
                         <button class="tab-button active" data-tab="chords">Cifra</button>
                         <button class="tab-button" data-tab="lyrics">Letra</button>
                     </div>
-
-                    <div class="autoscroll-controls">
-                        <button class="autoscroll-btn play" title="Iniciar autoscroll">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <button class="autoscroll-btn stop" title="Parar autoscroll">
-                            <i class="fas fa-stop"></i>
-                        </button>
-                        <div class="speed-control">
-                            <span class="velocidade">Velocidade:</span>
-                            <button class="speed-btn active" data-speed="1">1x</button>
-                            <button class="speed-btn" data-speed="2">2x</button>
-                            <button class="speed-btn" data-speed="3">3x</button>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="tab-content active" id="chords-tab">
@@ -137,9 +122,8 @@
                 </div>
             </section>
 
-            <!-- Seção lateral com ferramentas e relacionadas -->
             <aside class="tools-and-related">
-                <div class="metronomy row flow-column-wrap">
+                <div class="metronomy row flow-column-wrap" id="metronomo">
                     <h3>Metrônomo</h3>
                     <div class="indicator">--</div>
                     <div class="beats">
@@ -161,8 +145,8 @@
                     </div>
                     <div class="time-presets">
                         <button class="btn-metro preset" data-set-time="3">3/4</button>
-                        <button class="btn-metro preset" data-set-time="4">4/4</button>
-                        <button class="btn-metro preset is-active" data-set-time="6">6/8</button>
+                        <button class="btn-metro preset is-active" data-set-time="4">4/4</button>
+                        <button class="btn-metro preset" data-set-time="6">6/8</button>
                     </div>
                 </div>
 
@@ -176,118 +160,6 @@
         </div>
         <div id="chord-popup" style="display:none; position:absolute; z-index:1000;"></div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const click1 = new Audio("../../js/metronomo/click1.mp3");
-            const click2 = new Audio("../../js/metronomo/click2.mp3");
-
-            let beat = 0;
-            let timeSig = 6;
-            let metronomeState = false;
-            let interval;
-
-            const elements = {
-                beatsIndicator: document.querySelector(".indicator"),
-                beatsButtons: document.querySelectorAll(".beat"),
-                inputRange: document.querySelector(".range"),
-                bpmsDisplay: document.querySelector(".bpms"),
-                presetsButtons: document.querySelectorAll(".preset"),
-                metronomeToggle: document.querySelector(".btoogle-metronome"),
-                increaseButton: document.querySelector(".bincrease"),
-                decreaseButton: document.querySelector(".bdecrease")
-            };
-
-            elements.inputRange.addEventListener("input", handleBpmChange);
-            elements.increaseButton.addEventListener("click", () => adjustBpm(1));
-            elements.decreaseButton.addEventListener("click", () => adjustBpm(-1));
-            elements.metronomeToggle.addEventListener("click", toggleMetronome);
-            elements.presetsButtons.forEach((btn) =>
-                btn.addEventListener("click", handlePresetClick)
-            );
-
-            function toggleMetronome() {
-                metronomeState = !metronomeState;
-                elements.metronomeToggle.textContent = metronomeState ? "Parar" : "Iniciar";
-                metronomeState ? startMetronome() : stopMetronome();
-            }
-
-            function startMetronome() {
-                interval = setInterval(() => {
-                    beat = (beat % timeSig) + 1;
-                    playClickSound();
-                    updateMetronomeDisplay();
-                }, 60000 / elements.inputRange.value);
-            }
-
-            function stopMetronome() {
-                clearInterval(interval);
-                beat = 0;
-                updateMetronomeDisplay();
-            }
-
-            function updateMetronomeDisplay() {
-                elements.beatsIndicator.textContent = metronomeState ? beat : "--";
-                elements.beatsButtons.forEach((btn, index) => {
-                    btn.classList.toggle("is-active", metronomeState && index === beat - 1);
-                    btn.classList.toggle("is-first-beat", metronomeState && beat === 1 && index === 0);
-                });
-            }
-
-            function playClickSound() {
-                if (beat === 1) {
-                    click1.currentTime = 0;
-                    click1.play();
-                } else {
-                    click2.currentTime = 0;
-                    click2.play();
-                }
-            }
-
-            function adjustBpm(amount) {
-                elements.inputRange.value = parseInt(elements.inputRange.value) + amount;
-                handleBpmChange();
-            }
-
-            function handleBpmChange() {
-                updateBpmDisplay();
-                if (metronomeState) {
-                    stopMetronome();
-                    startMetronome();
-                }
-            }
-
-            function updateBpmDisplay() {
-                elements.bpmsDisplay.textContent = `${elements.inputRange.value} BPM`;
-            }
-
-            function handlePresetClick(event) {
-                const preset = event.target.dataset.setTime;
-                resetPresetsButtons();
-                event.target.classList.add("is-active");
-                setPreset(preset);
-                metronomeState = false;
-                elements.metronomeToggle.textContent = "Iniciar";
-                updateMetronomeDisplay();
-                stopMetronome();
-            }
-
-            function setPreset(preset) {
-                resetBeatsButtonsState();
-                timeSig = parseInt(preset);
-            }
-
-            function resetPresetsButtons() {
-                elements.presetsButtons.forEach((btn) => btn.classList.remove("is-active"));
-            }
-
-            function resetBeatsButtonsState() {
-                elements.beatsButtons.forEach((btn) =>
-                    btn.classList.remove("is-muted", "is-active")
-                );
-            }
-        });
-    </script>
 </body>
 
 </html>

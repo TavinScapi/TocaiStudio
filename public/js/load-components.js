@@ -40,17 +40,33 @@ function iniciarApp() {
             .catch(error => console.error('Erro ao carregar footer:', error));
     }
 
-    // Carrega o menu mobile
-    fetch('/components/mobile-menu.html')
-        .then(response => {
-            if (!response.ok) throw new Error('Menu mobile não encontrado');
-            return response.text();
-        })
-        .then(data => {
-            document.body.insertAdjacentHTML('beforeend', data);
-            setupMobileMenu();
-        })
-        .catch(error => console.error('Erro ao carregar menu mobile:', error));
+    // Carrega o menu mobile apenas se NÃO estiver na rota /musica/:artist/:song
+    if (!/^\/musica\/[^\/]+\/[^\/]+$/.test(window.location.pathname)) {
+        fetch('/components/mobile-menu.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Menu mobile não encontrado');
+                return response.text();
+            })
+            .then(data => {
+                document.body.insertAdjacentHTML('beforeend', data);
+                setupMobileMenu();
+            })
+            .catch(error => console.error('Erro ao carregar menu mobile:', error));
+    }
+
+    // Só carrega menu-musica.html se estiver na rota /musica/:artist/:song
+    if (/^\/musica\/[^\/]+\/[^\/]+$/.test(window.location.pathname)) {
+        fetch('/components/menu-musica.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Menu música não encontrado');
+                return response.text();
+            })
+            .then(data => {
+                document.body.insertAdjacentHTML('beforeend', data);
+                setupMobileMenu();
+            })
+            .catch(error => console.error('Erro ao carregar menu musica:', error));
+    }
 
     // =============== CONFIGURAÇÃO DA SIDEBAR ===============
     function setupSidebar() {
@@ -92,40 +108,60 @@ function iniciarApp() {
 
     // =============== CONFIGURAÇÃO DO MENU MOBILE ===============
     function setupMobileMenu() {
-        // =============== EXPANDED LIST ===============
-        const navExpand = document.getElementById('nav-expand');
-        const navExpandList = document.getElementById('nav-expand-list');
-        const navExpandIcon = document.getElementById('nav-expand-icon');
-
-        if (navExpand && navExpandList && navExpandIcon) {
-            navExpand.addEventListener('click', (e) => {
+        document.querySelectorAll('.nav__expand').forEach(btn => {
+            btn.addEventListener('click', function (e) {
                 e.stopPropagation();
-                navExpandList.classList.toggle('show-list');
-                navExpandIcon.classList.toggle('ri-book-open-line');
-                navExpandIcon.classList.toggle('ri-book-line');
-            });
+                const expandList = btn.nextElementSibling;
+                const expandIcon = btn.querySelector('.nav__expand-icon');
 
-            // Fecha o menu expandido ao clicar fora
-            document.addEventListener('click', () => {
-                if (navExpandList.classList.contains('show-list')) {
-                    navExpandList.classList.remove('show-list');
-                    navExpandIcon.classList.replace('ri-book-open-line', 'ri-book-line');
+                if (expandList && expandList.classList.contains('nav__expand-list')) {
+                    expandList.classList.toggle('show-list');
+                }
+
+                // Alterna ícones conforme o botão
+                if (expandIcon) {
+                    // Botão de rolagem: NÃO altera o ícone
+                    if (expandIcon.classList.contains('ri-scroll-to-bottom-line')) {
+                        // Não faz nada, mantém o ícone igual
+                    }
+                    // Botão de livro
+                    else if (expandIcon.classList.contains('ri-book-line') || expandIcon.classList.contains('ri-book-open-line')) {
+                        expandIcon.classList.toggle('ri-book-line');
+                        expandIcon.classList.toggle('ri-book-open-line');
+                    }
+                    // Botão de +/- tom
+                    else if (expandIcon.classList.contains('ri-menu-line') || expandIcon.classList.contains('ri-menu-add-line')) {
+                        expandIcon.classList.toggle('ri-menu-line');
+                        expandIcon.classList.toggle('ri-menu-add-line');
+                    }
                 }
             });
-        }
+        });
+
+        // Fecha qualquer menu expandido ao clicar fora
+        document.addEventListener('click', function (e) {
+            document.querySelectorAll('.nav__expand-list.show-list').forEach(list => {
+                list.classList.remove('show-list');
+                // Opcional: volta o ícone ao estado inicial
+                const btn = list.previousElementSibling;
+                if (btn) {
+                    const icon = btn.querySelector('.nav__expand-icon');
+                    if (icon) {
+                        icon.classList.remove('ri-book-open-line', 'ri-menu-add-line', 'ri-scroll-to-top-line');
+                        icon.classList.add('ri-book-line', 'ri-menu-line', 'ri-scroll-to-bottom-line');
+                    }
+                }
+            });
+        });
 
         // =============== ATIVAÇÃO DE LINKS POR PÁGINA ===============
         const navLinks = document.querySelectorAll('.nav__list a');
         const currentPage = window.location.pathname.split('/').pop();
 
-        // Remove a classe active de todos os links primeiro
         navLinks.forEach(link => link.classList.remove('active-link'));
 
-        // Ativa o link correspondente à página atual
         navLinks.forEach(link => {
             const linkPage = link.getAttribute('href').split('/').pop();
-
-            // Verifica se o link corresponde à página atual
             if (linkPage === currentPage ||
                 (currentPage === 'index.html' && linkPage === 'home.html') ||
                 (currentPage === 'home.html' && linkPage === 'index.html')) {
@@ -145,16 +181,11 @@ function iniciarApp() {
 
             window.addEventListener('scroll', function () {
                 const currentScrollPosition = window.scrollY;
-
-                // Scroll para baixo - esconde o menu
                 if (currentScrollPosition > lastScrollPosition && currentScrollPosition > scrollThreshold) {
                     mobileMenu.style.transform = 'translateY(150%)';
-                }
-                // Scroll para cima - mostra o menu
-                else if (currentScrollPosition < lastScrollPosition) {
+                } else if (currentScrollPosition < lastScrollPosition) {
                     mobileMenu.style.transform = 'translateY(0)';
                 }
-
                 lastScrollPosition = currentScrollPosition;
             });
         }
