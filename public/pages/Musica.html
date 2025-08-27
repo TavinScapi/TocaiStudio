@@ -124,20 +124,27 @@
 
             <!-- Seção lateral com ferramentas e relacionadas -->
             <aside class="tools-and-related">
-                <div class="autoscroll-controls">
-                    <button class="autoscroll-btn play" title="Iniciar autoscroll">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <button class="autoscroll-btn stop" title="Parar autoscroll">
-                        <i class="fas fa-stop"></i>
-                    </button>
-                    <div class="speed-control">
-                        <span class="velocidade">Velocidade:</span>
-                        <button class="speed-btn active" data-speed="1">1x</button>
-                        <button class="speed-btn" data-speed="2">2x</button>
-                        <button class="speed-btn" data-speed="3">3x</button>
+                <div class="autoscroll-controls-wrapper">
+                    <div class="autoscroll-controls">
+                        <button class="autoscroll-btn play" title="Iniciar autoscroll">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="autoscroll-btn stop" title="Parar autoscroll">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                        <div class="speed-control">
+                            <span class="velocidade">Velocidade:</span>
+                            <button class="speed-btn active" data-speed="1">1x</button>
+                            <button class="speed-btn" data-speed="2">2x</button>
+                            <button class="speed-btn" data-speed="3">3x</button>
+                        </div>
                     </div>
+                    <!-- Botão voltar ao topo separado -->
+                    <button class="autoscroll-btn back-up" id="backToTop" title="Voltar ao topo">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
                 </div>
+
                 <div class="metronomy row flow-column-wrap" id="metronomo">
                     <h3>Metrônomo</h3>
                     <div class="indicator">--</div>
@@ -175,6 +182,27 @@
         </div>
         <div id="chord-popup" style="display:none; position:absolute; z-index:1000;"></div>
     </div>
+    <script>
+        const backToTopBtn = document.getElementById("backToTop");
+
+        // Mostrar/esconder botão ao rolar
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 200) {
+                backToTopBtn.style.display = "block";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        // Rolagem suave ao clicar
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+    </script>
 </body>
 
 </html>
