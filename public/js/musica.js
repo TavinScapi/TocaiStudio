@@ -328,17 +328,15 @@ function showError(message) {
 
 function startAutoscroll() {
     if (isScrolling) return;
-    const activeTab = document.querySelector('.tab-content.active');
-    const container = activeTab.querySelector('.chords-container') || activeTab.querySelector('.lyrics-container');
-    if (!container) return;
-
     isScrolling = true;
+
+    // Calcula até onde pode rolar (fim da página)
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
     const scrollStep = 1;
-    const maxScroll = container.scrollHeight - container.clientHeight;
 
     scrollInterval = setInterval(() => {
-        if (container.scrollTop >= maxScroll) return stopAutoscroll();
-        container.scrollTop += scrollStep * currentSpeed;
+        if (window.scrollY >= maxScroll) return stopAutoscroll();
+        window.scrollBy(0, scrollStep * currentSpeed);
     }, 50);
 }
 
