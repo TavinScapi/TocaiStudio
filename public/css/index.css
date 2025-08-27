@@ -78,7 +78,7 @@ body {
 /* Logo Styles */
 .logo {
     margin: 70px auto;
-    top: -90px;
+    top: -50px;
     position: absolute;
     z-index: 2;
     width: 100%;
@@ -87,7 +87,7 @@ body {
 .logo img {
     display: block;
     margin: 0 auto;
-    max-width: 100%;
+    max-width: 400px;
 }
 
 /* ===== BAND LINES ANIMATION ===== */
