@@ -64,8 +64,61 @@ function iniciarApp() {
             .then(data => {
                 document.body.insertAdjacentHTML('beforeend', data);
                 setupMobileMenu();
+                // Adicione aqui o script do auto scroll
+                iniciarAutoScroll();
             })
             .catch(error => console.error('Erro ao carregar menu musica:', error));
+    }
+
+    function iniciarAutoScroll() {
+        let autoScrollActive = false;
+        const toggleBtn = document.getElementById('auto-scroll-toggle');
+        const icon = document.getElementById('auto-scroll-icon');
+        const speedInput = document.getElementById('auto-scroll-speed');
+        let scrollInterval;
+
+        // Impede que o menu feche ao clicar nos controles
+        const scrollList = document.getElementById('nav-expand-list-scroll');
+        if (scrollList) {
+            scrollList.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        }
+
+        if (toggleBtn && icon && speedInput) {
+            toggleBtn.addEventListener('click', function (e) {
+                e.stopPropagation(); // <-- Adicionado!
+                autoScrollActive = !autoScrollActive;
+                if (autoScrollActive) {
+                    icon.classList.remove('ri-play-line');
+                    icon.classList.add('ri-stop-line');
+                    startAutoScroll();
+                } else {
+                    icon.classList.remove('ri-stop-line');
+                    icon.classList.add('ri-play-line');
+                    stopAutoScroll();
+                }
+            });
+
+            speedInput.addEventListener('input', function (e) {
+                e.stopPropagation(); // <-- Adicionado!
+                if (autoScrollActive) {
+                    stopAutoScroll();
+                    startAutoScroll();
+                }
+            });
+        }
+
+        function startAutoScroll() {
+            const speed = 11 - parseInt(speedInput.value);
+            scrollInterval = setInterval(() => {
+                window.scrollBy(0, 2);
+            }, speed * 10);
+        }
+
+        function stopAutoScroll() {
+            clearInterval(scrollInterval);
+        }
     }
 
     // =============== CONFIGURAÇÃO DA SIDEBAR ===============
@@ -161,7 +214,9 @@ function iniciarApp() {
         navLinks.forEach(link => link.classList.remove('active-link'));
 
         navLinks.forEach(link => {
-            const linkPage = link.getAttribute('href').split('/').pop();
+            const href = link.getAttribute('href');
+            if (!href) return; // <-- Adicione esta linha para evitar erro!
+            const linkPage = href.split('/').pop();
             if (linkPage === currentPage ||
                 (currentPage === 'index.html' && linkPage === 'home.html') ||
                 (currentPage === 'home.html' && linkPage === 'index.html')) {

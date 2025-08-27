@@ -16,24 +16,23 @@
 
             <ul class="nav__expand-list" id="nav-expand-list-scroll">
                 <li>
-                    <button class="nav__expand-link" id="menu-autoscroll-play">
-                        <i class="ri-play-line"></i> <span>Play</span>
-                    </button>
+                    <a class="nav__expand-link" id="auto-scroll-toggle">
+                        <i class="ri-play-line" id="auto-scroll-icon"></i> <span>Play</span>
+                    </a>
                 </li>
                 <li>
-                    <input type="range" id="menu-autoscroll-speed" min="1" max="5" step="1" value="1"
-                        style="width:80px;">
-                    <span id="menu-autoscroll-speed-label">1x</span>
-                </li>
-                <li>
-                    <button class="nav__expand-link" id="menu-autoscroll-increase">
+                    <a class="nav__expand-link">
                         <i class="ri-add-line"></i> <span>Aumentar</span>
-                    </button>
+                    </a>
                 </li>
                 <li>
-                    <button class="nav__expand-link" id="menu-autoscroll-decrease">
+                    <!-- Barra deslizante -->
+                    <input type="range" min="1" max="10" value="5" id="auto-scroll-speed" style="width: 100px;">
+                </li>
+                <li>
+                    <a class="nav__expand-link">
                         <i class="ri-subtract-line"></i> <span>Diminuir</span>
-                    </button>
+                    </a>
                 </li>
             </ul>
         </li>
