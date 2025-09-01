@@ -124,58 +124,74 @@
 
             <!-- Seção lateral com ferramentas e relacionadas -->
             <aside class="tools-and-related">
-                <div class="autoscroll-controls-wrapper">
-                    <div class="autoscroll-controls">
+                <div class="autoscroll-controls-wrapper"
+                    style=" padding: 27px; border-radius: 8px; background-color: #2d2d2d;">
+
+                    <div class="autoscroll-controls" style="display: flex; align-items: center; gap: 0.5rem;">
                         <button class="autoscroll-btn play" title="Iniciar autoscroll">
                             <i class="fas fa-play"></i>
                         </button>
                         <button class="autoscroll-btn stop" title="Parar autoscroll">
                             <i class="fas fa-stop"></i>
                         </button>
-                        <div class="speed-control">
+                        <div class="speed-control" style="display: flex; align-items: center; gap: 0.25rem;">
                             <span class="velocidade">Velocidade:</span>
                             <button class="speed-btn active" data-speed="1">1x</button>
                             <button class="speed-btn" data-speed="2">2x</button>
                             <button class="speed-btn" data-speed="3">3x</button>
                         </div>
                     </div>
-                    <!-- Botão voltar ao topo separado -->
+
+                    <!-- Botão voltar ao topo -->
                     <button class="autoscroll-btn back-up" id="backToTop" title="Voltar ao topo">
                         <i class="fas fa-arrow-up"></i>
                     </button>
                 </div>
 
-                <div class="related-section" id="tuner-section">
-                    <h3>Afinador</h3>
-                    <iframe src="/pages/Afinador.html" width="260" height="320"
-                        style="border:none; border-radius:12px; background:#181a20;" title="Afinador">
-                    </iframe>
+                <div class="tabs-top-controls">
+                    <div class="tabs-buttons">
+                        <button class="tab-btn active" data-tab="tuner-section">Afinador</button>
+                        <button class="tab-btn" data-tab="metronomo">Metrônomo</button>
+                    </div>
                 </div>
 
-                <div class="metronomy row flow-column-wrap" id="metronomo">
-                    <h3>Metrônomo</h3>
-                    <div class="indicator">--</div>
-                    <div class="beats">
-                        <span class="beat"></span>
-                        <span class="beat"></span>
-                        <span class="beat"></span>
-                        <span class="beat"></span>
-                        <span class="beat"></span>
-                        <span class="beat"></span>
-                    </div>
-                    <div class="range-slider">
-                        <button class="btn-metro bdecrease">Menos</button>
-                        <input type="range" min="30" max="244" step="1" value="100" class="range" />
-                        <button class="btn-metro bincrease">Mais</button>
-                    </div>
-                    <span class="bpms">100 BPM</span>
-                    <div style="text-align:center; margin-top:1rem;">
-                        <button class="btn-metro btoogle-metronome">Iniciar</button>
-                    </div>
-                    <div class="time-presets">
-                        <button class="btn-metro preset" data-set-time="3">3/4</button>
-                        <button class="btn-metro preset is-active" data-set-time="4">4/4</button>
-                        <button class="btn-metro preset" data-set-time="6">6/8</button>
+                <div class="tabs-container">
+                    <!-- Conteúdo das abas -->
+                    <div class="tabs-content">
+                        <div class="related-section tab-content1" id="tuner-section">
+                            <h3>Afinador</h3>
+                            <br>
+                            <iframe src="/pages/Afinador.html" width="auto" height="auto"
+                                style="border:none; border-radius:12px; display:block; margin:0 auto;" title="Afinador">
+                            </iframe>
+                        </div>
+
+                        <div class="metronomy row flow-column-wrap tab-content1" id="metronomo" style="display:none;">
+                            <h3>Metrônomo</h3>
+                            <div class="indicator">--</div>
+                            <div class="beats">
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                                <span class="beat"></span>
+                            </div>
+                            <div class="range-slider">
+                                <button class="btn-metro bdecrease">Menos</button>
+                                <input type="range" min="30" max="244" step="1" value="100" class="range" />
+                                <button class="btn-metro bincrease">Mais</button>
+                            </div>
+                            <span class="bpms">100 BPM</span>
+                            <div style="text-align:center; margin-top:1rem;">
+                                <button class="btn-metro btoogle-metronome">Iniciar</button>
+                            </div>
+                            <div class="time-presets">
+                                <button class="btn-metro preset" data-set-time="3">3/4</button>
+                                <button class="btn-metro preset is-active" data-set-time="4">4/4</button>
+                                <button class="btn-metro preset" data-set-time="6">6/8</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -209,6 +225,27 @@
             });
         });
 
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content1');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-tab');
+
+                // Alterna botão ativo
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Alterna conteúdo visível
+                tabContents.forEach(tc => {
+                    if (tc.id === target) {
+                        tc.style.display = 'block';
+                    } else {
+                        tc.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

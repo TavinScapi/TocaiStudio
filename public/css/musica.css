@@ -312,7 +312,7 @@ footer {
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 1rem;
+    padding: 10px;
 }
 
 .tabs-header {
@@ -338,6 +338,27 @@ footer {
 }
 
 .tab-button:hover {
+    transform: scale(1.05);
+}
+
+.tab-btn {
+    background: none;
+    border: 1px solid var(--texto-terciario);
+    color: var(--texto-principal);
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    background-color: var(--destaque-vermelho);
+    color: #000;
+    border-color: var(--destaque-vermelho);
+}
+
+.tab-btn:hover {
     transform: scale(1.05);
 }
 
@@ -428,7 +449,7 @@ footer {
 .tools-and-related {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     position: sticky;
     top: 1rem;
     /* distância do topo ao rolar */

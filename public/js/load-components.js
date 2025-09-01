@@ -75,6 +75,8 @@ function iniciarApp() {
         const toggleBtn = document.getElementById('auto-scroll-toggle');
         const icon = document.getElementById('auto-scroll-icon');
         const speedInput = document.getElementById('auto-scroll-speed');
+        const plusBtn = document.querySelector('#nav-expand-list-scroll .ri-add-line');
+        const minusBtn = document.querySelector('#nav-expand-list-scroll .ri-subtract-line');
         let scrollInterval;
 
         // Impede que o menu feche ao clicar nos controles
@@ -85,9 +87,20 @@ function iniciarApp() {
             });
         }
 
+        function startAutoScroll() {
+            const speed = 11 - parseInt(speedInput.value);
+            scrollInterval = setInterval(() => {
+                window.scrollBy(0, 2);
+            }, speed * 10);
+        }
+
+        function stopAutoScroll() {
+            clearInterval(scrollInterval);
+        }
+
         if (toggleBtn && icon && speedInput) {
             toggleBtn.addEventListener('click', function (e) {
-                e.stopPropagation(); // <-- Adicionado!
+                e.stopPropagation();
                 autoScrollActive = !autoScrollActive;
                 if (autoScrollActive) {
                     icon.classList.remove('ri-play-line');
@@ -101,23 +114,38 @@ function iniciarApp() {
             });
 
             speedInput.addEventListener('input', function (e) {
-                e.stopPropagation(); // <-- Adicionado!
+                e.stopPropagation();
                 if (autoScrollActive) {
                     stopAutoScroll();
                     startAutoScroll();
                 }
             });
-        }
 
-        function startAutoScroll() {
-            const speed = 11 - parseInt(speedInput.value);
-            scrollInterval = setInterval(() => {
-                window.scrollBy(0, 2);
-            }, speed * 10);
-        }
+            // Botão de aumentar velocidade
+            if (plusBtn) {
+                plusBtn.parentElement.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    let val = parseInt(speedInput.value);
+                    if (val < 10) {
+                        speedInput.value = val + 1;
+                        speedInput.dispatchEvent(new Event('input'));
+                    }
+                });
+            }
 
-        function stopAutoScroll() {
-            clearInterval(scrollInterval);
+            // Botão de diminuir velocidade
+            if (minusBtn) {
+                minusBtn.parentElement.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    let val = parseInt(speedInput.value);
+                    if (val > 1) {
+                        speedInput.value = val - 1;
+                        speedInput.dispatchEvent(new Event('input'));
+                    }
+                });
+            }
         }
     }
 
@@ -191,20 +219,32 @@ function iniciarApp() {
             });
         });
 
+        // Variável para controlar o estado do autoscroll
+        let autoScrollActive = false;
+        const autoScrollToggle = document.getElementById('auto-scroll-toggle');
+        if (autoScrollToggle) {
+            autoScrollToggle.addEventListener('click', function () {
+                autoScrollActive = !autoScrollActive;
+            });
+        }
+
         // Fecha qualquer menu expandido ao clicar fora
         document.addEventListener('click', function (e) {
-            document.querySelectorAll('.nav__expand-list.show-list').forEach(list => {
-                list.classList.remove('show-list');
-                // Opcional: volta o ícone ao estado inicial
-                const btn = list.previousElementSibling;
-                if (btn) {
-                    const icon = btn.querySelector('.nav__expand-icon');
-                    if (icon) {
-                        icon.classList.remove('ri-book-open-line', 'ri-menu-add-line', 'ri-scroll-to-top-line');
-                        icon.classList.add('ri-book-line', 'ri-menu-line', 'ri-scroll-to-bottom-line');
+            // Só fecha se o autoscroll NÃO estiver ativo
+            if (!autoScrollActive) {
+                document.querySelectorAll('.nav__expand-list.show-list').forEach(list => {
+                    list.classList.remove('show-list');
+                    // Opcional: volta o ícone ao estado inicial
+                    const btn = list.previousElementSibling;
+                    if (btn) {
+                        const icon = btn.querySelector('.nav__expand-icon');
+                        if (icon) {
+                            icon.classList.remove('ri-book-open-line', 'ri-menu-add-line', 'ri-scroll-to-top-line');
+                            icon.classList.add('ri-book-line', 'ri-menu-line', 'ri-scroll-to-bottom-line');
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         // =============== ATIVAÇÃO DE LINKS POR PÁGINA ===============
