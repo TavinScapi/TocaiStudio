@@ -982,6 +982,11 @@ footer {
     color: #fff;
 }
 
+iframe {
+    width: auto;
+    height: auto;
+}
+
 /* 📱 Responsividade */
 @media (max-width: 768px) {
     .metronomy {
@@ -1005,6 +1010,11 @@ footer {
     .btn-metro {
         font-size: 14px;
         padding: 0.25rem 0.75rem;
+    }
+
+    iframe {
+        width: 250px;
+        height: 350px;
     }
 }
 
