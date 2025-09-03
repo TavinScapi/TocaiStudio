@@ -1169,12 +1169,6 @@
                 "album": "Human Clay",
                 "year": "1999",
                 "duration": "5:16"
-            },
-            {
-                "name": "One",
-                "album": "My Own Prison",
-                "year": "1997",
-                "duration": "5:05"
             }
         ],
         "discography": [
@@ -1204,5 +1198,203 @@
             }
         ],
         "biography": "Creed é uma banda americana de post-grunge formada em 1994 em Tallahassee, Flórida. Composta originalmente por Scott Stapp (vocais), Mark Tremonti (guitarra), Brian Marshall (baixo) e Scott Phillips (bateria), a banda alcançou enorme sucesso no final dos anos 90 e início dos anos 2000. Seu segundo álbum, 'Human Clay', vendeu mais de 20 milhões de cópias mundialmente, consolidando-os como um dos grupos mais populares da época. Conhecidos por seu som característico com riffs poderosos e letras de tom espiritual e existencial, o Creed marcou uma geração com hits como 'With Arms Wide Open', 'My Sacrifice' e 'Higher'. Apesar de períodos de separação, a banda retornou em turnês ocasionais, mantendo seu legado no rock alternativo."
+    },
+    "3doorsdown": {
+        "name": "3 Doors Down",
+        "genres": "Post-Grunge • Rock Alternativo • Hard Rock",
+        "capa": "https://i.pinimg.com/736x/52/0b/94/520b941227604aa0656e8e84ae25b95b.jpg",
+        "avatar": "https://i.pinimg.com/736x/6a/f9/1b/6af91b2c071563bfb8ba516889110a35.jpg",
+        "stats": {
+            "songs": 70,
+            "albums": 6,
+            "listeners": "15M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Here Without You",
+                "album": "Away from the Sun",
+                "year": "2002",
+                "duration": "3:59"
+            }
+        ],
+        "discography": [
+            {
+                "title": "The Better Life",
+                "year": "2000",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/f/f2/TheBetterLife.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Away from the Sun",
+                "year": "2002",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/8/8d/3_Doors_Down_-_Away_from_the_Sun.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Seventeen Days",
+                "year": "2005",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/7b/Seventeen_Days.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "3 Doors Down",
+                "year": "2008",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/7/7a/3_Doors_Down_Album.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Time of My Life",
+                "year": "2011",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/f/f9/Time_of_My_Life_%283_Doors_Down_album%29.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Us and the Night",
+                "year": "2016",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/e/e8/3DoorsDownUsandtheNight.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "3 Doors Down é uma banda americana de rock formada em 1996 em Escatawpa, Mississippi. O grupo ganhou fama mundial com o single 'Kryptonite', que os levou rapidamente ao topo das paradas no início dos anos 2000. A formação clássica contou com Brad Arnold (vocais e bateria inicialmente), Matt Roberts (guitarra), Todd Harrell (baixo) e Chris Henderson (guitarra). Conhecidos por suas baladas emocionais e faixas de rock radiofônico, o 3 Doors Down consolidou-se com álbuns como 'The Better Life' e 'Away from the Sun'. Sucessos como 'Here Without You', 'When I'm Gone' e 'It's Not My Time' os tornaram presença constante em rádios de rock e listas de trilhas sonoras. Mesmo após mudanças na formação, a banda segue ativa, mantendo-se como um dos nomes mais reconhecidos do rock pós-grunge."
+    },
+    "orappa": {
+        "name": "O Rappa",
+        "genres": "Rock Alternativo • Reggae • Rap Rock • Música Brasileira",
+        "capa": "https://i.pinimg.com/736x/51/71/80/5171809ec71291fa50e6c4b9e9c67f1d.jpg",
+        "avatar": "https://i.pinimg.com/736x/42/ab/c0/42abc09bbba0b6fdba064db041ff4a27.jpg",
+        "stats": {
+            "songs": 90,
+            "albums": 7,
+            "listeners": "5M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Pescador de Ilusões",
+                "album": "Lado B Lado A",
+                "year": "1999",
+                "duration": "5:10"
+            },
+            {
+                "name": "Minha Alma (A Paz Que Eu Não Quero)",
+                "album": "Lado B Lado A",
+                "year": "1999",
+                "duration": "5:04"
+            },
+            {
+                "name": "Anjos (Pra Quem Tem Fé)",
+                "album": "O Silêncio Q Precede o Esporro",
+                "year": "2003",
+                "duration": "4:30"
+            }
+        ],
+        "discography": [
+            {
+                "title": "O Rappa",
+                "year": "1994",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/c/c0/O_Rappa_-_O_Rappa.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Rappa Mundi",
+                "year": "1996",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/77/O_Rappa_-_Rappa_Mundi.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Lado B Lado A",
+                "year": "1999",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/0/07/O_Rappa_-_Lado_B_Lado_A.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "O Silêncio Q Precede o Esporro",
+                "year": "2003",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/1/12/O_Rappa_-_O_Sil%C3%AAncio_Q_Precede_o_Esporro.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "7 Vezes",
+                "year": "2008",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/7/7c/O_Rappa_-_7_Vezes.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Nunca Tem Fim...",
+                "year": "2013",
+                "cover": "https://upload.wikimedia.org/wikipedia/pt/3/38/O_Rappa_-_Nunca_Tem_Fim.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "O Rappa foi uma das bandas mais influentes do Brasil, formada em 1993 no Rio de Janeiro. Com uma sonoridade que mistura rock, reggae, rap, funk, samba e música eletrônica, o grupo se destacou por suas letras críticas e sociais, abordando temas como desigualdade, violência urbana e espiritualidade. A formação contou com Marcelo Falcão (vocais), Xandão (guitarra), Lauro Farias (baixo), Marcelo Lobato (teclados/bateria) e Nelson Meirelles (baixo nos primeiros anos). Álbuns como 'Lado B Lado A' e 'O Silêncio Q Precede o Esporro' marcaram época com sucessos como 'Minha Alma (A Paz Que Eu Não Quero)', 'Pescador de Ilusões' e 'Anjos (Pra Quem Tem Fé)'. A banda entrou em hiato em 2018, mas seu legado continua vivo como um dos maiores nomes do rock brasileiro contemporâneo."
+    },
+    "tracychapman": {
+        "name": "Tracy Chapman",
+        "genres": "Folk • Rock • Pop",
+        "capa": "https://i.pinimg.com/736x/34/0d/c2/340dc280f9c796afdf8652c8f0b3b598.jpg",
+        "avatar": "https://i.pinimg.com/736x/34/0d/c2/340dc280f9c796afdf8652c8f0b3b598.jpg",
+        "stats": {
+            "songs": 50,
+            "albums": 8,
+            "listeners": "10M+"
+        },
+        "popularTracks": [
+            {
+                "name": "Fast Car",
+                "album": "Tracy Chapman",
+                "year": "1988",
+                "duration": "4:56"
+            }
+        ],
+        "discography": [
+            {
+                "title": "Tracy Chapman",
+                "year": "1988",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/09/Tracy_Chapman_-_Tracy_Chapman.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Crossroads",
+                "year": "1989",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/d/d2/Tracy_Chapman_-_Crossroads.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Matters of the Heart",
+                "year": "1992",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/3/3d/Tracy_Chapman_-_Matters_of_the_Heart.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "New Beginning",
+                "year": "1995",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/f/fc/Tracy_Chapman_-_New_Beginning.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Telling Stories",
+                "year": "2000",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/2/25/Tracy_Chapman_-_Telling_Stories.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Let It Rain",
+                "year": "2002",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/0/0a/Tracy_Chapman_-_Let_It_Rain.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Where You Live",
+                "year": "2005",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/8/80/Tracy_Chapman_-_Where_You_Live.jpg",
+                "type": "Álbum de Estúdio"
+            },
+            {
+                "title": "Our Bright Future",
+                "year": "2008",
+                "cover": "https://upload.wikimedia.org/wikipedia/en/f/f9/Tracy_Chapman_-_Our_Bright_Future.jpg",
+                "type": "Álbum de Estúdio"
+            }
+        ],
+        "biography": "Tracy Chapman é uma cantora e compositora americana nascida em 1964 em Cleveland, Ohio. Conhecida por sua voz marcante e letras introspectivas, ela ganhou fama mundial com o single 'Fast Car', lançado em 1988 em seu álbum de estreia homônimo. A canção se tornou um hino sobre sonhos, luta e esperança, e até hoje é considerada uma das maiores músicas de sua carreira. Tracy consolidou-se como uma das artistas mais respeitadas do folk e do pop, com sucessos que abordam amor, desigualdade social e direitos humanos. Sua obra influenciou gerações de músicos e permanece atemporal."
     }
 }
